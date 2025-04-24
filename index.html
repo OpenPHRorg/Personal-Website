@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caleb Li - Investor & Strategic Advisor | AI, Digital Health, Cloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Default sans-serif */
+            scroll-behavior: smooth;
+            background-color: #ffffff; /* White background */
+            color: #1f2937; /* Darker gray text (Tailwind gray-800) */
+            line-height: 1.7; /* Increase line height for readability */
+        }
+        /* Apply Playfair Display to main headings */
+        h1, h2 { /* Simplified selector */
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #111827; /* Even darker gray (Tailwind gray-900) */
+        }
+        /* Styling for logos - keep grayscale */
+        .logo-placeholder img, .experience-logo img, .portfolio-logo img {
+            filter: grayscale(100%);
+            opacity: 0.6; /* Slightly less prominent */
+            transition: filter 0.3s ease, opacity 0.3s ease;
+            max-height: 40px; /* Adjusted height */
+            width: auto;
+            margin: 8px;
+        }
+        .logo-placeholder:hover img, .experience-logo:hover img, .portfolio-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        /* Simplified section divider */
+        .section-divider {
+            border-bottom: 1px solid #d1d5db; /* Lighter gray border (Tailwind gray-300) */
+            margin-bottom: 2rem; /* Add space below divider */
+            padding-bottom: 0.75rem; /* Space between text and line */
+        }
+        /* Simplified info-card - remove background/shadow/border, rely on spacing */
+        .info-card {
+             padding: 1rem 0; /* Vertical padding only */
+             /* Remove background, shadow, border, radius */
+        }
+        /* Specific styling for the advisory focus card to retain background */
+        #advisory-focus .info-card {
+             background-color: #f9fafb; /* Very light gray (Tailwind gray-50) */
+             padding: 1.75rem;
+             border-radius: 0.5rem; /* rounded-lg */
+             border: 1px solid #e5e7eb;
+        }
+        /* Specific styling for logo containers */
+         #investment-portfolio .logo-container, #experience-logos .logo-container { /* Updated ID */
+             background-color: #ffffff;
+             padding: 1.5rem; /* p-6 */
+             border-radius: 0.5rem; /* rounded-lg */
+             border: 1px solid #e5e7eb; /* gray-200 */
+        }
+        /* Adjust link styles */
+        a {
+            color: #2563eb; /* Tailwind blue-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #1d4ed8; /* Darker blue */
+            text-decoration: underline;
+        }
+        /* Header link styling */
+        header a {
+            color: #4b5563; /* Tailwind gray-600 */
+            text-decoration: none;
+        }
+         header a:hover {
+            color: #111827; /* Dark gray */
+            text-decoration: none; /* No underline on hover for nav */
+        }
+        /* Footer styling */
+        footer {
+            color: #6b7280; /* Lighter gray (Tailwind gray-500) */
+            border-top: 1px solid #e5e7eb; /* Gray-200 border */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            margin-top: 4rem; /* More space before footer */
+        }
+    </style>
+</head>
+<body class="text-gray-800 leading-relaxed">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-lg md:text-xl font-semibold text-gray-900">Caleb Li | Investor & Advisor</div>
+            <div class="hidden md:flex space-x-5">
+                <a href="#investment-portfolio" class="text-sm font-medium">Portfolio</a>
+                <a href="#advisory-focus" class="text-sm font-medium">Advisory</a>
+                <a href="#current-engagements" class="text-sm font-medium">Engagements</a>
+                <a href="#experience-logos" class="text-sm font-medium">Highlights</a>
+                <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium">LinkedIn</a>
+            </div>
+             <div class="md:hidden">
+                 <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none p-2">
+                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                 </button>
+             </div>
+        </nav>
+         <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+            <a href="#investment-portfolio" class="block text-gray-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Portfolio</a>
+            <a href="#advisory-focus" class="block text-gray-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Advisory</a>
+            <a href="#current-engagements" class="block text-gray-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Engagements</a>
+             <a href="#experience-logos" class="block text-gray-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Highlights</a>
+            <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">LinkedIn</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-24 max-w-4xl">
+
+        <section id="hero" class="text-center pt-12 pb-16 md:pt-16 md:pb-24">
+            <h1>Caleb Li</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">Investor & Strategic Advisor</p>
+        </section>
+
+        <section id="investment-portfolio" class="mb-16 md:mb-24">
+             <h2>Investment Portfolio</h2>
+             <p class="text-base md:text-lg text-gray-700 mb-12 section-divider">
+                 Actively investing in promising early-stage companies poised for significant growth, primarily in AI/ML, Digital Health, SaaS, and Cloud Infrastructure.
+             </p>
+             <div class="logo-container">
+                 <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4">
+                     <div class="portfolio-logo" title="Revela">
+                         <img src="https://placehold.co/130x50/E2E8F0/4A5568?text=Revela" alt="Revela Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="portfolio-logo" title="Recall.AI">
+                         <img src="https://placehold.co/130x50/E2E8F0/4A5568?text=Recall.AI" alt="Recall.AI Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="portfolio-logo" title="Bazze Inc.">
+                         <img src="https://placehold.co/130x50/E2E8F0/4A5568?text=Bazze+Inc." alt="Bazze Inc. Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="portfolio-logo" title="Activeloop">
+                         <img src="https://placehold.co/140x50/E2E8F0/4A5568?text=Activeloop" alt="Activeloop Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="portfolio-logo" title="Bokksu">
+                         <img src="https://placehold.co/120x50/E2E8F0/4A5568?text=Bokksu" alt="Bokksu Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <section id="advisory-focus" class="mb-16 md:mb-24">
+             <div class="info-card bg-gray-50 border border-gray-200 rounded-lg p-8">
+                 <h2>Strategic Advisory Focus</h2>
+                 <p class="text-base md:text-lg text-gray-700 mb-8 section-divider">
+                     Beyond capital, I provide hands-on strategic guidance to help portfolio companies and select clients navigate growth challenges. My advisory services focus on:
+                 </p>
+                 <div class="space-y-6 text-gray-800">
+                     <div>
+                         <h4 class="text-lg font-semibold text-gray-900 mb-1">Partnership Strategy & Execution</h4>
+                         <p>Developing and implementing high-impact partnership programs (Cloud, Tech, Channel) to drive revenue and market access.</p>
+                     </div>
+                     <div>
+                         <h4 class="text-lg font-semibold text-gray-900 mb-1">Corporate & Business Development</h4>
+                         <p>Identifying and pursuing strategic growth opportunities, including M&A evaluation, new market entry, and competitive positioning.</p>
+                     </div>
+                     <div>
+                         <h4 class="text-lg font-semibold text-gray-900 mb-1">Go-To-Market (GTM) Optimization</h4>
+                         <p>Refining GTM strategies, optimizing sales channels (including cloud marketplaces), and enhancing data monetization approaches.</p>
+                     </div>
+                     <div>
+                          <h4 class="text-lg font-semibold text-gray-900 mb-1">Fundraising & Investor Relations</h4>
+                         <p>Leveraging extensive investment experience to advise on fundraising strategy, pitch development, and investor communications.</p>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <section id="current-engagements" class="mb-16 md:mb-24">
+             <h2>Current Advisory Engagements</h2>
+             <div class="space-y-8 mt-6 section-divider">
+                 <div class="border-l-4 border-gray-300 pl-6 py-2">
+                     <h3 class="text-xl font-semibold text-gray-800">Advisor, Vivid Vision</h3>
+                     <p class="text-sm text-gray-500 mb-1">VR Digital Health | GTM Strategy</p>
+                     <p class="text-xs text-gray-400">Feb 2025 – Present</p>
+                 </div>
+                 <div class="border-l-4 border-gray-300 pl-6 py-2">
+                     <h3 class="text-xl font-semibold text-gray-800">Industry Advisor, Silverwood Partners</h3>
+                     <p class="text-sm text-gray-500 mb-1">Investment Banking | Industry Insights</p>
+                     <p class="text-xs text-gray-400">Feb 2025 – Present</p>
+                 </div>
+             </div>
+        </section>
+
+        <section id="experience-logos" class="mb-16 md:mb-24">
+             <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-6 section-divider text-center">Experience & Education Highlights</h2>
+             <div class="logo-container">
+                 <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4">
+                     <div class="experience-logo" title="Mendel AI">
+                         <img src="https://placehold.co/130x50/E2E8F0/4A5568?text=Mendel+AI" alt="Mendel AI Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="experience-logo" title="Meta Platforms">
+                         <img src="https://placehold.co/100x50/E2E8F0/4A5568?text=Meta" alt="Meta Platforms Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="experience-logo" title="Samsung Electronics">
+                         <img src="https://placehold.co/140x50/E2E8F0/4A5568?text=Samsung" alt="Samsung Electronics Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="experience-logo" title="Oxford Funds">
+                         <img src="https://placehold.co/140x50/E2E8F0/4A5568?text=Oxford+Funds" alt="Oxford Funds Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="experience-logo" title="RBC Capital Markets">
+                         <img src="https://placehold.co/100x50/E2E8F0/4A5568?text=RBC" alt="RBC Capital Markets Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                      <div class="experience-logo" title="MIT Sloan School of Management">
+                         <img src="https://placehold.co/90x50/E2E8F0/4A5568?text=MIT" alt="MIT Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                     <div class="experience-logo" title="University of Pennsylvania (Wharton & CAS)">
+                         <img src="https://placehold.co/120x50/E2E8F0/4A5568?text=UPenn" alt="UPenn Logo Placeholder" onerror="this.style.display='none'">
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-xs">
+        &copy; <span id="currentYear"></span> Caleb Li | Investor & Strategic Advisor
+    </footer>
+
+    <script>
+        // Set current year in footer
+        const currentYearElem = document.getElementById('currentYear');
+        if (currentYearElem) {
+            currentYearElem.textContent = new Date().getFullYear();
+        }
+
+        // Mobile menu toggle - Added null checks
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close menu when a link is clicked
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            if (mobileMenuLinks) {
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
