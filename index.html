@@ -196,8 +196,15 @@
                 Caleb Li
             </h1>
             <p class="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed mb-8">
-                Strategic Advisor & Executive Leader driving scale in <span class="text-white font-medium">AI, Digital Health</span>, and <span class="text-white font-medium">Cloud Infrastructure</span>.
+                Strategic Advisor & Executive Leader architecting high-velocity growth engines in <span class="text-white font-medium">AI, Digital Health</span>, and <span class="text-white font-medium">Cloud Infrastructure</span>.
             </p>
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="text-emerald-400 text-sm font-medium tracking-wide">Available for new advisory engagements in Q3</span>
+            </div>
             <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="btn-primary">
                 Let's Build Together
             </a>
@@ -376,13 +383,18 @@
             });
         });
 
-        // Scroll reveal animation
+        // Scroll reveal animation with staggering
         const revealElements = document.querySelectorAll('.reveal');
         
         const revealCallback = (entries, observer) => {
-            entries.forEach(entry => {
+            // Group intersecting entries by intersection ratio/time roughly
+            let delay = 0;
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, delay);
+                    delay += 150; // 150ms stagger for elements entering at the same time
                     observer.unobserve(entry.target); 
                 }
             });
