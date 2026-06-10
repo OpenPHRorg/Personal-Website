@@ -25,7 +25,6 @@
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -39,40 +38,32 @@
     </script>
     <style>
         body {
-            background-color: #0f172a;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
-            background-attachment: fixed;
-            color: #cbd5e1;
+            background-color: #ffffff;
+            color: #334155;
             line-height: 1.8;
         }
 
         .glass-card {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 1rem;
             transition: all 0.3s ease;
         }
 
         .glass-card:hover {
-            background: rgba(30, 41, 59, 0.6);
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: #cbd5e1;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
         }
 
         .nav-link {
             position: relative;
-            color: #94a3b8;
+            color: #475569;
             transition: color 0.3s ease;
         }
 
         .nav-link:hover {
-            color: #f8fafc;
+            color: #0f172a;
         }
 
         .nav-link::after {
@@ -82,7 +73,7 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: #3b82f6;
+            background-color: #0f172a;
             transition: width 0.3s ease;
         }
 
@@ -91,27 +82,27 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            background: #0f172a;
             color: #fff;
             padding: 0.75rem 2rem;
             border-radius: 9999px;
             font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px -3px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1);
             display: inline-block;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px -3px rgba(59, 130, 246, 0.6);
-            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            box-shadow: 0 6px 20px -3px rgba(0, 0, 0, 0.2);
+            background: #1e293b;
         }
 
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 1.25rem;
             font-weight: 700;
-            color: #e2e8f0;
+            color: #64748b;
             letter-spacing: 0.05em;
             opacity: 0.7;
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -121,8 +112,7 @@
         .logo-text:hover {
             opacity: 1;
             transform: scale(1.05);
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            color: #0f172a;
         }
 
         .company-logo {
@@ -137,38 +127,6 @@
         .company-logo:hover {
             filter: grayscale(0%) opacity(100%);
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.5;
-            animation: orb-drift 15s ease-in-out infinite alternate;
-        }
-
-        @keyframes orb-drift {
-            0% { transform: scale(1) translate(0, 0); filter: blur(80px) hue-rotate(0deg); }
-            50% { transform: scale(1.1) translate(20px, 20px); filter: blur(90px) hue-rotate(20deg); }
-            100% { transform: scale(1) translate(-20px, -20px); filter: blur(80px) hue-rotate(40deg); }
-        }
-
-        .orb-1 {
-            top: -100px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            background: rgba(59, 130, 246, 0.3);
-        }
-
-        .orb-2 {
-            bottom: 20%;
-            right: -50px;
-            width: 400px;
-            height: 400px;
-            background: rgba(139, 92, 246, 0.2);
         }
 
         .reveal {
@@ -184,117 +142,115 @@
     </style>
 </head>
 <body class="antialiased relative overflow-x-hidden">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2" style="animation-delay: -7.5s;"></div>
 
-    <header class="fixed w-full top-0 z-50 bg-slate-900/70 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="header">
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="header">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl">
-            <a href="#" class="font-serif text-xl font-bold text-white tracking-wide">CL<span class="text-blue-500">.</span></a>
+            <a href="#" class="font-serif text-xl font-bold text-slate-900 tracking-wide">CL<span class="text-blue-600">.</span></a>
             <div class="hidden md:flex space-x-8">
                 <a href="#advisory" class="nav-link text-sm font-medium">Advisory</a>
                 <a href="#leadership" class="nav-link text-sm font-medium">Leadership</a>
                 <a href="#engagements" class="nav-link text-sm font-medium">Engagements</a>
                 <a href="#portfolio" class="nav-link text-sm font-medium">Portfolio</a>
-                <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="nav-link text-sm font-medium text-blue-400 hover:text-blue-300">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="nav-link text-sm font-medium text-blue-600 hover:text-blue-800">LinkedIn</a>
             </div>
              <div class="md:hidden">
-                 <button id="mobile-menu-button" class="text-slate-300 hover:text-white focus:outline-none p-2 transition-colors">
+                 <button id="mobile-menu-button" class="text-slate-600 hover:text-slate-900 focus:outline-none p-2 transition-colors">
                      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                  </button>
              </div>
         </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-slate-800/95 backdrop-blur-xl border-t border-white/10 absolute w-full">
-            <a href="#advisory" class="block text-slate-300 hover:bg-white/5 hover:text-white px-6 py-4 text-sm font-medium transition-colors border-b border-white/5">Advisory</a>
-            <a href="#leadership" class="block text-slate-300 hover:bg-white/5 hover:text-white px-6 py-4 text-sm font-medium transition-colors border-b border-white/5">Leadership</a>
-            <a href="#engagements" class="block text-slate-300 hover:bg-white/5 hover:text-white px-6 py-4 text-sm font-medium transition-colors border-b border-white/5">Engagements</a>
-            <a href="#portfolio" class="block text-slate-300 hover:bg-white/5 hover:text-white px-6 py-4 text-sm font-medium transition-colors border-b border-white/5">Portfolio</a>
-            <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="block text-blue-400 hover:bg-white/5 hover:text-blue-300 px-6 py-4 text-sm font-medium transition-colors">LinkedIn</a>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-slate-200 absolute w-full shadow-lg">
+            <a href="#advisory" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Advisory</a>
+            <a href="#leadership" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Leadership</a>
+            <a href="#engagements" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Engagements</a>
+            <a href="#portfolio" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Portfolio</a>
+            <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="block text-blue-600 hover:bg-slate-50 hover:text-blue-800 px-6 py-4 text-sm font-medium transition-colors">LinkedIn</a>
         </div>
     </header>
 
     <main class="container mx-auto px-6 md:px-10 py-24 md:py-32 max-w-5xl">
         <!-- Hero Section -->
         <section id="hero" class="pt-20 pb-24 md:pt-32 md:pb-32 text-center animate-fade-in-up">
-            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 tracking-tight">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-6 tracking-tight">
                 Caleb Li
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed mb-8">
-                Strategic Advisor & Executive Leader architecting high-velocity growth engines in <span class="text-white font-medium">AI, Digital Health</span>, and <span class="text-white font-medium">Cloud Infrastructure</span>.
+            <p class="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed mb-8">
+                Strategic Advisor & Executive Leader architecting high-velocity growth engines in <span class="text-slate-900 font-medium">AI, Digital Health</span>, and <span class="text-slate-900 font-medium">Cloud Infrastructure</span>.
             </p>
             <div class="flex items-center justify-center gap-3 mb-8">
                 <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-600"></span>
                 </span>
-                <span class="text-emerald-400 text-sm font-medium tracking-wide">Available for new advisory engagements in Q3</span>
+                <span class="text-emerald-600 text-sm font-medium tracking-wide">Available for new advisory engagements in Q3</span>
             </div>
             <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="btn-primary">
                 Let's Build Together
             </a>
         </section>
 
-        <!-- Advisory Focus Section (Prioritized) -->
+        <!-- Advisory Focus Section -->
         <section id="advisory" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
             <div class="flex items-center gap-4 mb-8">
-                <h2 class="text-3xl font-serif font-semibold text-white">Startup Advisory Focus</h2>
-                <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
+                <h2 class="text-3xl font-serif font-semibold text-slate-900">Startup Advisory Focus</h2>
+                <div class="h-px bg-slate-200 flex-grow"></div>
             </div>
-            <p class="text-lg text-slate-400 mb-10 max-w-3xl">
+            <p class="text-lg text-slate-600 mb-10 max-w-3xl">
                 I partner with ambitious founders to overcome scaling bottlenecks, construct high-velocity GTM engines, and position the company for sustainable long-term value creation.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mb-6">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-medium text-white mb-3">Go-To-Market & Revenue Growth</h4>
-                    <p class="text-slate-400 text-sm">Building scalable enterprise sales motions, optimizing pricing strategies, and accelerating time-to-revenue.</p>
+                    <h4 class="text-xl font-medium text-slate-900 mb-3">Go-To-Market & Revenue Growth</h4>
+                    <p class="text-slate-600 text-sm">Building scalable enterprise sales motions, optimizing pricing strategies, and accelerating time-to-revenue.</p>
                 </div>
                 <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mb-6">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-medium text-white mb-3">Strategic Partnerships</h4>
-                    <p class="text-slate-400 text-sm">Architecting alliances with Cloud providers and channel partners to unlock new distribution networks.</p>
+                    <h4 class="text-xl font-medium text-slate-900 mb-3">Strategic Partnerships</h4>
+                    <p class="text-slate-600 text-sm">Architecting alliances with Cloud providers and channel partners to unlock new distribution networks.</p>
                 </div>
                 <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center mb-6">
+                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-medium text-white mb-3">Capital Strategy & M&A</h4>
-                    <p class="text-slate-400 text-sm">Advising on fundraising narratives, investor relations, and analyzing strategic M&A opportunities.</p>
+                    <h4 class="text-xl font-medium text-slate-900 mb-3">Capital Strategy & M&A</h4>
+                    <p class="text-slate-600 text-sm">Advising on fundraising narratives, investor relations, and analyzing strategic M&A opportunities.</p>
                 </div>
                 <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center mb-6">
+                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-medium text-white mb-3">Product-Market Fit Expansion</h4>
-                    <p class="text-slate-400 text-sm">Identifying adjacencies and expanding product utility, particularly in data-heavy and AI domains.</p>
+                    <h4 class="text-xl font-medium text-slate-900 mb-3">Product-Market Fit Expansion</h4>
+                    <p class="text-slate-600 text-sm">Identifying adjacencies and expanding product utility, particularly in data-heavy and AI domains.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Leadership & Board Roles Section (NEW) -->
+        <!-- Leadership & Board Roles Section -->
         <section id="leadership" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
              <div class="flex items-center gap-4 mb-8">
-                 <h2 class="text-3xl font-serif font-semibold text-white">Leadership & Board Roles</h2>
-                 <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
+                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Leadership & Board Roles</h2>
+                 <div class="h-px bg-slate-200 flex-grow"></div>
              </div>
-             <div class="glass-card p-8 md:p-10 border-l-4 border-l-blue-500">
-                 <p class="text-lg text-slate-300 mb-6">
+             <div class="glass-card p-8 md:p-10 border-l-4 border-l-slate-800 border-t border-r border-b border-t-slate-200 border-r-slate-200 border-b-slate-200">
+                 <p class="text-lg text-slate-700 mb-6">
                      As a seasoned operator with a background spanning hyper-growth AI startups to Fortune 500 tech giants, I am available for <strong>fractional executive roles, board observer positions, and strategic board director roles.</strong>
                  </p>
-                 <ul class="space-y-4 text-slate-400">
+                 <ul class="space-y-4 text-slate-600">
                      <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                          <span>Operational leadership experience at <strong>Mendel AI, Meta, and Samsung</strong>.</span>
                      </li>
                      <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                          <span>Deep expertise in navigating complex regulatory environments and scaling enterprise tech.</span>
                      </li>
                      <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                          <span>Extensive investor network cultivated through <strong>Oxford Funds and RBC Capital Markets</strong>.</span>
                      </li>
                  </ul>
@@ -304,42 +260,42 @@
         <!-- Current Engagements Section -->
         <section id="engagements" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
              <div class="flex items-center gap-4 mb-10">
-                 <h2 class="text-3xl font-serif font-semibold text-white">Current Engagements</h2>
-                 <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
+                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Current Engagements</h2>
+                 <div class="h-px bg-slate-200 flex-grow"></div>
              </div>
              <div class="space-y-6">
-                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group">
-                     <div class="absolute left-0 top-0 h-full w-1 bg-blue-500 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group hover:bg-slate-50">
+                     <div class="absolute left-0 top-0 h-full w-1 bg-slate-800 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
                      <div class="flex-grow">
-                         <h3 class="text-xl font-semibold text-white mb-1">Advisor, Vivid Vision</h3>
-                         <p class="text-slate-400 text-sm mb-2">VR Digital Health | GTM Strategy</p>
-                         <p class="text-slate-300 text-sm font-light italic">"Spearheading enterprise rollout strategy and driving key strategic partnerships in the healthcare sector."</p>
+                         <h3 class="text-xl font-semibold text-slate-900 mb-1">Advisor, Vivid Vision</h3>
+                         <p class="text-slate-500 text-sm mb-2">VR Digital Health | GTM Strategy</p>
+                         <p class="text-slate-600 text-sm font-light italic">"Spearheading enterprise rollout strategy and driving key strategic partnerships in the healthcare sector."</p>
                      </div>
-                     <div class="text-sm font-medium text-slate-500 bg-white/5 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-white/5 group-hover:bg-white/10 group-hover:text-slate-300 transition-colors">
+                     <div class="text-sm font-medium text-slate-500 bg-slate-100 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-slate-200 group-hover:bg-slate-200 group-hover:text-slate-700 transition-colors">
                          Feb 2025 – Present
                      </div>
                  </div>
-                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group">
-                     <div class="absolute left-0 top-0 h-full w-1 bg-purple-500 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group hover:bg-slate-50">
+                     <div class="absolute left-0 top-0 h-full w-1 bg-slate-800 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
                      <div class="flex-grow">
-                         <h3 class="text-xl font-semibold text-white mb-1">Industry Advisor, Silverwood Partners</h3>
-                         <p class="text-slate-400 text-sm mb-2">Investment Banking | Industry Insights</p>
-                         <p class="text-slate-300 text-sm font-light italic">"Advising on emerging trends and high-value target identification in the Digital Health landscape."</p>
+                         <h3 class="text-xl font-semibold text-slate-900 mb-1">Industry Advisor, Silverwood Partners</h3>
+                         <p class="text-slate-500 text-sm mb-2">Investment Banking | Industry Insights</p>
+                         <p class="text-slate-600 text-sm font-light italic">"Advising on emerging trends and high-value target identification in the Digital Health landscape."</p>
                      </div>
-                     <div class="text-sm font-medium text-slate-500 bg-white/5 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-white/5 group-hover:bg-white/10 group-hover:text-slate-300 transition-colors">
+                     <div class="text-sm font-medium text-slate-500 bg-slate-100 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-slate-200 group-hover:bg-slate-200 group-hover:text-slate-700 transition-colors">
                          Feb 2025 – Present
                      </div>
                  </div>
              </div>
         </section>
 
-        <!-- Portfolio Section (Moved lower) -->
+        <!-- Portfolio Section -->
         <section id="portfolio" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
              <div class="flex items-center gap-4 mb-8">
-                 <h2 class="text-3xl font-serif font-semibold text-white">Investment Portfolio</h2>
-                 <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
+                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Investment Portfolio</h2>
+                 <div class="h-px bg-slate-200 flex-grow"></div>
              </div>
-             <p class="text-lg text-slate-400 mb-10 max-w-3xl">
+             <p class="text-lg text-slate-600 mb-10 max-w-3xl">
                  As an active investor, I have backed highly disruptive early-stage companies.
              </p>
              <div class="glass-card p-8 md:p-12">
@@ -375,8 +331,8 @@
         <!-- Experience & Education Highlights Section -->
         <section id="experience" class="mb-16 md:mb-24 reveal pt-10 mt-[-40px]">
              <div class="flex items-center gap-4 mb-10">
-                 <h2 class="text-3xl font-serif font-semibold text-white">Operational Track Record</h2>
-                 <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
+                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Operational Track Record</h2>
+                 <div class="h-px bg-slate-200 flex-grow"></div>
              </div>
              <div class="glass-card p-8 md:p-12">
                  <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
@@ -400,14 +356,14 @@
                          <img src="https://logo.clearbit.com/rbccm.com" alt="RBC Capital Markets" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                          <div class="logo-text text-sm md:text-base hidden">RBC CAPITAL MARKETS</div>
                      </div>
-                     <div class="w-full h-px bg-white/10 my-2 hidden md:block"></div>
+                     <div class="w-full h-px bg-slate-200 my-2 hidden md:block"></div>
                      <div class="flex justify-center items-center">
                          <img src="https://logo.clearbit.com/mitsloan.mit.edu" alt="MIT Sloan" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base font-serif italic text-blue-300 hidden">MIT Sloan</div>
+                         <div class="logo-text text-sm md:text-base font-serif italic text-slate-500 hidden">MIT Sloan</div>
                      </div>
                      <div class="flex justify-center items-center">
                          <img src="https://logo.clearbit.com/upenn.edu" alt="UPenn" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base font-serif italic text-blue-300 hidden">UPenn (Wharton & CAS)</div>
+                         <div class="logo-text text-sm md:text-base font-serif italic text-slate-500 hidden">UPenn (Wharton & CAS)</div>
                      </div>
                  </div>
              </div>
@@ -415,13 +371,13 @@
 
     </main>
 
-    <footer class="border-t border-white/10 mt-12 py-10 relative">
+    <footer class="border-t border-slate-200 mt-12 py-10 relative">
         <div class="container mx-auto px-6 text-center flex flex-col items-center">
-            <h2 class="font-serif text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">Ready to Scale?</h2>
+            <h2 class="font-serif text-3xl font-bold text-slate-900 mb-6">Ready to Scale?</h2>
             <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="btn-primary mb-4">
                 Connect on LinkedIn
             </a>
-            <a href="mailto:hello@calebli.com" class="text-slate-400 hover:text-white transition-colors text-sm mb-8">
+            <a href="mailto:hello@calebli.com" class="text-slate-500 hover:text-slate-900 transition-colors text-sm mb-8">
                 Or drop me an email
             </a>
             <p class="text-slate-500 text-sm">
@@ -453,14 +409,13 @@
         const revealElements = document.querySelectorAll('.reveal');
         
         const revealCallback = (entries, observer) => {
-            // Group intersecting entries by intersection ratio/time roughly
             let delay = 0;
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('active');
                     }, delay);
-                    delay += 150; // 150ms stagger for elements entering at the same time
+                    delay += 150; 
                     observer.unobserve(entry.target); 
                 }
             });
@@ -482,9 +437,9 @@
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                header.classList.add('shadow-lg', 'shadow-black/20');
+                header.classList.add('shadow-sm');
             } else {
-                header.classList.remove('shadow-lg', 'shadow-black/20');
+                header.classList.remove('shadow-sm');
             }
         });
     </script>
