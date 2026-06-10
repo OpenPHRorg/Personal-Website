@@ -125,6 +125,21 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
+        .company-logo {
+            max-height: 40px;
+            width: auto;
+            border-radius: 6px;
+            filter: grayscale(100%) opacity(70%);
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+
+        .company-logo:hover {
+            filter: grayscale(0%) opacity(100%);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
         .orb {
             position: absolute;
             border-radius: 50%;
@@ -329,11 +344,30 @@
              </p>
              <div class="glass-card p-8 md:p-12">
                  <div class="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-12">
-                     <div class="logo-text">REVELA</div>
-                     <div class="logo-text">RECALL.AI</div>
-                     <div class="logo-text">BAZZE INC.</div>
-                     <div class="logo-text">ACTIVELOOP</div>
-                     <div class="logo-text">BOKKSU</div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/revela.com" alt="Revela" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">REVELA</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/recall.ai" alt="Recall.AI" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">RECALL.AI</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/bazze.com" alt="Bazze Inc." class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">BAZZE INC.</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/activeloop.ai" alt="Activeloop" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">ACTIVELOOP</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/bokksu.com" alt="Bokksu" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">BOKKSU</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/ninjatech.ai" alt="NinjaTech" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text hidden">NINJATECH</div>
+                     </div>
                  </div>
              </div>
         </section>
@@ -346,14 +380,35 @@
              </div>
              <div class="glass-card p-8 md:p-12">
                  <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
-                     <div class="logo-text text-sm md:text-base">MENDEL AI</div>
-                     <div class="logo-text text-sm md:text-base">META</div>
-                     <div class="logo-text text-sm md:text-base">SAMSUNG</div>
-                     <div class="logo-text text-sm md:text-base">OXFORD FUNDS</div>
-                     <div class="logo-text text-sm md:text-base">RBC CAPITAL MARKETS</div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/mendel.ai" alt="Mendel AI" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base hidden">MENDEL AI</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/meta.com" alt="Meta" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base hidden">META</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/samsung.com" alt="Samsung" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base hidden">SAMSUNG</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/oxfordfunds.com" alt="Oxford Funds" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base hidden">OXFORD FUNDS</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/rbccm.com" alt="RBC Capital Markets" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base hidden">RBC CAPITAL MARKETS</div>
+                     </div>
                      <div class="w-full h-px bg-white/10 my-2 hidden md:block"></div>
-                     <div class="logo-text text-sm md:text-base font-serif italic text-blue-300">MIT Sloan</div>
-                     <div class="logo-text text-sm md:text-base font-serif italic text-blue-300">UPenn (Wharton & CAS)</div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/mitsloan.mit.edu" alt="MIT Sloan" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base font-serif italic text-blue-300 hidden">MIT Sloan</div>
+                     </div>
+                     <div class="flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/upenn.edu" alt="UPenn" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                         <div class="logo-text text-sm md:text-base font-serif italic text-blue-300 hidden">UPenn (Wharton & CAS)</div>
+                     </div>
                  </div>
              </div>
         </section>
