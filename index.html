@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caleb Li - Strategic Advisor & Executive Leader</title>
+    <title>Caleb Li - Corporate Development & Venture Investing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,13 +15,6 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            glow: '#3b82f6',
-                            dark: '#0f172a',
-                            surface: 'rgba(255, 255, 255, 0.05)',
-                        }
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
@@ -140,6 +133,23 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        .expertise-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .expertise-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body class="antialiased relative overflow-x-hidden">
@@ -148,10 +158,8 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl">
             <a href="#" class="font-serif text-xl font-bold text-slate-900 tracking-wide">CL<span class="text-blue-600">.</span></a>
             <div class="hidden md:flex space-x-8">
-                <a href="#advisory" class="nav-link text-sm font-medium">Advisory</a>
-                <a href="#leadership" class="nav-link text-sm font-medium">Leadership</a>
-                <a href="#engagements" class="nav-link text-sm font-medium">Engagements</a>
-                <a href="#portfolio" class="nav-link text-sm font-medium">Portfolio</a>
+                <a href="#expertise" class="nav-link text-sm font-medium">Expertise</a>
+                <a href="#portfolio" class="nav-link text-sm font-medium">Investment Portfolio</a>
                 <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="nav-link text-sm font-medium text-blue-600 hover:text-blue-800">LinkedIn</a>
             </div>
              <div class="md:hidden">
@@ -161,148 +169,99 @@
              </div>
         </nav>
         <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-slate-200 absolute w-full shadow-lg">
-            <a href="#advisory" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Advisory</a>
-            <a href="#leadership" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Leadership</a>
-            <a href="#engagements" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Engagements</a>
-            <a href="#portfolio" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Portfolio</a>
+            <a href="#expertise" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Expertise</a>
+            <a href="#portfolio" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-4 text-sm font-medium transition-colors border-b border-slate-100">Investment Portfolio</a>
             <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="block text-blue-600 hover:bg-slate-50 hover:text-blue-800 px-6 py-4 text-sm font-medium transition-colors">LinkedIn</a>
         </div>
     </header>
 
     <main class="container mx-auto px-6 md:px-10 py-24 md:py-32 max-w-5xl">
         <!-- Hero Section -->
-        <section id="hero" class="pt-20 pb-24 md:pt-32 md:pb-32 text-center animate-fade-in-up">
+        <section id="hero" class="pt-20 pb-20 md:pt-32 md:pb-24 text-center animate-fade-in-up">
             <h1 class="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-6 tracking-tight">
                 Caleb Li
             </h1>
-            <p class="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed mb-8">
-                Strategic Advisor & Executive Leader architecting high-velocity growth engines in <span class="text-slate-900 font-medium">AI, Digital Health</span>, and <span class="text-slate-900 font-medium">Cloud Infrastructure</span>.
+            <p class="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed mb-8">
+                Strategic Executive & Investor bridging <span class="text-slate-900 font-medium">deep-tech innovation</span> with <span class="text-slate-900 font-medium">corporate development</span>.
             </p>
             <div class="inline-flex items-center justify-center gap-2 mb-8 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 shadow-sm mx-auto">
                 <svg class="w-4 h-4 text-slate-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                 <span class="text-slate-600 text-sm font-medium tracking-wide">Trusted by hyper-growth startups & Fortune 500 leaders</span>
             </div>
+            <br>
             <a href="https://www.linkedin.com/in/calebli/" target="_blank" rel="noopener noreferrer" class="btn-primary">
                 Let's Build Together
             </a>
         </section>
 
-        <!-- Advisory Focus Section -->
-        <section id="advisory" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
-            <div class="flex items-center gap-4 mb-8">
-                <h2 class="text-3xl font-serif font-semibold text-slate-900">Startup Advisory Focus</h2>
-                <div class="h-px bg-slate-200 flex-grow"></div>
-            </div>
-            <p class="text-lg text-slate-600 mb-10 max-w-3xl">
-                I partner with ambitious founders to overcome scaling bottlenecks, construct high-velocity GTM engines, and position the company for sustainable long-term value creation.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-medium text-slate-900 mb-3">Go-To-Market & Revenue Growth</h4>
-                    <p class="text-slate-600 text-sm">Building scalable enterprise sales motions, optimizing pricing strategies, and accelerating time-to-revenue.</p>
+        <!-- Two Pillar Expertise Section -->
+        <section id="expertise" class="mb-24 md:mb-32 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+                
+                <!-- Left Pillar: Technical & Startup -->
+                <div class="glass-card p-8 md:p-10 border-t-4 border-t-blue-500">
+                    <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-8">Technical & Startup Expertise</h2>
+                    <ul class="space-y-8 text-slate-600 text-sm md:text-base">
+                        <li class="flex items-start gap-4 group">
+                            <img src="https://logo.clearbit.com/meta.com" alt="Meta" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply flex-shrink-0 mt-1 transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            <div>
+                                <strong class="text-slate-900 block mb-1">Founder, NeuroMesh (MIT)</strong>
+                                Finalist for the MIT $100K pitch competition. Successfully <a href="https://patents.google.com/patent/US10652016B2/en?q=(caleb+li)&oq=caleb+li" target="_blank" class="text-blue-600 hover:underline">sold core patent (US10652016B2) to Meta</a>.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <img src="https://logo.clearbit.com/mendel.ai" alt="Mendel AI" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply flex-shrink-0 mt-1 transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            <div>
+                                <strong class="text-slate-900 block mb-1">AI Expertise at Mendel AI</strong>
+                                Operational leadership architecting advanced healthcare AI and LLM solutions.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <img src="https://logo.clearbit.com/samsung.com" alt="Samsung" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply flex-shrink-0 mt-1 transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            <div>
+                                <strong class="text-slate-900 block mb-1">Innovation at Samsung</strong>
+                                Invented and <a href="https://patents.google.com/patent/US20210374399A1/en?inventor=Caleb+Li" target="_blank" class="text-blue-600 hover:underline">published patent (US20210374399A1)</a> for advanced biometrics monitoring.
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-medium text-slate-900 mb-3">Strategic Partnerships</h4>
-                    <p class="text-slate-600 text-sm">Architecting alliances with Cloud providers and channel partners to unlock new distribution networks.</p>
-                </div>
-                <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-medium text-slate-900 mb-3">Capital Strategy & M&A</h4>
-                    <p class="text-slate-600 text-sm">Advising on fundraising narratives, investor relations, and analyzing strategic M&A opportunities.</p>
-                </div>
-                <div class="glass-card p-8">
-                    <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center mb-6">
-                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-medium text-slate-900 mb-3">Product-Market Fit Expansion</h4>
-                    <p class="text-slate-600 text-sm">Identifying adjacencies and expanding product utility, particularly in data-heavy and AI domains.</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Leadership & Board Roles Section -->
-        <section id="leadership" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
-             <div class="flex items-center gap-4 mb-8">
-                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Leadership & Board Roles</h2>
-                 <div class="h-px bg-slate-200 flex-grow"></div>
-             </div>
-             <div class="glass-card p-8 md:p-10 border-l-4 border-l-slate-800 border-t border-r border-b border-t-slate-200 border-r-slate-200 border-b-slate-200">
-                 <p class="text-lg text-slate-700 mb-6">
-                     As a seasoned operator with a background spanning hyper-growth AI startups to Fortune 500 tech giants, I am available for <strong>fractional executive roles, board observer positions, and strategic board director roles.</strong>
-                 </p>
-                 <ul class="space-y-4 text-slate-600">
-                     <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                         <span>Operational leadership experience at <strong>Mendel AI, Meta, and Samsung</strong>.</span>
-                     </li>
-                     <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                         <span>Deep expertise in navigating complex regulatory environments and scaling enterprise tech.</span>
-                     </li>
-                     <li class="flex items-start gap-3">
-                         <svg class="w-5 h-5 text-slate-800 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                         <span>Extensive investor network cultivated through <strong>Oxford Funds and RBC Capital Markets</strong>.</span>
-                     </li>
-                 </ul>
-             </div>
-        </section>
+                <!-- Right Pillar: Corporate Dev & Partnerships -->
+                <div class="glass-card p-8 md:p-10 border-t-4 border-t-emerald-500">
+                    <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-8">Corporate Development</h2>
+                    <ul class="space-y-8 text-slate-600 text-sm md:text-base">
+                        <li class="flex items-start gap-4 group">
+                            <img src="https://logo.clearbit.com/ensemblehp.com" alt="Ensemble Health Partners" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply flex-shrink-0 mt-1 transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            <div>
+                                <strong class="text-slate-900 block mb-1">Ensemble Health Partners</strong>
+                                <em>Director, Partnerships & Corporate Development</em> (Jul 2025 - Present). Leading strategy and investing in Agentic AI.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <img src="https://logo.clearbit.com/oxfordfunds.com" alt="Oxford Funds" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply flex-shrink-0 mt-1 transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            <div>
+                                <strong class="text-slate-900 block mb-1">Venture Capital</strong>
+                                Sourced and evaluated high-growth opportunities as an investor with <strong>Oxford Funds</strong>.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <div class="flex flex-col gap-2 flex-shrink-0 mt-1">
+                                <img src="https://logo.clearbit.com/rbccm.com" alt="RBC Capital Markets" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                                <img src="https://logo.clearbit.com/silverwoodpartners.com" alt="Silverwood Partners" class="w-10 h-10 rounded object-contain grayscale opacity-70 mix-blend-multiply transition-all group-hover:grayscale-0 group-hover:opacity-100" onerror="this.style.display='none';">
+                            </div>
+                            <div>
+                                <strong class="text-slate-900 block mb-1">Investment Banking & Advisory</strong>
+                                Deep industry insights and transaction experience at <strong>RBC Capital Markets</strong> and <strong>Silverwood Partners</strong>.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-        <!-- Current Roles & Engagements Section -->
-        <section id="engagements" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
-             <div class="flex items-center gap-4 mb-10">
-                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Current Roles & Engagements</h2>
-                 <div class="h-px bg-slate-200 flex-grow"></div>
-             </div>
-             <div class="space-y-6">
-                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group hover:bg-slate-50">
-                     <div class="absolute left-0 top-0 h-full w-1 bg-slate-800 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
-                     <div class="flex-grow">
-                         <div class="flex items-center gap-3 mb-1">
-                             <img src="https://logo.clearbit.com/ensemblehp.com" alt="Ensemble Health Partners" class="h-6 w-auto grayscale opacity-80" onerror="this.style.display='none';">
-                             <h3 class="text-xl font-semibold text-slate-900">Ensemble Health Partners</h3>
-                         </div>
-                         <p class="text-slate-500 text-sm mb-2">Director, Partnerships and Corporate Development</p>
-                         <p class="text-slate-600 text-sm font-light italic">"Investing in Agentic AI"</p>
-                     </div>
-                     <div class="text-sm font-medium text-slate-500 bg-slate-100 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-slate-200 group-hover:bg-slate-200 group-hover:text-slate-700 transition-colors whitespace-nowrap">
-                         Jul 2025 – Present
-                     </div>
-                 </div>
-                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group hover:bg-slate-50">
-                     <div class="absolute left-0 top-0 h-full w-1 bg-slate-800 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
-                     <div class="flex-grow">
-                         <h3 class="text-xl font-semibold text-slate-900 mb-1">Advisor, Vivid Vision</h3>
-                         <p class="text-slate-500 text-sm mb-2">VR Digital Health | GTM Strategy</p>
-                         <p class="text-slate-600 text-sm font-light italic">"Spearheading enterprise rollout strategy and driving key strategic partnerships in the healthcare sector."</p>
-                     </div>
-                     <div class="text-sm font-medium text-slate-500 bg-slate-100 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-slate-200 group-hover:bg-slate-200 group-hover:text-slate-700 transition-colors">
-                         Feb 2025 – Present
-                     </div>
-                 </div>
-                 <div class="glass-card p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-4 relative overflow-hidden group hover:bg-slate-50">
-                     <div class="absolute left-0 top-0 h-full w-1 bg-slate-800 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
-                     <div class="flex-grow">
-                         <h3 class="text-xl font-semibold text-slate-900 mb-1">Industry Advisor, Silverwood Partners</h3>
-                         <p class="text-slate-500 text-sm mb-2">Investment Banking | Industry Insights</p>
-                         <p class="text-slate-600 text-sm font-light italic">"Advising on emerging trends and high-value target identification in the Digital Health landscape."</p>
-                     </div>
-                     <div class="text-sm font-medium text-slate-500 bg-slate-100 px-4 py-2 rounded-full inline-block self-start md:self-auto border border-slate-200 group-hover:bg-slate-200 group-hover:text-slate-700 transition-colors">
-                         Feb 2025 – Present
-                     </div>
-                 </div>
-             </div>
+            </div>
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="mb-24 md:mb-32 reveal pt-10 mt-[-40px]">
+        <section id="portfolio" class="mb-20 reveal">
              <div class="flex items-center gap-4 mb-8">
                  <h2 class="text-3xl font-serif font-semibold text-slate-900">Investment Portfolio</h2>
                  <div class="h-px bg-slate-200 flex-grow"></div>
@@ -340,51 +299,6 @@
              </div>
         </section>
 
-        <!-- Experience & Education Highlights Section -->
-        <section id="experience" class="mb-16 md:mb-24 reveal pt-10 mt-[-40px]">
-             <div class="flex items-center gap-4 mb-10">
-                 <h2 class="text-3xl font-serif font-semibold text-slate-900">Operational Track Record</h2>
-                 <div class="h-px bg-slate-200 flex-grow"></div>
-             </div>
-             <div class="glass-card p-8 md:p-12">
-                 <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/ensemblehp.com" alt="Ensemble Health Partners" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">ENSEMBLE HP</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/mendel.ai" alt="Mendel AI" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">MENDEL AI</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/meta.com" alt="Meta" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">META</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/samsung.com" alt="Samsung" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">SAMSUNG</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/oxfordfunds.com" alt="Oxford Funds" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">OXFORD FUNDS</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/rbccm.com" alt="RBC Capital Markets" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base hidden">RBC CAPITAL MARKETS</div>
-                     </div>
-                     <div class="w-full h-px bg-slate-200 my-2 hidden md:block"></div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/mitsloan.mit.edu" alt="MIT Sloan" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base font-serif italic text-slate-500 hidden">MIT Sloan</div>
-                     </div>
-                     <div class="flex justify-center items-center">
-                         <img src="https://logo.clearbit.com/upenn.edu" alt="UPenn" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                         <div class="logo-text text-sm md:text-base font-serif italic text-slate-500 hidden">UPenn (Wharton & CAS)</div>
-                     </div>
-                 </div>
-             </div>
-        </section>
-
     </main>
 
     <footer class="border-t border-slate-200 mt-12 py-10 relative">
@@ -397,7 +311,7 @@
                 Or drop me an email
             </a>
             <p class="text-slate-500 text-sm">
-                &copy; <span id="currentYear"></span> Caleb Li | Strategic Advisor & Executive Leader
+                &copy; <span id="currentYear"></span> Caleb Li | Corporate Development & Venture Investing
             </p>
         </div>
     </footer>
