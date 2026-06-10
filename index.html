@@ -131,6 +131,13 @@
             filter: blur(80px);
             z-index: -1;
             opacity: 0.5;
+            animation: orb-drift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes orb-drift {
+            0% { transform: scale(1) translate(0, 0); filter: blur(80px) hue-rotate(0deg); }
+            50% { transform: scale(1.1) translate(20px, 20px); filter: blur(90px) hue-rotate(20deg); }
+            100% { transform: scale(1) translate(-20px, -20px); filter: blur(80px) hue-rotate(40deg); }
         }
 
         .orb-1 {
@@ -162,8 +169,8 @@
     </style>
 </head>
 <body class="antialiased relative overflow-x-hidden">
-    <div class="orb orb-1 animate-pulse-slow"></div>
-    <div class="orb orb-2 animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2" style="animation-delay: -7.5s;"></div>
 
     <header class="fixed w-full top-0 z-50 bg-slate-900/70 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="header">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl">
@@ -334,7 +341,7 @@
         <!-- Experience & Education Highlights Section -->
         <section id="experience" class="mb-16 md:mb-24 reveal pt-10 mt-[-40px]">
              <div class="flex items-center gap-4 mb-10">
-                 <h2 class="text-3xl font-serif font-semibold text-white">Core Experience & Education</h2>
+                 <h2 class="text-3xl font-serif font-semibold text-white">Operational Track Record</h2>
                  <div class="h-px bg-gradient-to-r from-white/20 to-transparent flex-grow"></div>
              </div>
              <div class="glass-card p-8 md:p-12">
