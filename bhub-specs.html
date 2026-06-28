@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHub Autopilot Product Specifications</title>
+    <!-- Privacy Shield -->
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+    <header class="border-b border-slate-200 bg-white/80 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="font-serif font-bold text-xl text-slate-900">Caleb<span class="text-blue-600">.</span></span>
+                <span class="text-xs uppercase tracking-widest text-slate-400 border-l border-slate-200 pl-2">Portfolio Dataroom</span>
+            </a>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> Confidential Dataroom View
+            </span>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        <!-- Title Hero -->
+        <div class="mb-12">
+            <span class="text-blue-600 text-sm font-bold uppercase tracking-widest">Investment Analysis: BHub</span>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-2 mb-4">BHub Autopilot</h1>
+            <p class="text-xl text-slate-600 font-light">Product specifications, platform architecture, and operational transformation ledger.</p>
+        </div>
+
+        <!-- Metric Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div class="glass-panel p-5 rounded-2xl">
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Current Scale</span>
+                <span class="text-2xl font-semibold text-slate-900 mt-1 block">$31M ARR</span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl">
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Gross Margin</span>
+                <span class="text-2xl font-semibold text-slate-900 mt-1 block">68% <span class="text-xs text-slate-400 font-normal">(Target 80%)</span></span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl">
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Client Base</span>
+                <span class="text-2xl font-semibold text-slate-900 mt-1 block">+7,000 Clients</span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl">
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Satisfaction</span>
+                <span class="text-2xl font-semibold text-slate-900 mt-1 block">94% CSAT</span>
+            </div>
+        </div>
+
+        <!-- Section 1: Three-Layer Product Architecture -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-6 pb-2 border-b border-slate-200">1. Platform Architecture & Layers</h2>
+            <div class="space-y-6">
+                <!-- Layer 1 -->
+                <div class="glass-panel p-6 rounded-2xl flex gap-4">
+                    <div class="text-2xl">🛤️</div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-1">Process Intelligence Layer (The Orchestrator)</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Acts as the production line rails. It enforces business rules, monitors workflows in real time, tracks process stages, and handles automated process execution triggered by client actions.
+                        </p>
+                    </div>
+                </div>
+                <!-- Layer 2 -->
+                <div class="glass-panel p-6 rounded-2xl flex gap-4">
+                    <div class="text-2xl">🧬</div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-1">Data & Relationship Layer (BHub Graph)</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            A centralized knowledge base mapping relationships between customers, suppliers, compliance entities, and regulations. It provides deep context to AI models, ensuring consistent cross-system decisions.
+                        </p>
+                    </div>
+                </div>
+                <!-- Layer 3 -->
+                <div class="glass-panel p-6 rounded-2xl flex gap-4">
+                    <div class="text-2xl">🤖</div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-1">Automation Layer (Agentic AI)</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Autonomous decision-making layer that executes tasks based on process rules and BHub Graph context. Powers conversational AI (BSamurai) and autonomous ledger operations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Dual Interface Surfaces -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-6 pb-2 border-b border-slate-200">2. Dual Product Interfaces</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <span class="text-blue-600 font-bold text-xs uppercase tracking-wider block mb-1">Client Interface</span>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Hub 2.0 Client Portal</h3>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Real-time task calendar replacing traditional email chaos.</span></li>
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Self-serve document upload and auto-ingest interface.</span></li>
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Instant Q&A through conversational BSamurai AI.</span></li>
+                    </ul>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl">
+                    <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider block mb-1">Ops Interface</span>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">The Cockpit Ops Center</h3>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Real-time tracking of 100% of tasks for over 7,000 clients.</span></li>
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Algorithmic SLA monitoring and automatic deviation routing.</span></li>
+                        <li class="flex items-start gap-2">✓ <span class="leading-normal">Collaborative workspace for AI agents and human specialists.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Workflow Automation Ledger -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-6 pb-2 border-b border-slate-200">3. Operational Performance & Transformation Specifications</h2>
+            <div class="glass-panel rounded-2xl overflow-hidden">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-100/50 border-b border-slate-200">
+                            <th class="py-4 px-6 font-bold text-slate-600 uppercase tracking-wider">Operational Area</th>
+                            <th class="py-4 px-6 font-bold text-slate-600 uppercase tracking-wider">Before BHub (Incumbents)</th>
+                            <th class="py-4 px-6 font-bold text-blue-600 uppercase tracking-wider">After BHub Autopilot</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="py-4 px-6 font-semibold text-slate-900">Document Ingestion</td>
+                            <td class="py-4 px-6 text-slate-500">Email/WhatsApp. Documents get lost easily.</td>
+                            <td class="py-4 px-6 text-slate-700 font-medium bg-blue-50/20">Auto-ingested, OCR-parsed, and classified (60M docs/yr).</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-semibold text-slate-900">Bookkeeping</td>
+                            <td class="py-4 px-6 text-slate-500">Manual entry into legacy systems.</td>
+                            <td class="py-4 px-7 text-slate-700 font-medium bg-blue-50/20">96% auto-booked by BHules engine (1,200+ active rules).</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-semibold text-slate-900">Reconciliation</td>
+                            <td class="py-4 px-6 text-slate-500">Excel spreadsheets line-by-line (hours/recon).</td>
+                            <td class="py-4 px-6 text-slate-700 font-medium bg-blue-50/20">85% automated by Conciliator AI, completed in 30 minutes.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-semibold text-slate-900">Tax Filing</td>
+                            <td class="py-4 px-6 text-slate-500">Manual calculations. Fines and errors are common.</td>
+                            <td class="py-4 px-6 text-slate-700 font-medium bg-blue-50/20">Auto-calculated and cross-checked across 27 state SEFAZs and 112 federal sources.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-semibold text-slate-900">M&A Integration (PMI)</td>
+                            <td class="py-4 px-6 text-slate-500">Takes 6+ months, requiring 8 staff members.</td>
+                            <td class="py-4 px-6 text-slate-700 font-medium bg-blue-50/20">Playbook completes in 60 days, requiring only 3 staff.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Team -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-serif font-semibold text-slate-900 mb-6 pb-2 border-b border-slate-200">4. Strategic Leadership</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-sm">
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Jorge Vargas Neto</strong>
+                    <span class="text-slate-500 block text-xs">Founder &amp; CEO</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Jorge Rodrigues</strong>
+                    <span class="text-slate-500 block text-xs">Chief Technology Officer</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Henrique Ferreira</strong>
+                    <span class="text-slate-500 block text-xs">Director of Product</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Galia Goldstein</strong>
+                    <span class="text-slate-500 block text-xs">VP Product (Ex-Melio, Advisor)</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Ivan J. Galea</strong>
+                    <span class="text-slate-500 block text-xs">Advisory Board Member (CTO Databook)</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl">
+                    <strong class="text-slate-900 font-semibold block">Brian Requarth</strong>
+                    <span class="text-slate-500 block text-xs">Advisory Board Member (CEO Latitud)</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white py-8 text-center text-slate-400 text-xs">
+        <p>Confidential Investment Memorandum &copy; 2026. For Review Purposes Only.</p>
+    </footer>
+</body>
+</html>
