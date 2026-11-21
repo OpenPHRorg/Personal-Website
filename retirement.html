@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Protected Financial Report</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --pos: #059669;
+      --warn-bg: #fffbeb;
+      --warn-border: #fde68a;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    .mono { font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; }
+    .muted { color: var(--muted); }
+    .pos { color: var(--pos); font-weight: 600; }
+
+    /* Lock Screen */
+    .lock-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px; background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+    .lock-card {
+      width: 100%; max-width: 400px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.09); text-align: center;
+    }
+    .lock-icon {
+      width: 48px; height: 48px; margin: 0 auto 16px; border-radius: 12px;
+      background: #eff6ff; color: var(--primary); display: flex; align-items: center; justify-content: center;
+    }
+    .lock-card h1 { font-size: 20px; margin: 0 0 6px; font-weight: 600; }
+    .lock-card p { margin: 0 0 22px; color: var(--muted); font-size: 13.5px; }
+    .pw-group { position: relative; margin-bottom: 12px; }
+    .pw-input {
+      width: 100%; padding: 11px 44px 11px 14px; border: 1px solid #cbd5e1;
+      border-radius: 10px; font-size: 15px; outline: none; transition: border-color .15s, box-shadow .15s;
+    }
+    .pw-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14); }
+    .pw-toggle {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--muted); cursor: pointer; font-size: 12px; padding: 4px 6px;
+    }
+    .btn-primary {
+      width: 100%; padding: 11px 16px; background: var(--primary); color: #fff; border: none;
+      border-radius: 10px; font-size: 14.5px; font-weight: 600; cursor: pointer; transition: background .15s;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-primary:disabled { opacity: 0.65; cursor: wait; }
+    .lock-err { color: #dc2626; font-size: 13px; margin-top: 10px; min-height: 20px; }
+    .lock-foot { margin-top: 18px; font-size: 12px; color: #94a3b8; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake { animation: shake 0.32s ease; }
+
+    /* App Layout */
+    .app-shell { max-width: 1140px; margin: 0 auto; padding: 24px 20px 56px; display: flex; flex-direction: column; gap: 20px; }
+    .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .eyebrow { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 4px; }
+    .topbar h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+    .subtitle { margin: 4px 0 0; color: var(--muted); font-size: 13.5px; }
+    .topbar-actions { display: flex; gap: 8px; }
+    .btn-outline {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;
+    }
+    .btn-outline:hover { background: #f1f5f9; }
+
+    /* Sticky Jump Nav */
+    .jump-nav {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 14px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow);
+    }
+    .jump-nav a {
+      text-decoration: none; color: #334155; font-size: 12.5px; font-weight: 600;
+      padding: 5px 11px; border-radius: 7px; transition: background .15s, color .15s;
+    }
+    .jump-nav a:hover { background: #f1f5f9; color: var(--primary); }
+    .jump-nav a.nav-highlight { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+      scroll-margin-top: 68px;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .card h2 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+    .card-head p { margin: 4px 0 0; font-size: 13.5px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; scroll-margin-top: 68px; }
+    .kpi { padding: 16px 18px; }
+    .kpi-accent { background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%); border-color: #bbf7d0; }
+    .kpi-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .kpi-value { font-size: 25px; font-weight: 700; margin: 4px 0 2px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+    .kpi-value .unit { font-size: 14px; font-weight: 500; color: var(--muted); }
+    .kpi-sub { font-size: 12px; color: var(--muted); }
+
+    /* Visual Yield Curve Chart */
+    .yield-chart {
+      background: #f8fafc; border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; margin-bottom: 18px;
+    }
+    .yc-title { font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 12px; }
+    .yc-rows { display: flex; flex-direction: column; gap: 9px; }
+    .yc-row { display: grid; grid-template-columns: 235px 1fr 140px; align-items: center; gap: 12px; font-size: 12.5px; }
+    .yc-track { background: #e2e8f0; border-radius: 6px; height: 24px; overflow: hidden; }
+    .yc-fill {
+      height: 100%; display: flex; align-items: center; padding: 0 10px;
+      color: #fff; font-weight: 700; font-size: 12px; white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .yc-muted { background: #64748b; }
+    .yc-blue { background: #2563eb; }
+    .yc-teal { background: #0d9488; }
+    .yc-green { background: #059669; }
+    .yc-emerald { background: #047857; }
+    .yc-tag { font-size: 11.5px; text-align: right; color: var(--muted); }
+
+    /* 3-Card Strategy Comparison */
+    .option-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+    .opt-card {
+      border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 14px; background: #fff;
+    }
+    .opt-featured { border: 2px solid #10b981; background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 42%); }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 3px 8px; border-radius: 999px; background: #f1f5f9; color: #334155; margin-bottom: 8px;
+    }
+    .badge-rec { background: #10b981; color: #fff; }
+    .opt-num { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--text); }
+    .opt-num small { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+    .opt-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .opt-list { margin: 0; padding-left: 18px; font-size: 12.5px; color: #334155; display: flex; flex-direction: column; gap: 6px; }
+    .btn-opt {
+      width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border);
+      background: #f8fafc; color: var(--text); font-size: 12.5px; font-weight: 600; cursor: pointer;
+    }
+    .btn-opt:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-opt-rec { background: #059669; border-color: #059669; color: #fff; }
+    .btn-opt-rec:hover { background: #047857; color: #fff; }
+
+    /* Step-by-Step Blueprint */
+    .blueprint-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .blueprint-box h3 { margin: 0 0 12px; font-size: 14.5px; font-weight: 700; }
+    .steps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .step-item {
+      display: flex; gap: 11px; align-items: flex-start;
+      background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: 12px;
+    }
+    .step-alt { background: #eff6ff; border-color: #bfdbfe; }
+    .step-num {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--primary); color: #fff; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .step-alt .step-num { background: #1e40af; }
+    .step-item strong { font-size: 13px; }
+    .step-item p { margin: 4px 0 0; font-size: 12.5px; color: #334155; }
+    .step-item code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+
+    /* Simulator & Allocation */
+    .two-col { display: grid; grid-template-columns: 1.55fr 1fr; gap: 18px; align-items: stretch; scroll-margin-top: 68px; }
+    .presets { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 14px; font-size: 12.5px; }
+    .pill, .strat-btn {
+      border: 1px solid var(--border); background: #f8fafc; color: var(--text);
+      padding: 5px 10px; border-radius: 999px; font-size: 12px; cursor: pointer; font-weight: 500;
+    }
+    .strat-btn { border-radius: 8px; }
+    .pill:hover, .strat-btn:hover { border-color: var(--primary); }
+    .pill.active { background: #eff6ff; border-color: var(--primary); color: var(--primary); font-weight: 600; }
+    .strat-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+
+    .bar-wrap { margin-bottom: 16px; }
+    .bar-header { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 13px; margin-bottom: 6px; }
+    .stacked-bar {
+      width: 100%; height: 22px; border-radius: 7px; overflow: hidden; display: flex;
+      background: #f1f5f9; border: 1px solid var(--border);
+    }
+    .seg { height: 100%; transition: width .2s ease; }
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+    .legend i, .alloc-list i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+    .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .ctrl { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; }
+    .ctrl-top { display: flex; justify-content: space-between; gap: 8px; }
+    .ctrl input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+    .check-row { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+    .check-label { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; user-select: none; }
+    .check-label input { width: 15px; height: 15px; accent-color: var(--primary); }
+    .callout-strip {
+      margin-top: 12px; padding: 10px 12px; border-radius: 8px;
+      background: #f8fafc; border: 1px solid var(--border); font-size: 12.5px; color: #334155;
+    }
+
+    .alloc-visual { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .donut { width: 170px; height: 170px; }
+    .donut-big { font-size: 20px; font-weight: 700; fill: #0f172a; }
+    .donut-sm { font-size: 11px; fill: #64748b; }
+    .alloc-list { list-style: none; padding: 0; margin: 0; width: 100%; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; }
+    .alloc-list li { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .mini-note { margin-top: 14px; padding: 10px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 12.5px; color: #166534; }
+
+    /* Tables */
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 600; background: #f8fafc; }
+    th.num, td.num { text-align: right; white-space: nowrap; }
+    .group-row td { background: #f8fafc; font-weight: 600; font-size: 12px; color: #334155; padding-top: 11px; }
+    .subtotal-row td { font-weight: 600; background: #fcfcfd; }
+    .total-row td { font-weight: 700; background: #eff6ff; border-top: 2px solid #bfdbfe; border-bottom: none; font-size: 13.5px; }
+    .table-foot { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+
+    .warn-card { background: var(--warn-bg); border-color: var(--warn-border); }
+    .missing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .missing-item { background: rgba(255,255,255,0.78); border: 1px solid #fde68a; border-radius: 8px; padding: 12px; }
+    .missing-item strong { display: block; font-size: 13px; margin-bottom: 4px; color: #92400e; }
+    .missing-item p { margin: 0; font-size: 12.5px; color: #451a03; }
+    .missing-item code { background: #fef3c7; padding: 1px 4px; border-radius: 4px; font-size: 12px; }
+
+    @media (max-width: 920px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .option-grid, .two-col, .steps-grid { grid-template-columns: 1fr; }
+      .yc-row { grid-template-columns: 170px 1fr; }
+      .yc-tag { display: none; }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid, .controls-grid, .missing-grid { grid-template-columns: 1fr; }
+      .topbar h1 { font-size: 20px; }
+      .yc-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; }
+      .card { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div id="lock-screen" class="lock-screen">
+    <div id="lock-card" class="lock-card">
+      <div class="lock-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h1>Protected Financial Report</h1>
+      <p>Enter the family password to decrypt and view this retirement &amp; senior living budget.</p>
+      <form id="unlock-form" autocomplete="off">
+        <div class="pw-group">
+          <input id="pw-input" class="pw-input" type="password" placeholder="Enter password" autofocus required />
+          <button type="button" id="pw-toggle" class="pw-toggle">Show</button>
+        </div>
+        <button type="submit" id="unlock-btn" class="btn-primary">Unlock Report</button>
+      </form>
+      <div id="lock-err" class="lock-err"></div>
+      <div class="lock-foot">Encrypted client-side (PBKDF2-SHA256 + ChaCha20-HMAC)</div>
+    </div>
+  </div>
+
+  <div id="app-root" style="display:none;"></div>
+
+  <script>
+    
+(function(global){
+  const K = new Uint32Array([
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+  ]);
+
+  function sha256(msg) {
+    const len = msg.length;
+    const bitLenHi = Math.floor((len * 8) / 0x100000000);
+    const bitLenLo = (len * 8) >>> 0;
+    const padLen = ((len + 9 + 63) & ~63);
+    const buf = new Uint8Array(padLen);
+    buf.set(msg);
+    buf[len] = 0x80;
+    const dv = new DataView(buf.buffer);
+    dv.setUint32(padLen - 8, bitLenHi, false);
+    dv.setUint32(padLen - 4, bitLenLo, false);
+
+    let h0=0x6a09e667, h1=0xbb67ae85, h2=0x3c6ef372, h3=0xa54ff53a;
+    let h4=0x510e527f, h5=0x9b05688c, h6=0x1f83d9ab, h7=0x5be0cd19;
+    const w = new Uint32Array(64);
+
+    for (let i = 0; i < padLen; i += 64) {
+      for (let t = 0; t < 16; t++) w[t] = dv.getUint32(i + t * 4, false);
+      for (let t = 16; t < 64; t++) {
+        const s0 = ((w[t-15] >>> 7) | (w[t-15] << 25)) ^ ((w[t-15] >>> 18) | (w[t-15] << 14)) ^ (w[t-15] >>> 3);
+        const s1 = ((w[t-2] >>> 17) | (w[t-2] << 15)) ^ ((w[t-2] >>> 19) | (w[t-2] << 13)) ^ (w[t-2] >>> 10);
+        w[t] = (w[t-16] + s0 + w[t-7] + s1) >>> 0;
+      }
+      let a=h0, b=h1, c=h2, d=h3, e=h4, f=h5, g=h6, h=h7;
+      for (let t = 0; t < 64; t++) {
+        const S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+        const ch = (e & f) ^ (~e & g);
+        const temp1 = (h + S1 + ch + K[t] + w[t]) >>> 0;
+        const S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+        const maj = (a & b) ^ (a & c) ^ (b & c);
+        const temp2 = (S0 + maj) >>> 0;
+        h=g; g=f; f=e; e=(d + temp1) >>> 0;
+        d=c; c=b; b=a; a=(temp1 + temp2) >>> 0;
+      }
+      h0=(h0+a)>>>0; h1=(h1+b)>>>0; h2=(h2+c)>>>0; h3=(h3+d)>>>0;
+      h4=(h4+e)>>>0; h5=(h5+f)>>>0; h6=(h6+g)>>>0; h7=(h7+h)>>>0;
+    }
+    const out = new Uint8Array(32);
+    const odv = new DataView(out.buffer);
+    odv.setUint32(0,h0,false); odv.setUint32(4,h1,false); odv.setUint32(8,h2,false); odv.setUint32(12,h3,false);
+    odv.setUint32(16,h4,false); odv.setUint32(20,h5,false); odv.setUint32(24,h6,false); odv.setUint32(28,h7,false);
+    return out;
+  }
+
+  function hmacSha256(key, data) {
+    let k = key.length > 64 ? sha256(key) : key;
+    const ipad = new Uint8Array(64 + data.length);
+    const opad = new Uint8Array(64 + 32);
+    for (let i = 0; i < 64; i++) {
+      const b = i < k.length ? k[i] : 0;
+      ipad[i] = b ^ 0x36;
+      opad[i] = b ^ 0x5c;
+    }
+    ipad.set(data, 64);
+    opad.set(sha256(ipad), 64);
+    return sha256(opad);
+  }
+
+  function pbkdf2Sha256(passwordBytes, salt, iterations, dkLen) {
+    const blocks = Math.ceil(dkLen / 32);
+    const out = new Uint8Array(blocks * 32);
+    const blockInput = new Uint8Array(salt.length + 4);
+    blockInput.set(salt);
+    const dv = new DataView(blockInput.buffer);
+    for (let b = 1; b <= blocks; b++) {
+      dv.setUint32(salt.length, b, false);
+      let u = hmacSha256(passwordBytes, blockInput);
+      const t = new Uint8Array(u);
+      for (let i = 1; i < iterations; i++) {
+        u = hmacSha256(passwordBytes, u);
+        for (let j = 0; j < 32; j++) t[j] ^= u[j];
+      }
+      out.set(t, (b - 1) * 32);
+    }
+    return out.subarray(0, dkLen);
+  }
+
+  function rotl(v, n) { return ((v << n) | (v >>> (32 - n))) >>> 0; }
+  function qr(s, a, b, c, d) {
+    s[a] = (s[a] + s[b]) >>> 0; s[d] = rotl(s[d] ^ s[a], 16);
+    s[c] = (s[c] + s[d]) >>> 0; s[b] = rotl(s[b] ^ s[c], 12);
+    s[a] = (s[a] + s[b]) >>> 0; s[d] = rotl(s[d] ^ s[a], 8);
+    s[c] = (s[c] + s[d]) >>> 0; s[b] = rotl(s[b] ^ s[c], 7);
+  }
+
+  function chacha20Block(key, counter, nonce) {
+    const kdv = new DataView(key.buffer, key.byteOffset, 32);
+    const ndv = new DataView(nonce.buffer, nonce.byteOffset, 12);
+    const init = new Uint32Array([
+      0x61707865, 0x3320646e, 0x79622d32, 0x6b206574,
+      kdv.getUint32(0,true), kdv.getUint32(4,true), kdv.getUint32(8,true), kdv.getUint32(12,true),
+      kdv.getUint32(16,true), kdv.getUint32(20,true), kdv.getUint32(24,true), kdv.getUint32(28,true),
+      counter >>> 0,
+      ndv.getUint32(0,true), ndv.getUint32(4,true), ndv.getUint32(8,true)
+    ]);
+    const st = new Uint32Array(init);
+    for (let i = 0; i < 10; i++) {
+      qr(st,0,4,8,12); qr(st,1,5,9,13); qr(st,2,6,10,14); qr(st,3,7,11,15);
+      qr(st,0,5,10,15); qr(st,1,6,11,12); qr(st,2,7,8,13); qr(st,3,4,9,14);
+    }
+    const out = new Uint8Array(64);
+    const odv = new DataView(out.buffer);
+    for (let i = 0; i < 16; i++) odv.setUint32(i * 4, (st[i] + init[i]) >>> 0, true);
+    return out;
+  }
+
+  function chacha20Xor(key, nonce, data) {
+    const out = new Uint8Array(data.length);
+    for (let i = 0, ctr = 1; i < data.length; i += 64, ctr++) {
+      const ks = chacha20Block(key, ctr, nonce);
+      const n = Math.min(64, data.length - i);
+      for (let j = 0; j < n; j++) out[i + j] = data[i + j] ^ ks[j];
+    }
+    return out;
+  }
+
+  function ctEqual(a, b) {
+    if (a.length !== b.length) return false;
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) diff |= (a[i] ^ b[i]);
+    return diff === 0;
+  }
+
+  global.__vaultCrypto = { sha256, hmacSha256, pbkdf2Sha256, chacha20Xor, ctEqual };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+    const VAULT = {"v":1,"iter":40000,"salt":"YsUN0TQ4tQAIMBh8sHD2OQ==","nonce":"2zmoQkylMh3WRRYV","mac":"Ptlwp6mjG3N/HGdhXBtNSgBd4iDi5exSKGNySYaaTNM=","ct":"neBSBwRF45lAXP2Y/zKWWcV+/VzFH5NrC1AUmpeObODj1L+uwKYRL1HJqsCnC7WL3BcvgghL5Vpn0dSdtaNL7javuwLs/+QAsyRrKqnVqGWzhkObE3xceQ/thRH29Jsj91yEKKWwjrUmcf6PsvlEDj2Js+WC1IldLLSD83LJwGc/k5AjOr4vFpt390RMikj83vA2WPChBAEhqy83cMr56GiPfkFW8lXunFuLhGoIqIf5MKJjuAMm4Qun7uDtQZUo+eKYiP551ypjN1L4bRpX1Xa/iK6yB3derpQkeotFUnZlBuLTBWVwHO14VuZpGN4bdwQXNHnjIC5b7a5rqLipCp6GlY9YNwYRNeYxJlkOC8OJ8RR8fir3luUliTJ6EgCKtz3NnoabfGgKPDimGBv2jv3g3QdHySzFMOe7uF3+x46G8fznuKIuBoqxaTYWuLfaOJB9mZs7pY7Ae5KmSlAcTcaUZHTBXVeYQwWzPtfVgnPBzmLDgnclKhGaDFV3uHwkpls1JtNx1XANcxYM57iFIUFAQDpQRqJCIefY6lvi3Zroa+9MFvYj84+2dj27zxQ88Pxi7kFmvM68ukLGn1KulDYAssyS+gnNNsVUEWeDwOjpsV1t5vBCKT8lgZQa5SiZJAV8xlWeRdwTdBsrzBJ3ccGbkxe9SZxplrooQ3nL4Ct9dKMGfl/Fc/JWT9PZJzJvi9YdidlZ1bdU8GaPp5LdBDCgjpAhWvptmrwwHvl0paTCndWhcGOalVGIZniGCNK78dfsk+VGqv082hNiZuKJLgNedf0gnguvhrAgIh8oL9QjzO0WHBSLcb2trHXkC9MCGmQYxt9UBFs0a7U3Ak5UJzRBRECEmZvObrTOPDq1yi2ouA2VPkkaoJ4j6iG5DEb/ol7f2v2oCzm174IsdiZtiWkFS0InwkpzZeGhNDuvtCPUZ+p0ZGObPA1ZDH9CeijDl7xNb9Uw1nDAjitQ3i/fIVaQxkVixt7E0qG4bPlxATUM3ZcW7OdSHcr8TUGoc6rAWiEfPLMAzdypt2GKEvKMyVRoqOX0I7LC6CrLQuKzxiRQ1V8szWeF1PSwMJYS+uH3E8aOyJXYJEam2jnX6Q1DhWwcTUubKrebD3oheWmn6364fmb4LSNVp2o40O9xht+kIt6PaD+uRpbpmM876AxykwzFLd8QYemBZ4H4Vdd/UDzXrYoUKZrqC4EBhzzfPNvvPlMHHnQC8ewwmQnAQgYNSdldu2CLILxKX32ic0d5L8ieSd26bY5frvcRewhYWTVGOreuohjduD+HGpKOFTBe2nHOy6iB63HIke7Dm2N0qDwB4H5qnoVpmmeFFINKS5pRfmejD6PwWH/IrbEb1T/PNkEtxCRwOB+S9eFB/Wqk6Q62juVLjF+jeyQpJgrKsBUzOllaGfeN6O6J08b91ZgVFbZJCFCxO6pP4NZMdUv/Tx3ONPOfCMeqF6t9CXIUmP89B/Yu/m25aCwxdAVgkWD8WUsEzQ1lQpZgMCuVsIebLCoC7/jP7aJz2SdwLflJ88eAt53WQxwzKFVkPh8/OE/jqByHoI3JHBiVAHCdXyXJz2iDYQvvQw4d/PbBejT9B+C7Cfc4yorIDi6TwhCWlCHTajRWIpGy9lDCZsYZxzbIy+FiFP5wQXACGB57e6TCeoZSSGDeZ+8d2ON1+0HnKQMimvl1yHaYjSGt7s+j6ZOMWWYlylmnaWXU5/6+yAAueFLh7BuLZlbTX+5YzeQ98iZ/2Ovj2F27+ae5OOWbztQ2KqE6q0qQn46XpXIOcVCV/QF5KKar5R/gQwCUGT+fQ8JS/3iuK/pjQwCZyMDTa3GNOUA3LamaDfF5wnqUBWHDcA12nq3jxmf6+54eE3d+A7K9yPtMK8yAdx4++OOvUgH6tI4ruHVr//4C5z4VEj73cW0PoaR0L97oNqzz+J8Gr2Y3K8GPAfWEzN5yIIM8On6zwpsFzeBM70gWyRq9bhKtl6q8dMbZEk5kRcvu/d34gCE8JOVbAq7yZAOC6ysPbvdXUdOz00huBy9hKs+e86Kiqd/NOMCrtQgbsEF199QOLMYcTksfuuExqNhN/6Ric6QktTm1K83QoD/BDaMmF9KBZid2DF+VnpAtKXkr/t4+BFQrIZwbie39ITfusqdAGmjCb734EIE+nnH3T2L3oP4u7yEtg1Fe9REA4R0dhuh0tZYRucjq0EHy8pE1WgHa7KGkuyOua7aL8nZMtFYg9APMuEulO2Ky3L8JSX0J28oV0QxQFhnIxJbCbBLleMinrRrZX3OiIuBegWTXluErbEcm9WPCZuumrE47e/VOIHxlyJEEuZKd2zk0KQ1MSSra2j1lsSR6OguhVIxog41X00j4JEUcRYNx0pIVPOHfjj+fL3Vbu9aDE+zNOmPnu58DM3jw7AjHNco1IP7XwsisgTFtzemm1udVOvJXWwBmk9YNcFKzbC8qJH73xKHMfG3sDYakKbpsJrxaLGiZApXQx4SdivbO+RcTmDnHf+PawqlywnzF0KpbyTE+W0CJFYWUlBibrhkxnC4Ot9htJTQk1tAkjNqIYvLb/CpzUKjZ/qX0E7EYnz8oBabcLSsc5Wor/N6Gq25/qT0VDmZGiL2ejn7WPvp392lWzO0nY81lWkiYIt9NfymZfCv3qogAUgpJt7wCA+yjNm1XLK+u4qvs4aiIAdoFuyBgMpFN4YxwXcsCO1cguj7UEc1KxmDdRenpWuKNjcmPHxB/ug0XzOV2Jf4N0clQuXXemamTV5qsbPZYbLMWlKF0N3lOC6qkKycllD9lMfla/xuU6noOedkMUYEUAiOA7n5UppIVXmmjIccE51w77HfPdy8LrH90ceo8TSJ7HLioDdR1XCscc1lkB1wJBhr57eSSUJiXD5R70q87nlalAy+Q9LWccC0NVCZHYidbRE0wvVJRRqOnYHLgpoMTwXq4RWYc1MkWwb24B6G3aCrd4SZl2oBK0qs8s6aUlgLsvt9Lnvp0B58Jhx6ckFAGoRP/6aksp+oOYx0dtWAIrHRaecjYrjJUGBekN8IBu/C9R0lP8qA95dNQBww2ngj3L4Vfq9DoNIvSEkfNKincRlkbBQ/YCwbAeEBlBXztylAWmZ7Nq7nA21nR3Fcxm3FaYBDjHU/lCrmCPZykNqtTnhsNrLeQep2PYM7lAVmBP4HDhdJF5VTSgxLROEXujHpQlt6LqTmAuZnCkyu8SD/h0HFryQNAtUL0nnFYfn87pcnY6nlC9QpjlRxy4eaQu9pbzLDHNcPO5lTjJRuuRK1mc4CqojHVGzCIY451GdroZpw597P9WGHA2sgRMEyORVCNmK3h09fTuRVARsFBgEVjOj70LDS9KcJQQDgwCCjJ5e30cmNIP2R3PobdB5Phy1FNfmWBj6hq7hdoEoLW+mR+xgxquy9ZiMLZI8VzJAyHLZqNYYVM5PlzQCBdQ8d7m62dnoir0ieuRqAV1LYiySHqOtnCHExc7JUfto6M/8qQa0yQF2rz+XX6GvDmBLDf3Fg4WrOcRfzNgs/9+1KTJ0jwgIwWGAAqMprkORyZ0rwH+Wt6U27rVShJM3U8KF58dGWgMgmHRHIcs584SSPV3yDizsD3qM5HjJd9fcObevelDOOfOooHauxyhl+W0dwE2fLQFzm39pIFyJZJ9OU+CUBqpbrUPkXs5vmTPlE+wIQhcnUVCNrpMEW7g2HUPzoojvrfOSnPhI45hLPWm8IvQZ+jvZ4YecfMd4ws54/cu8TC3tfQkb00dAQdXsVVJNIitObG1LDR5aHMa7vcUScee+A2H8NUGGron44K+vRpKNFnpPU/vwJ3L593yvNYZ4DEtLOE2nbim+Ig10V09nP8NCZkjDBAWrj8CgmF5JP8soFFVPKmCd6SGhCUVEk5TVFs/VR/DTGvAftsnG0T+1ENOsu8HdXxOUzT9tGqBSpPyQTmdPyBJtGwjzHd67uXB7Kcj5mmtJt4Qyxb4Qs0aKJe4zFkkKfLfYtjEWHmjVNa/7dTXZczkq7Mh6c/PHHZAsjhY0sgwdxEGK7dfDT3vxtuZ2glzy8ny5RaAkS2RXzXZbmf+nsWmOHuDlIQCWN1jOPem9FdI5psQO7BRP+rCilTA4nkYc3jH/bjoji5H+H7NpjSvUdukn/upUNaQeKspJF5MTilE2/L4qGZXnbIQLLParoFNAzwSiG2+uz3Dez3H/0HRUaXfsH+nZwY5R2AJV836J8FPgNif7Q7qFE3XmJH/H4so+9XrYKV9caADlD+bomVUMuqWGKjOv0Jkfo4cyJp9QIgKdQCW2Ju+5QG7lr7sM7Vj5tXDQPRllKJetGcQ2vWO42wmBTLn5WxdvBp2oWkBnEi+H+HnGv3SloPucWiXSKApSTpdeqg/jzE0XyqNfj7meT55iwEaZhWUII2t9aIQhBHHsvl8kEGMtwRkz95ZQL4ewugWcSgOiWaB5J7r3uHLr4s0456Tf7P0VuOIXftE6NVfrK4kmVMlmHpgY9iNm7JFSTpdbgAY6m0uqOc+BCP6w11Z7bvkT7Q+jnO2+fV83eSjhafDngUi6mcUuNJYkWELTZ4GQbPhYKJHYKOVj9tEBeYvnWrotu50+O904cMlgvwqZzi1QwQUcaqfFrGroRHHkx1rKrawF46y4BzDQFr9RbvnDqffIwhzEUAdUFhgRiuEw4Ezvyf4cKmjgZtRIRH+L0728YcwuCRRAjUQlf97FZK2WUyB0Cv3qFJHa/9OS8baGGUswCdJBXoIs5B7Jyb16P4t5dd8oZjMew00P4yW8ei1VRYMhPPT0CM13Pc6CzxWYyCIga6/0MrVYwaeoD8ZgAzXVl5h046OEHho/Zeg87xeCMLRjlY5ojFwyaSkweJoSeSjfrSoyrElBn/Bxlnnz3G5v6MIN80Gp/5siGPLSmkjWAYTX3A1wHahodC5jednfUo2H0GRKvOh2g3m1j7Rl7RX4snVP93ct5/aJQW5glhO83/lv6sjTNS12gQtBstFEStjmSK+jPlnrYpOMqC+frFUewALmKaA3hYb0E3xT/+C14jbWg6X6PMIS0tMt5Rh0AiY/w1PUFiqnM1J29PpiFo5r6g/elvCg+nYUxn/rOYH0gIPjvfZYvcT06GBWofIuclIkERO/t2ysfofLr/yfmMnZryIESEbIPZAlZwec+8Vd+nLuVQ5FRwjA0dHYxLUeex5z2dVcPMyyY8mKG5EV9XjICbO6OdZ112kZHSZY/ckR3PC9/KT+HFIXqmL9eVYxYAhRRg+PmXvANE44vc71Mf9PxRQ3/9Yj7YODaNRfFDfi8tD4nhL1EK1SV55Is0gFLiFuYM6SmyKn8e/+rS1yl9dUv6A48NXlBYQVsNFDBOOgCbMm4cSvC0bmgYOrqIU4ALxtkwI7rw62pVzgMxFFzwbELTGd7G9dFDufxt9V/hRhxVNbWTPgjDGrb6onFezYU2/Inm7AsKUitOk/UPrL3cE4pRy9NB/5SMkJC4A4Q38Jrvj/tTr3AH6S2J+f4/zDIuSERkx3ztbdWg0rGkkGZSM7Gu2e0f7xGqvhEc0iMdJ94Dp6G3EU6oLbfA+QtJDzpsGtQxmjQ9ev1gfTcbSdS7wNUCGv1dstQzvmbNUqXlIYcTx84o593LezCaLhcF1joefTeu+rGrtxE3KJQuDlAGVZp6j5G75djtXYr4BB1Dg8+UQjJX1+fJh2ymnoo9uqs4+sxFUwnM8R7OfXXEVH7xI0KX5G4TUavC8ABFMSaP2mWJN/BlJ0slKc/yPIRyG8DVs4K2MkO5mfVMJ3MRSqReLSHH1YzMbqfcwVp+RjsHb+VvIq2/ZlHVnWNkUkU5wO7hJogLY263qzrujUIM+nuS6Ytbu9TRHtTm86zyymjXBmo7JhFTSD4wSm9h7NXPfpuchytef3yEkckdCSdwU62AnrH4FHGeychuxxx4RYBTOLrwtTQzBMUe03pklfzqDQtimVMJEHmuaMxr5+wdasC6emI83u9JzWnA/6Q6+9lTzi3y6Y8zK1NzYpQ8gjo6j7o6NM0kBXjnG6fytqQzlYZm9uazUJJZQYbyP4JOU3ZpXKslVgzQjXycUhnre8S1hpz55m8Bi+VOu23bD9E3gx8QQZdbpXfhOoNhA/u5n0Hp8+D4eN/GauFPOH3ueSU18h/pBxYLcy8mvgYgXmQC82jJqTSmg5tLMi6ltujX1yW3DGZ/XZqGFxhuTGd3Pv2LE8ZfKNnMLj9mTUSN8o/K7LVPPQ7+LfuOJx7mNKL//Kg6UI8jlqCBr5yYM+ZRsuvuS7XQYSoB9s9OjNh/ldo8oDJfDU/o45TCc8vAF86YvjAWh5brmc701+JLCLyDqxRXd+VPkCDh1dhGR2ChT3SX8ZQi0UMsW0RrtD6B89qh/0pk6rcmiCcLXSG2hkWgVkBzqt7goWi5NrppHbBuvclFXfYyTnMT+ua+2n/sLjsW9czh16THhHJy91z+fuG/PlD5GSbIUmty125G1OM8Ro4rz8ilJxwU6c+YouZtF3jZNtl/A/Gm4tZORYumB7aHDg7xZcLdAHAgSyUr9sYl5x5Lh8EWNWeCRQf2+n1KL7pUq9pNZqBuWT81q3Pk3jwfb838whS7E/6+wGZUMArgY/aJp7ROMSWnYBF5so0KS5ZEOgBFYq7Ed+ld+Q74gnMmyIKD98sVYYv2dF4w9NJz7ISHVaeW55s+eoLQhbOLEj8yoU98sP2UQZh4gqe6/moPqDMYLjM0EKIRpGnHhqMTX5zAR2dAjha2Kaw+HwpRpO1MOTZ7V79Ed+JdiLWD7TVDXe749SmxOgQKm8r6IebahMWU8IJ/TtAUJD3qhVqaCVcA9ijCko0+QIWTI2O5Q/YmD1uatgo+3u6FbR4BY8KiQZal5AfojdtEEsXI9hmttwzpzYiFVDV8N8tMb3ELeCk04nF1e3NgHwmUfehmKf5m97YZVmSwycKTAFWzVCB8W6Gd/TTKZBU9R/GVr6WBwYQGenoAw+CcRCnePMEaHSIT6xntT0iBd/z/Uaxu8k3QTqKpavooOfcU3wkQ/2w+FeQdxwvEmQqIPO9Muhg1vTzeUTI8ruez3sir1q1VpcvZDA9sS+W3omQagQdyCImyDDhDKN35PBLDnDrEa3bjQXSwoeDKccMnyrjVcoM6LIlIi+0XeYrADZG4d79TPCy9tXji1yPtKz+HWLVMgRY45yrShfI3eAmWJM609LYj7hXvieR4NwQK1a6EFR7T+UCbnyNUDqnHYoYJTZ4R9//g0kTP6zicvsSAXPY+J0m/y7Vf+NHsUxBLBIns4e9fG8QNloVHKcb+tEi6wZIzv2Q8cDhuy+xFX/kQInoZ56kCj4DasVEr4QcQ3kZL2PQ1a37tQGHGcqKM1QtuJcPhZurVuzX4eB+I1PXch2p6JlEuD7yx4gK+fvidarfm1QQWFfdyoEYfX/CrAvkEZjT33GZBoUlaynpW3I3bsuiKCzAsPNQeI/BBEuUGbJO4IFE0aGySiJmwmkJxIsDfF5zyc0/McwVl3YQ9yVhCEzNN3VEgPk5mM9CkFUKH7FKzvjhtKuL6UGMeEWVIPkBQ9YLsFV3Ia8SNQz5PhlhsSg+XiGUhHojfCSamonlYICB6PSqmyIPez9pXmZDiVEQp8CtCCibmkd3hMqxDJzZREpjGt6Irml1mjIP3y7uIw5QHKUPXaiqJHCJ/0z/SMcf6gvVwlzW3sw4DhfRDmZ5HsH2fAuOnSiVuR/jxij5g/mNNGDBhF3DBhsCUmwYpOpbp/n7OS3BhVCC2dHOKHFakRh5hnZEmTpZgTctq1OncTxq72gK5+cjpQ26tl+PKYA3QnAQAY17vNPoIc8GEEPbTEdOzgVTvxut+wWs6giMFDXct2L7aSB7dX8rMlpx8MeCKtu/zCX923Y+kgVShUd5IycFKzVLUywXrZUAXLSlCX2+E0rnfOeMCZOr1qZHP8+7gQWvXw24YSg0FEfw9B9Ex6kmkRkh3M09M94+2/gBggS9YkCYDjxRenbb1lFp7DtCfujkcGrPnU6Udb+NvhFCvOaO6L0nUKzGHPlcoy7ER+A2J8igRVELohpAf09n504qVN8f6Sv6Xb31TPSphfTbAOFtSkKxlzIS+jqHaqeUso86v1SvAXLt96IWz+NcbSYqalsGcI5NQa3GN8+5uRhga8mvxhjo9IMP7H1cs/Eeapdmutr1m3u8cKYPQOHfyj5mcedwWNga6K6CWwl9QumpWGmyzwb3+jrAWL3JfsDj04cnaVz/c3ypJUofR4rEFgjGOtk8Vspg+TV/ks7t/GeeScfRK1GQnEnoSlni7dNka+jT6fzUtgb9W7wb5eMA6X3HECTgIfJFxhREXcJ/+HBTGEMdTpK89hRlbYx0fyWtLAdc+hJ/AC5LKszEJFdZo2d6arxbJOoLlgnl8IHNZ7Hk/woFMhZ2PMKUlxcOW9kZVtTSHF0HtJmRvDFgvZFZOZitG+GEJ04lgBG8oSgY2oQrqjftIWtZ76UlOLOatMFXnlqxDRiDZ0rW7KzxByVEQyAqpj/6AV+QUm6sH2XDOT9njwXfpe++Mj0kiwzxYQhQt94cAQzXQdzKrcuCjf1z1+VBCyJY1SQ+ASYTKpxtYCgGlD3hio5pX1jDKnvP8J7YggSineWfx9fqzqFQE6terQ7wccUNFSxjSjE37ohA9mdfl8W/zzmjgO7a472QYqNFsoY23+Lwaro9Gw9DU9oXywUuEvGYTPrgUY0ZCaUu2vn7pYhUDQTv7weVX7MVldgizPLI/55d61NlkuDHFqsgOvpG56ZjmVATjfW5hQBR8pqlSrRrwRPlB8DXLNGo92+DHlfCWYcoUrkt7BW6dpjzvWldDW1aLwgUdbP1bcHkVJQsbKPREXa9Kf3LOgKQyYlHqEnTU5pjzMsA1i81dAkL7rzKJiYHyLTGK/E4anK6ziL5H5UXd7O61TMQcBYsBzwbUPE9lv0WSfomYw+0VU55drlllk04SC53l0efKfe3NKhL9mGVCI9IxVBm6K1pXX38osDTfVSF4tz3sLTwgJM2A3tOcIZdKAIg3jVGgYtI7sbPemiyOS8C2COV/h4OHPLYsHtAysN120yLsNwYeFEgaVt4+l5wZV9GRd7qQTTNilENjuL4qvhnmMBtiIVIZcR8WgCfYJHn/eY3PRX8ix6u2oYZRnbgz3iTOTzt0mpjb/skWBee7Tj55RJfoyZhiOfAoAivMKJr7QYmsIUcHQ+oumE+kt2LNu4oHmreMYKuV940knyBw++8IIoHyKsjdD1hJwUSUxtoTqb+wPq1N0idQbfbFiW0NN8QAPIFwYYsZLajHntClT9yzJaEIBDEvZ2YGODLyJB9qswzdmGzrO0YjdcEC7trzBs0jQj/w2v1He5bkq/6IOGiI7ZuuQfmqpd2q8jUPLmbar6JS8vWkAHQzJF5KJV6K2t2+xRnCmmV09cSM+H/+YLJinHTuzY0Jp6s0NpRHlkIizBOYgBcLg1+jAKF6/rIs2DIvNUffW7qCXJA8qjRGTnZ3hPvg8GYJ60Mll7ZTGiZBKj/MCBcp1HqVXxlSrvvalH/VOnb+aALTg79C61sYvl3d545W6VR0sGuif2P/wEWKf8fukj46ljxqjdyHV4MlwhuwGxTOzQDiz8S/EOwCtTkkMY4ltFwVXcduBmY0BpbYeD2e8hvQONpJqda//VXANxBiRYZOcO11L7FTlRZlwQucMBEO/vcCpYr9vbIj5ZyBwFG1xzP+up06BT4ayrgpC1y2CNe/oawr9fellwBV+3qN2XpCSUS8mLjq0NFKStotOY4LAlbgzuPqtv8VSiTATSxGftAgbrpzbX+3o7q4InyOqByOVkY3LFk+PmW6iQMhUCJ4yOPcqP7Wyd+3OVtUnLTVxHTwVoDrf2LtbLKfVkcj+/Hzn4qrvb3a+Cv0bQwadIkcfhxi+JQsULhXlTbHnx36uKnUBojRboaZhbz893q5akKPDKi+wKf+UnJaAQ39O0gDUGRUBkTCzZLIfNLpaUGV6k66HQOfjM1QTp4uMBcw/ftpwypR7hlHitnXD3ga4s9FK4l1iDUqNrAAo7wBZFow4YDVcj+n6StcmmqohXhBXhTxnl0NqDRglVb5GCt1G9PgabiJiJawtUqGof/BW20ZHr6iDsjkSP/18SNFqamVSfB+XrXDLj5SnDknXZodEmad3HwsYDaIExX/hfjZt5SkEmRhWnobBZDNO8PoZmkNsbSovNLmcANQdQSxt0XqXSlZE5Bi+TXHToIlZK6WDneiM8Rzkcrt37x6FslYvGrL2hqnDDVPQSBjLNwUV7xAn2tqL2KxGIV7pSnc1EybxZ2Mt133xsOdlJmjHuw6eIvXBWkqeOeiOqEzMkqMa54J3eZl9BGkIc9Sw2ipNNPrSxQU73XopRQRwNNLeW0f+55F0+ijGxRDEFRsqVQ8QbHdiJbiU46/rvZLadRud3I436qoGkPoPDKSLPL1ZTf72BhrxFdUbtuWR9QXBsLpDH04iDi4vA22/iH6yanOfIqqCkJOTp0LnbgNrbxu9Sthttb0zxx2gYcJsPepdkwouMVYyUIhkIlrrmdr17Nw/dflbSes6OEqF2Kz+XS7fHQsaFvh3h07V23GHsEJacmWYudhJuhCDBrpzn23qfIb9slFMo85VEBO9m2WzAvKpUCU4xYGr/TTySPD/yT1wig44rImJsjvXYRFPJ2MnwTvT3vlNXqm7lm3sHfcvZXMVkNZPs+k5NLdTNyuVnndGcwXaN/DcLEw1JM4FV85Q7krM7CppdBWVa416x94dqeKEQWeRSGkcoTM8hJgeRqk92WhYFp+8NCYRak1EVCWeHsQYgRe//AoZiJiYAe3Sb/m6KcA+qXyy1CxAXACrcht9H8GNgRNC1SMrXEiWooaUd30AxdzAQSq/g5ZqXi4QhI+/jhMvERFt2vffOyVPOzjmR8h4V/e7i/kakK3KDOHuC7KynCXifiXEBU2qO2JQqDcmC8/7d+HNwMlISskp9bQo8uwZxtXyUIaXxBKMyV36lMuRtjryCDazjKO5Kdtj2WdmWCV9jdTu06E3gyqbnkafY0jHR+B2L6kdgIQxGO4WstyrKbIhVEd6d+M6LZE0WWOLvXMrbbR4p8pUT94cBqCd+LCMzAsvEeOtFSwbnmk9ELpD71VvdlSi9ixtuLbh0I4gBLy7658Mk/C7SLGGJUaW4/08a+ushk2A1Mzo7DjNko/WL2drfMNOvicof5L8KmkRrnZxUBnKbewv8FCqMD+jaWB9EbezN0RfIo2NLNgnnYSTeYi9LURUBlGzAKT7QgdQ9pYgaXB7OqNl6T6MKVtOfyaLiV9V/zcVhxSA5xgDOLy/1nkTGRfCoOSbdVP/4XjIROzSUYp4cj6yQdmAp9S3TH9LYS8OP5hslHJRaV9JcfPQjFDI4UsCn8Y5WZp0X1q7M5+dMUUsCFFa6XHAvw+70MraAxoN2bdgMEJ/mi1PQUHNR1y1yX/p+PKfqnZZOcg6EanSf0La56p6NLjM7i0EaNCyESs6o7llnstUuZyCWTPVng+YqwqtLjS3C9oHGJn9T4cUvU+9xUtGYI8XDBGB/+5CEJ2BJuWG27kmN1HtwVYLNdJpwG0TYNAnNS3/v84MdLos1yj16dk2Rg8/H9D1dvQx0C3K6xugqyUUKvgSA7MBEldxmq5MxmkIKusd2Zi47Xxhtco2CBknfzIDsCDIhJd9IQaZGMbBxeLAnb/IFlz5q7IGGtZGXRYI4c="};
+
+    function b64ToBytes(b64) {
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function deriveKey(pwBytes, salt, iter) {
+      if (typeof crypto !== "undefined" && crypto.subtle) {
+        try {
+          const baseKey = await crypto.subtle.importKey("raw", pwBytes, "PBKDF2", false, ["deriveBits"]);
+          const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" }, baseKey, 512);
+          return new Uint8Array(bits);
+        } catch (_) {}
+      }
+      return window.__vaultCrypto.pbkdf2Sha256(pwBytes, salt, iter, 64);
+    }
+
+    async function decryptVault(password) {
+      const vc = window.__vaultCrypto;
+      const salt = b64ToBytes(VAULT.salt);
+      const nonce = b64ToBytes(VAULT.nonce);
+      const mac = b64ToBytes(VAULT.mac);
+      const ct = b64ToBytes(VAULT.ct);
+      const pwBytes = new TextEncoder().encode(password);
+      const dk = await deriveKey(pwBytes, salt, VAULT.iter);
+      const encKey = dk.subarray(0, 32);
+      const macKey = dk.subarray(32, 64);
+
+      const macInput = new Uint8Array(salt.length + nonce.length + ct.length);
+      macInput.set(salt, 0);
+      macInput.set(nonce, salt.length);
+      macInput.set(ct, salt.length + nonce.length);
+      const expectedMac = vc.hmacSha256(macKey, macInput);
+
+      if (!vc.ctEqual(mac, expectedMac)) return null;
+      const pt = vc.chacha20Xor(encKey, nonce, ct);
+      const ds = new DecompressionStream("deflate-raw");
+      const w = ds.writable.getWriter(); w.write(pt); w.close();
+      const buf = await new Response(ds.readable).arrayBuffer();
+      return JSON.parse(new TextDecoder().decode(buf));
+    }
+
+    function mountApp(payload) {
+      document.title = payload.title;
+      document.getElementById('lock-screen').style.display = 'none';
+      const root = document.getElementById('app-root');
+      root.innerHTML = payload.html;
+      root.style.display = 'block';
+      const s = document.createElement('script');
+      s.textContent = payload.script;
+      document.body.appendChild(s);
+    }
+
+    const pwInput = document.getElementById('pw-input');
+    const pwToggle = document.getElementById('pw-toggle');
+    const lockErr = document.getElementById('lock-err');
+    const unlockBtn = document.getElementById('unlock-btn');
+    const lockCard = document.getElementById('lock-card');
+
+    pwToggle.addEventListener('click', () => {
+      const show = pwInput.type === 'password';
+      pwInput.type = show ? 'text' : 'password';
+      pwToggle.textContent = show ? 'Hide' : 'Show';
+    });
+
+    document.getElementById('unlock-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pw = pwInput.value;
+      lockErr.textContent = '';
+      unlockBtn.disabled = true;
+      unlockBtn.textContent = 'Decrypting...';
+      setTimeout(async () => {
+        try {
+          const payload = await decryptVault(pw);
+          if (payload) {
+            mountApp(payload);
+          } else {
+            lockErr.textContent = 'Incorrect password. Please try again.';
+            lockCard.classList.remove('shake');
+            void lockCard.offsetWidth;
+            lockCard.classList.add('shake');
+            pwInput.select();
+          }
+        } catch (err) {
+          lockErr.textContent = 'Decryption error.';
+        } finally {
+          unlockBtn.disabled = false;
+          unlockBtn.textContent = 'Unlock Report';
+        }
+      }, 30);
+    });
+  </script>
+</body>
+</html>
