@@ -87,6 +87,7 @@ SEQUENCE_CONFIG = {
 
 TABLE_YEARS = [2021, 2022, 2023, 2024]
 ALL_YEARS = [2014, 2019, 2021, 2022, 2023, 2024]
+ZBP_YEARS = [2014, 2019, 2021, 2022, 2023]
 
 TABLE_COLS = {
     "b01003": [("pop", "B01003_E001"), ("popMoe", "B01003_M001")],
@@ -271,6 +272,45 @@ def load_table_year(
                     yr_dict[key] = parse_num(parts[idx])
 
 
+def load_zbp_data(bay_zips: dict[str, str]) -> dict[str, dict[int, dict[str, int | None]]]:
+    zbp_store: dict[str, dict[int, dict[str, int | None]]] = {}
+    for yr in ZBP_YEARS:
+        yy = str(yr)[2:]
+        url = f"https://www2.census.gov/programs-surveys/cbp/datasets/{yr}/zbp{yy}totals.zip"
+        print(f"Fetching ZBP {yr} business patterns...")
+        zf = zipfile.ZipFile(io.BytesIO(fetch_bytes(url)))
+        fname = zf.namelist()[0]
+        lines = zf.open(fname).read().decode("latin1").splitlines()
+        rdr = csv.DictReader(lines)
+        matched = 0
+        for row in rdr:
+            r = {k.strip().lower(): (v or "").strip() for k, v in row.items() if k}
+            zcta = r.get("zip", "").strip('"')
+            if zcta not in bay_zips:
+                continue
+            est = parse_num(r.get("est"))
+            if est is None:
+                continue
+
+            emp_nf = r.get("emp_nf", "").upper()
+            empflag = r.get("empflag", "")
+            raw_emp = parse_num(r.get("emp"))
+            emp = None if (emp_nf == "D" or (empflag and raw_emp is None)) else raw_emp
+
+            ap_nf = r.get("ap_nf", "").upper()
+            raw_ap = parse_num(r.get("ap"))
+            payroll = None if (ap_nf == "D" or raw_ap is None) else raw_ap * 1000
+
+            zbp_store.setdefault(zcta, {})[yr] = {
+                "est": est,
+                "emp": emp,
+                "payroll": payroll,
+            }
+            matched += 1
+        print(f"  ZBP {yr}: loaded {matched}/{len(bay_zips)} Bay Area ZCTAs.")
+    return zbp_store
+
+
 def build_dataset() -> dict:
     bay_zips = load_bay_area_zctas()
     cities = load_places(bay_zips)
@@ -281,6 +321,7 @@ def build_dataset() -> dict:
         load_sequence_year(yr, bay_zips, raw_store)
     for yr in TABLE_YEARS:
         load_table_year(yr, bay_zips, raw_store)
+    zbp_store = load_zbp_data(bay_zips)
 
     zips_out = []
     for zcta in sorted(bay_zips):
@@ -331,6 +372,40 @@ def build_dataset() -> dict:
         if "2024" not in years_clean:
             continue
 
+        biz_clean: dict[str, dict[str, int | float | None]] = {}
+        for yr in ZBP_YEARS:
+            brec = zbp_store.get(zcta, {}).get(yr)
+            if not brec:
+                continue
+            ystr = str(yr)
+            est = brec["est"]
+            emp = brec["emp"]
+            payroll = brec["payroll"]
+            pop_yr = years_clean.get(ystr, {}).get("pop")
+            payroll_pc = (
+                round(payroll / pop_yr, 2)
+                if payroll is not None and pop_yr is not None and pop_yr > 0
+                else None
+            )
+            jobs_res = (
+                round(emp / pop_yr, 3)
+                if emp is not None and pop_yr is not None and pop_yr > 0
+                else None
+            )
+            avg_wage = (
+                round(payroll / emp)
+                if payroll is not None and emp is not None and emp > 0
+                else None
+            )
+            biz_clean[ystr] = {
+                "est": est,
+                "emp": emp,
+                "payroll": payroll,
+                "payrollPerCapita": payroll_pc,
+                "jobsPerResident": jobs_res,
+                "avgWage": avg_wage,
+            }
+
         zips_out.append(
             {
                 "zip": zcta,
@@ -342,6 +417,7 @@ def build_dataset() -> dict:
                 "sqMi": sq_mi,
                 "taxCv2024": tax_cv24,
                 "years": years_clean,
+                "biz": biz_clean,
             }
         )
 
@@ -374,19 +450,60 @@ def build_dataset() -> dict:
                     "ownerUnits": owner_sum,
                     "occUnits": occ_sum,
                 }
+
+        biz_by_year: dict[str, dict[str, int | float | None]] = {}
+        for yr in ZBP_YEARS:
+            ystr = str(yr)
+            est_sum = 0
+            emp_sum = 0
+            pay_sum = 0
+            pop_pay_sum = 0
+            pop_emp_sum = 0
+            wage_pay_sum = 0
+            wage_emp_sum = 0
+            for z in czips:
+                bz = z["biz"].get(ystr)
+                if not bz:
+                    continue
+                pop_yr = z["years"].get(ystr, {}).get("pop")
+                if bz["est"]:
+                    est_sum += bz["est"]
+                if bz["emp"] is not None:
+                    emp_sum += bz["emp"]
+                    if pop_yr:
+                        pop_emp_sum += pop_yr
+                if bz["payroll"] is not None:
+                    pay_sum += bz["payroll"]
+                    if pop_yr:
+                        pop_pay_sum += pop_yr
+                if bz["payroll"] is not None and bz["emp"] is not None and bz["emp"] > 0:
+                    wage_pay_sum += bz["payroll"]
+                    wage_emp_sum += bz["emp"]
+            if est_sum > 0:
+                biz_by_year[ystr] = {
+                    "est": est_sum,
+                    "emp": emp_sum if emp_sum > 0 else None,
+                    "payroll": pay_sum if pay_sum > 0 else None,
+                    "payrollPerCapita": round(pay_sum / pop_pay_sum, 2) if pay_sum > 0 and pop_pay_sum > 0 else None,
+                    "jobsPerResident": round(emp_sum / pop_emp_sum, 3) if emp_sum > 0 and pop_emp_sum > 0 else None,
+                    "avgWage": round(wage_pay_sum / wage_emp_sum) if wage_pay_sum > 0 and wage_emp_sum > 0 else None,
+                }
+
         counties_out.append(
             {
                 "name": cname,
                 "zctaCount": len(czips),
                 "byYear": by_year,
+                "bizByYear": biz_by_year,
             }
         )
 
     return {
         "meta": {
             "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-            "source": "U.S. Census Bureau ACS 5-Year Summary Files (B25090, B01003, B25003, B19013, B25077)",
+            "source": "U.S. Census Bureau ACS 5-Year (B25090, B01003, B25003, B19013, B25077) & ZIP Code Business Patterns (ZBP 2014–2023)",
             "years": ALL_YEARS,
+            "bizYears": ZBP_YEARS,
             "counties": county_names,
             "zctaCount": len(zips_out),
             "methodologyNotes": {

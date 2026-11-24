@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bay Area Property Tax Per Capita Tracker (2014–2024) | SF Bay Area ZIP Analytics</title>
-  <meta name="description" content="Track residential property taxes per capita and growth rates across SF Bay Area ZIP codes (ZCTAs) and all 9 counties using official U.S. Census ACS 5-Year data (2014–2024)." />
+  <title>Bay Area Property Tax &amp; Business Audit (2014–2024) | SF Bay Area ZIP Analytics</title>
+  <meta name="description" content="Audit where SF Bay Area local business activity (jobs, payroll & establishments) translates into faster residential property tax growth per capita across 9 counties and 267 ZIP codes." />
   <meta name="theme-color" content="#f8fafc" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,27 +53,27 @@
       box-shadow: 0 8px 20px -8px rgba(15, 23, 42, 0.12);
     }
     #map {
-      height: 520px;
+      height: 550px;
       width: 100%;
       border-radius: 0.75rem;
       z-index: 1;
     }
     .leaflet-tooltip.zip-tooltip {
-      background: rgba(15, 23, 42, 0.94);
+      background: rgba(15, 23, 42, 0.95);
       color: #f8fafc;
       border: 1px solid rgba(148, 163, 184, 0.25);
       border-radius: 0.625rem;
-      padding: 0.5rem 0.75rem;
+      padding: 0.55rem 0.8rem;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
       font-family: 'Inter', sans-serif;
       font-size: 12px;
       line-height: 1.45;
     }
     .leaflet-tooltip.zip-tooltip::before {
-      border-top-color: rgba(15, 23, 42, 0.94);
+      border-top-color: rgba(15, 23, 42, 0.95);
     }
     .map-legend {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(6px);
       border: 1px solid #e2e8f0;
       border-radius: 0.75rem;
@@ -102,21 +102,27 @@
       <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
         <div class="max-w-3xl">
           <p class="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2">
-            SF Bay Area Civic &amp; Real Estate Analytics
+            SF Bay Area Civic &amp; Fiscal Audit
           </p>
           <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 tracking-tight mb-3">
-            Bay Area Property Tax Per Capita Tracker
+            Bay Area Property Tax &amp; Business Audit
           </h1>
           <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-            Tracking uncapped residential real estate taxes paid per resident (<code class="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">B25090 &divide; B01003</code>) across all 9 San Francisco Bay Area counties. Under California&rsquo;s Proposition&nbsp;13, faster per-capita tax growth signals sustained homeownership turnover, new construction, and expanding local public tax capacity &mdash; a quantitative proxy for neighborhood reinvestment and living quality.
+            Auditing where local business activity (establishments, jobs &amp; payroll via Census&nbsp;ZBP) actually translates into faster residential property tax capacity per capita (<code class="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">B25090 &divide; B01003</code>) across all 9 SF Bay Area counties &mdash; and flagging ZIP codes with commercial-to-tax disconnects.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-2 lg:flex-col lg:items-end shrink-0">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-            U.S. Census ACS 5-Year (2014&ndash;2024)
-          </span>
-          <span id="datasetMetaLabel" class="text-xs text-slate-500 tnum">Loading dataset&hellip;</span>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+              ACS 5-Year (2014&ndash;2024)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+              Census ZBP (2014&ndash;2023)
+            </span>
+          </div>
+          <span id="datasetMetaLabel" class="text-xs text-slate-500 tnum">Loading audit dataset&hellip;</span>
         </div>
       </div>
     </div>
@@ -129,33 +135,44 @@
         <!-- Time Horizon Pills -->
         <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Time horizon">
           <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mr-1">Horizon</span>
-          <button type="button" data-horizon="2019" class="horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-900 text-white">5-Yr (2019 &rarr; 2024)</button>
-          <button type="button" data-horizon="2023" class="horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">Pure Write-In YoY (2023 &rarr; 2024)</button>
-          <button type="button" data-horizon="2021" class="horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">3-Yr (2021 &rarr; 2024)</button>
-          <button type="button" data-horizon="2014" class="horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">10-Yr (2014 &rarr; 2024)</button>
+          <button type="button" data-horizon="2019" class="horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-900 text-white">5-Yr (Tax 19&rarr;24 | Biz 19&rarr;23)</button>
+          <button type="button" data-horizon="2023" class="horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">Recent YoY (Tax 23&rarr;24 | Biz 22&rarr;23)</button>
+          <button type="button" data-horizon="2021" class="horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">3-Yr (Tax 21&rarr;24 | Biz 21&rarr;23)</button>
+          <button type="button" data-horizon="2014" class="horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200">10-Yr (Tax 14&rarr;24 | Biz 14&rarr;23)</button>
         </div>
 
-        <!-- Metric, County, Pop Filter, Search -->
+        <!-- Metric, Audit Status, County, Pop Filter, Search -->
         <div class="flex flex-wrap items-center gap-2">
-          <select id="metricSelect" aria-label="Primary metric" class="px-3 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="growthPct">Per Capita Growth (%)</option>
-            <option value="gainUsd">Per Capita Gain (+$)</option>
+          <select id="metricSelect" aria-label="Primary metric" class="px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <option value="growthPct">Per Capita Tax Growth (%)</option>
+            <option value="gainUsd">Per Capita Tax Gain (+$)</option>
             <option value="taxCap24">2024 Tax / Capita ($)</option>
+            <option value="bizPayrollPc23">Biz Payroll / Capita (2023 $)</option>
+            <option value="bizPayrollGrowthPct">Biz Payroll / Cap Growth (%)</option>
+            <option value="taxPer100Payroll">Tax / $100 Biz Payroll ($)</option>
             <option value="taxOwner24">2024 Mean Tax / Home ($)</option>
           </select>
 
-          <select id="countySelect" aria-label="County filter" class="px-3 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <select id="auditSelect" aria-label="Audit verdict filter" class="px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <option value="ALL">All Audit Verdicts</option>
+            <option value="dual">Dual Engine (Biz + Tax Outperforming)</option>
+            <option value="gap">Audit Gap (Strong Biz, Lagging Tax)</option>
+            <option value="residential">Residential-Led (Tax Outperforming, Low Biz)</option>
+            <option value="watchlist">Fiscal Watchlist (Both Trailing Median)</option>
+          </select>
+
+          <select id="countySelect" aria-label="County filter" class="px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="ALL">All 9 Counties</option>
           </select>
 
-          <select id="popSelect" aria-label="Minimum population threshold" class="px-3 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <select id="popSelect" aria-label="Minimum population threshold" class="px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="2500">Pop &ge; 2,500</option>
             <option value="500">Pop &ge; 500 (All Residential)</option>
             <option value="10000">Pop &ge; 10,000 (Major ZIPs)</option>
           </select>
 
           <div class="relative flex-grow sm:flex-grow-0">
-            <input id="searchInput" type="search" placeholder="Search ZIP, city, neighborhood&hellip;" aria-label="Search ZIP, city, neighborhood, or county" class="w-full sm:w-56 pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <input id="searchInput" type="search" placeholder="Search ZIP, city, area&hellip;" aria-label="Search ZIP, city, neighborhood, or county" class="w-full sm:w-44 pl-7 pr-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
             <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" /></svg>
           </div>
         </div>
@@ -164,7 +181,7 @@
       <!-- Context Callout Banner -->
       <div id="redesignBanner" class="mt-2.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-[11.5px] text-amber-900 flex flex-wrap items-center justify-between gap-2">
         <span>
-          <strong>Methodological Note:</strong> The 2019 ACS redesign replaced bracketed real estate tax ranges with exact dollar write-ins, slightly amplifying <span id="redesignSpanLabel">2019 &rarr; 2024</span> gains in high-tax ZIPs. Switch to <button type="button" id="switchYoyBtn" class="underline font-semibold hover:text-amber-700">2023 &rarr; 2024</button> or <button type="button" id="switch3YrBtn" class="underline font-semibold hover:text-amber-700">2021 &rarr; 2024</button> for pure post-redesign momentum.
+          <strong>Methodological Note:</strong> The 2019 ACS redesign replaced bracketed tax ranges with exact dollar write-ins, amplifying some <span id="redesignSpanLabel">2019 &rarr; 2024</span> tax gains. Switch to <button type="button" id="switchYoyBtn" class="underline font-semibold hover:text-amber-700">Recent YoY</button> or <button type="button" id="switch3YrBtn" class="underline font-semibold hover:text-amber-700">3-Yr</button> for pure post-redesign momentum.
         </span>
       </div>
     </div>
@@ -173,55 +190,55 @@
   <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 flex-grow">
     <!-- Loading / Error Banner -->
     <div id="statusBanner" class="card-surface p-6 text-center text-sm text-slate-600">
-      Loading Bay Area property tax dataset&hellip;
+      Loading Bay Area property tax &amp; business audit dataset&hellip;
     </div>
 
-    <!-- 4 Dynamic KPI Cards -->
-    <section aria-label="Key metrics" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <!-- 4 Dynamic Audit KPI Cards -->
+    <section aria-label="Audit key metrics" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <div class="kpi-card p-5">
         <div class="flex items-center justify-between gap-2 mb-1">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Filtered Region Tax / Capita</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Region Tax / Capita (2024)</span>
           <span id="kpiRegionCount" class="text-[11px] font-medium text-slate-400 tnum">&mdash;</span>
         </div>
         <div id="kpiRegionValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
         <div id="kpiRegionSub" class="text-xs text-slate-600 mt-1 tnum">&mdash;</div>
       </div>
 
-      <div id="kpiFastestCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect fastest-growing ZIP">
+      <div id="kpiDualCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect top Dual-Engine ZIP">
         <div class="flex items-center justify-between gap-2 mb-1">
-          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Fastest-Growing ZIP (%)</span>
-          <span class="text-[11px] font-medium text-emerald-600">Inspect &rarr;</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Dual-Engine ZIPs</span>
+          <span class="text-[11px] font-medium text-emerald-600">Inspect top &rarr;</span>
         </div>
-        <div id="kpiFastestValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
-        <div id="kpiFastestSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
+        <div id="kpiDualValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
+        <div id="kpiDualSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
       </div>
 
-      <div id="kpiGainCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect ZIP with largest dollar gain">
+      <div id="kpiGapCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect largest commercial Audit Gap ZIP">
         <div class="flex items-center justify-between gap-2 mb-1">
-          <span class="text-xs font-semibold uppercase tracking-wider text-blue-700">Largest Per-Capita Gain (+$)</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-rose-700">Audit Gaps Flagged</span>
+          <span class="text-[11px] font-medium text-rose-600">Inspect top &rarr;</span>
+        </div>
+        <div id="kpiGapValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
+        <div id="kpiGapSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
+      </div>
+
+      <div id="kpiBizCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect top business payroll per-capita ZIP">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-xs font-semibold uppercase tracking-wider text-blue-700">Top Business Engine (2023)</span>
           <span class="text-[11px] font-medium text-blue-600">Inspect &rarr;</span>
         </div>
-        <div id="kpiGainValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
-        <div id="kpiGainSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
-      </div>
-
-      <div id="kpiHighestCard" data-clickable="true" class="kpi-card p-5 cursor-pointer" title="Click to inspect highest per-capita tax ZIP">
-        <div class="flex items-center justify-between gap-2 mb-1">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Highest Tax Base / Capita (2024)</span>
-          <span class="text-[11px] font-medium text-slate-500">Inspect &rarr;</span>
-        </div>
-        <div id="kpiHighestValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
-        <div id="kpiHighestSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
+        <div id="kpiBizValue" class="text-2xl font-bold text-slate-900 tnum">&mdash;</div>
+        <div id="kpiBizSub" class="text-xs text-slate-600 mt-1 tnum truncate">&mdash;</div>
       </div>
     </section>
 
-    <!-- Hero Analytics Grid: Map + Deep-Dive Inspector -->
+    <!-- Hero Analytics Grid: Map + Deep-Dive Audit Inspector -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       <!-- Left: Leaflet Interactive Map -->
       <div class="card-surface p-4 sm:p-5 lg:col-span-7">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
-            <h2 class="text-lg font-serif font-bold text-slate-900">Bay Area Geographic Distribution</h2>
+            <h2 class="text-lg font-serif font-bold text-slate-900">Bay Area Geographic Audit Map</h2>
             <p id="mapSubtitle" class="text-xs text-slate-500">Color encodes active metric across ZCTAs; bubble radius scales with population.</p>
           </div>
           <button id="resetMapBtn" type="button" class="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
@@ -231,77 +248,93 @@
         <div id="map" class="border border-slate-200"></div>
       </div>
 
-      <!-- Right: ZIP Code Intelligence Inspector -->
+      <!-- Right: ZIP Code Audit Inspector -->
       <aside class="card-surface p-5 sm:p-6 lg:col-span-5">
         <div class="flex items-start justify-between gap-3 mb-3">
           <div>
-            <div class="flex flex-wrap items-center gap-2 mb-1">
+            <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
               <span id="inspZipBadge" class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white text-sm font-bold tnum">&mdash;</span>
               <span id="inspCountyBadge" class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">&mdash;</span>
-              <span id="inspReliabilityBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold">&mdash;</span>
+              <span id="inspReliabilityBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold">&mdash;</span>
             </div>
             <h2 id="inspTitle" class="text-xl font-serif font-bold text-slate-900">Select a ZIP Code</h2>
             <p id="inspMeta" class="text-xs text-slate-500 mt-0.5 tnum">&mdash;</p>
           </div>
         </div>
 
-        <!-- Signal Classification Pill -->
+        <!-- Audit Verdict Banner -->
         <div class="mb-4 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Signal Classification</span>
-            <span id="inspSignalPill" class="px-2.5 py-0.5 rounded-full text-xs font-semibold">&mdash;</span>
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Audit Verdict</span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span id="inspAuditPill" class="px-2.5 py-0.5 rounded-full text-xs font-semibold">&mdash;</span>
+              <span id="inspDenomPill" class="hidden px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900 border border-amber-300">Pop Drop &lt; -10%</span>
+            </div>
           </div>
-          <p id="inspSignalNote" class="text-xs text-slate-600 mt-1.5 leading-relaxed tnum">&mdash;</p>
+          <p id="inspAuditNote" class="text-xs text-slate-600 mt-1.5 leading-relaxed tnum">&mdash;</p>
+          <p id="inspBenchmarkNote" class="text-[11px] text-slate-400 mt-1 tnum">&mdash;</p>
         </div>
 
-        <!-- 2014-2024 Trajectory Chart -->
+        <!-- Dual-Series Trajectory Chart -->
         <div class="mb-4">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500">2014&ndash;2024 Tax / Capita Trajectory</h3>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div class="inline-flex rounded-lg bg-slate-100 p-0.5 text-[11px] font-semibold">
+              <button type="button" data-traj="tax" class="traj-btn px-2 py-0.5 rounded-md bg-white text-slate-900 shadow-sm">Tax / Cap (14&ndash;24)</button>
+              <button type="button" data-traj="biz" class="traj-btn px-2 py-0.5 rounded-md text-slate-600 hover:text-slate-900">Biz Payroll / Cap (14&ndash;23)</button>
+            </div>
             <span id="inspHorizonLabel" class="text-[11px] font-medium text-slate-500 tnum">&mdash;</span>
           </div>
-          <div class="h-44">
+          <div class="h-40">
             <canvas id="trajectoryChart"></canvas>
           </div>
         </div>
 
-        <!-- Growth Decomposition Mini-Grid -->
-        <div class="grid grid-cols-3 gap-2.5 mb-4">
+        <!-- 2x2 Audit Decomposition Grid -->
+        <div class="grid grid-cols-2 gap-2.5 mb-4">
           <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
             <p class="text-[11px] font-semibold text-slate-500">Per-Capita Tax</p>
             <p id="inspDecompPc" class="text-sm font-bold text-slate-900 mt-0.5 tnum">&mdash;</p>
             <p id="inspDecompPcSub" class="text-[11px] text-slate-500 mt-0.5 tnum">&mdash;</p>
           </div>
           <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-            <p class="text-[11px] font-semibold text-slate-500">Aggregate Pool</p>
+            <p class="text-[11px] font-semibold text-slate-500">Tax Pool vs. Pop</p>
             <p id="inspDecompPool" class="text-sm font-bold text-slate-900 mt-0.5 tnum">&mdash;</p>
-            <p id="inspDecompPoolSub" class="text-[11px] text-slate-500 mt-0.5 tnum">&mdash;</p>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-            <p class="text-[11px] font-semibold text-slate-500">Population</p>
-            <p id="inspDecompPop" class="text-sm font-bold text-slate-900 mt-0.5 tnum">&mdash;</p>
             <p id="inspDecompPopSub" class="text-[11px] text-slate-500 mt-0.5 tnum">&mdash;</p>
+          </div>
+          <div class="p-3 rounded-xl bg-blue-50/50 border border-blue-200/60">
+            <p class="text-[11px] font-semibold text-blue-800">Biz Payroll / Cap (2023)</p>
+            <p id="inspBizPc" class="text-sm font-bold text-slate-900 mt-0.5 tnum">&mdash;</p>
+            <p id="inspBizPcSub" class="text-[11px] text-slate-600 mt-0.5 tnum">&mdash;</p>
+          </div>
+          <div class="p-3 rounded-xl bg-blue-50/50 border border-blue-200/60">
+            <p class="text-[11px] font-semibold text-blue-800">Local Business Base (2023)</p>
+            <p id="inspBizBase" class="text-sm font-bold text-slate-900 mt-0.5 tnum">&mdash;</p>
+            <p id="inspBizBaseSub" class="text-[11px] text-slate-600 mt-0.5 tnum">&mdash;</p>
           </div>
         </div>
 
-        <!-- Quality-of-Living Indicators -->
-        <div class="border-t border-slate-200 pt-3.5">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2.5">2024 Quality-of-Living Indicators</h3>
-          <div class="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+        <!-- Quality-of-Living & Capture Context -->
+        <div class="border-t border-slate-200 pt-3">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Living Quality &amp; Commercial Capture</h3>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1">
               <span class="text-slate-500">Mean Tax / Home</span>
               <span id="inspTaxOwner" class="font-semibold text-slate-900 tnum">&mdash;</span>
             </div>
-            <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
-              <span class="text-slate-500">Med. Income</span>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1">
+              <span class="text-slate-500">Tax / $100 Payroll</span>
+              <span id="inspTaxCapture" class="font-semibold text-slate-900 tnum">&mdash;</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1">
+              <span class="text-slate-500">Med. Income (2024)</span>
               <span id="inspMedIncome" class="font-semibold text-slate-900 tnum">&mdash;</span>
             </div>
-            <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1">
               <span class="text-slate-500">Med. Home Value</span>
               <span id="inspHomeVal" class="font-semibold text-slate-900 tnum">&mdash;</span>
             </div>
-            <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
-              <span class="text-slate-500">Homeownership</span>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1 col-span-2">
+              <span class="text-slate-500">Homeownership Rate (Owner-Occ Units)</span>
               <span id="inspOwnership" class="font-semibold text-slate-900 tnum">&mdash;</span>
             </div>
           </div>
@@ -316,7 +349,7 @@
         <div class="flex flex-wrap items-start justify-between gap-2 mb-4">
           <div>
             <h2 class="text-lg font-serif font-bold text-slate-900">All 9 Bay Area Counties Compared</h2>
-            <p class="text-xs text-slate-500">Click any county bar to filter the map &amp; leaderboard (click again to clear).</p>
+            <p class="text-xs text-slate-500">Click any county bar to filter the audit map &amp; leaderboard (click again to clear).</p>
           </div>
           <span id="countyChartBadge" class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 tnum">&mdash;</span>
         </div>
@@ -325,16 +358,17 @@
         </div>
       </div>
 
-      <!-- Right: Scatter Chart -->
+      <!-- Right: Business-to-Tax Audit Matrix Scatter -->
       <div class="card-surface p-5 sm:p-6">
         <div class="flex flex-wrap items-start justify-between gap-2 mb-4">
           <div>
-            <h2 class="text-lg font-serif font-bold text-slate-900">Quality-of-Living Signal Scatter</h2>
-            <p id="scatterSubtitle" class="text-xs text-slate-500">Above dashed Y=X line: tax pool growing faster than population (per-capita tax rising).</p>
+            <h2 class="text-lg font-serif font-bold text-slate-900">Business-to-Tax Audit Matrix</h2>
+            <p id="scatterSubtitle" class="text-xs text-slate-500">Dashed crosshairs show Bay Area medians. Bottom-right = Audit Gap (business up, tax lagging).</p>
           </div>
-          <div class="inline-flex rounded-lg bg-slate-100 p-0.5 text-xs font-semibold">
-            <button type="button" data-scatter="decomp" class="scatter-btn px-2.5 py-1 rounded-md bg-white text-slate-900 shadow-sm">Growth Decomp.</button>
-            <button type="button" data-scatter="income" class="scatter-btn px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">Income vs. Growth</button>
+          <div class="inline-flex flex-wrap rounded-lg bg-slate-100 p-0.5 text-[11px] font-semibold">
+            <button type="button" data-scatter="audit" class="scatter-btn px-2 py-1 rounded-md bg-white text-slate-900 shadow-sm">Biz vs. Tax Audit</button>
+            <button type="button" data-scatter="decomp" class="scatter-btn px-2 py-1 rounded-md text-slate-600 hover:text-slate-900">Tax Pool vs. Pop</button>
+            <button type="button" data-scatter="income" class="scatter-btn px-2 py-1 rounded-md text-slate-600 hover:text-slate-900">Income vs. Tax</button>
           </div>
         </div>
         <div class="h-72">
@@ -343,33 +377,33 @@
       </div>
     </section>
 
-    <!-- Sortable & Exportable Leaderboard Table -->
+    <!-- Sortable & Exportable Audit Leaderboard Table -->
     <section class="card-surface overflow-hidden">
       <div class="p-5 sm:p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 class="text-lg font-serif font-bold text-slate-900">ZIP Code Leaderboard</h2>
+          <h2 class="text-lg font-serif font-bold text-slate-900">ZIP Code Audit Leaderboard</h2>
           <p id="tableCountLabel" class="text-xs text-slate-500 tnum">Showing 0 residential ZCTAs. Click any row to inspect &amp; highlight on the map.</p>
         </div>
         <button id="exportCsvBtn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors self-start sm:self-auto">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" /></svg>
-          Export CSV
+          Export Audit CSV
         </button>
       </div>
-      <div class="overflow-x-auto max-h-[540px]">
-        <table class="w-full text-left border-collapse min-w-[1040px]">
+      <div class="overflow-x-auto max-h-[560px]">
+        <table class="w-full text-left border-collapse min-w-[1160px]">
           <thead class="sticky top-0 z-10 bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
             <tr>
-              <th class="py-3 px-4 w-12">#</th>
+              <th class="py-3 px-3 w-10">#</th>
               <th data-sort="zip" class="sortable py-3 px-3">ZIP &amp; Community</th>
+              <th data-sort="auditRank" class="sortable py-3 px-3">Audit Verdict</th>
               <th data-sort="county" class="sortable py-3 px-3">County</th>
               <th data-sort="taxCap24" class="sortable py-3 px-3 text-right">2024 Tax / Cap</th>
-              <th data-sort="taxCapBase" class="sortable py-3 px-3 text-right"><span id="baseColHdr">2019</span> Base</th>
-              <th data-sort="growthPct" class="sortable py-3 px-3 text-right">Growth (%)</th>
-              <th data-sort="cagrPct" class="sortable py-3 px-3 text-right">CAGR</th>
+              <th data-sort="growthPct" class="sortable py-3 px-3 text-right"><span id="taxSpanHdr">19&rarr;24</span> Tax %</th>
               <th data-sort="gainUsd" class="sortable py-3 px-3 text-right">Gain (+$)</th>
-              <th data-sort="aggTaxGrowthPct" class="sortable py-3 px-3 text-right">Tax Pool vs. Pop</th>
-              <th data-sort="taxOwner24" class="sortable py-3 px-3 text-right">Mean Tax / Home</th>
-              <th data-sort="medIncome24" class="sortable py-3 px-3 text-right">Med. Income</th>
+              <th data-sort="bizPayrollPc23" class="sortable py-3 px-3 text-right">Biz Pay / Cap (23)</th>
+              <th data-sort="bizPayrollGrowthPct" class="sortable py-3 px-3 text-right"><span id="bizSpanHdr">19&rarr;23</span> Biz %</th>
+              <th data-sort="jobsPerRes23" class="sortable py-3 px-3 text-right">Jobs / Pop</th>
+              <th data-sort="aggTaxGrowthPct" class="sortable py-3 px-3 text-right">Pool / Pop %</th>
               <th data-sort="pop24" class="sortable py-3 px-4 text-right">Pop (2024)</th>
             </tr>
           </thead>
@@ -378,26 +412,26 @@
       </div>
     </section>
 
-    <!-- Methodology & Prop 13 Insights -->
+    <!-- Methodology & Dual-Dataset Audit Insights -->
     <section class="card-surface p-6 sm:p-8">
-      <h2 class="text-xl font-serif font-bold text-slate-900 mb-4">Methodology &amp; California Prop&nbsp;13 Context</h2>
+      <h2 class="text-xl font-serif font-bold text-slate-900 mb-4">Audit Methodology &amp; Prop&nbsp;13 Commercial-to-Residential Mechanics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
         <div>
-          <h3 class="font-semibold text-slate-900 mb-1.5">1. Uncapped Formula (<code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">B25090 &divide; B01003</code>)</h3>
+          <h3 class="font-semibold text-slate-900 mb-1.5">1. Dual-Dataset Audit Architecture</h3>
           <p>
-            Census table <code class="font-mono text-xs">B25103</code> (Median Real Estate Taxes Paid) is top-coded at <strong>$10,001</strong> (&ldquo;$10,000+&rdquo;) across most Bay Area ZIP codes, masking upper-tier price and tax dynamics. Instead, this tracker divides <strong>uncapped aggregate residential real estate taxes paid</strong> (<code class="font-mono text-xs">B25090_E001</code>) by total resident population (<code class="font-mono text-xs">B01003_E001</code>), and also computes uncapped mean tax per owner-occupied unit (<code class="font-mono text-xs">B25090_E001 &divide; B25003_E002</code>).
+            Residential property tax capacity comes from U.S. Census ACS 5-Year <strong>uncapped aggregate residential real estate taxes paid</strong> (<code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">B25090_E001 &divide; B01003_E001</code>) rather than top-coded median taxes (<code class="font-mono text-xs">B25103</code>). Business vitality comes from U.S. Census <strong>ZIP Code Business Patterns (ZBP, 2014&ndash;2023)</strong> tracking private-sector establishments (<code class="font-mono text-xs">est</code>), jobs (<code class="font-mono text-xs">emp</code>), and annual payroll (<code class="font-mono text-xs">ap</code>).
           </p>
         </div>
         <div>
-          <h3 class="font-semibold text-slate-900 mb-1.5">2. Prop&nbsp;13 &amp; Quality-of-Living Signal</h3>
+          <h3 class="font-semibold text-slate-900 mb-1.5">2. Why Audit Gaps Happen Under Prop&nbsp;13</h3>
           <p>
-            Under California Proposition&nbsp;13, assessed property values for continuing owners rise at most 2% per year until a sale or new construction resets assessment to market value. Consequently, ZIPs where per-capita residential tax rises materially faster than 2% annually reflect active buyer turnover, housing upgrades, and higher resident-funded local tax capacity. Watch the <em>Tax Pool vs. Pop</em> decomposition to verify gains come from tax-base growth rather than population decline.
+            Healthy Bay Area communities often show <strong>Dual Engine</strong> compounding: commercial payroll growth attracts high-earning residents, housing turnover resets Prop&nbsp;13 assessments (otherwise capped at 2%/yr), and residential tax capacity rises. An <strong>Audit Gap</strong> occurs when a ZIP holds dense or fast-growing business payroll (e.g., long-held commercial/industrial campuses under Prop&nbsp;13 or commuter office hubs with scarce housing supply) while per-capita residential tax growth trails Bay Area medians.
           </p>
         </div>
         <div>
-          <h3 class="font-semibold text-slate-900 mb-1.5">3. 2019 ACS Redesign &amp; Data Scope</h3>
+          <h3 class="font-semibold text-slate-900 mb-1.5">3. Data Hygiene, Suppression &amp; Updates</h3>
           <p>
-            Metrics cover <strong>owner-occupied residential housing units</strong> reported in U.S. Census ACS 5-Year ZCTA estimates (excluding commercial/industrial parcels and ZCTAs under 100 residents). In 2019, the Census redesigned the tax question from intervals to exact dollar write-ins, phasing fully into 5-year estimates over 2019&ndash;2023. Use the <strong>2023 &rarr; 2024</strong> or <strong>2021 &rarr; 2024</strong> horizon for pure post-redesign momentum, and re-run <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">scripts/fetch_bay_area_tax_data.py</code> when new ACS vintages release.
+            Census ZBP withholds exact payroll/employment (<code class="font-mono text-xs">ap_nf=&lsquo;D&rsquo;</code>) where a single dominant employer could be identified (such as Cupertino <code class="font-mono text-xs">95014</code> in 2014); suppressed fields are kept <code class="font-mono text-xs">null</code> rather than coerced to zero. Also note the 2019 ACS questionnaire redesign to exact dollar write-ins (toggle <strong>Recent YoY</strong> or <strong>3-Yr</strong> for post-redesign momentum). Re-run <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">scripts/fetch_bay_area_tax_data.py</code> as new Census vintages release.
           </p>
         </div>
       </div>
@@ -406,15 +440,22 @@
 
   <footer class="border-t border-slate-200 bg-white mt-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-      <span>Data: U.S. Census Bureau ACS 5-Year (2014&ndash;2024) &amp; 2020/2024 TIGER ZCTA Geography</span>
-      <span>Scope: 9 San Francisco Bay Area Counties &bull; Residential Property Taxes Per Capita</span>
+      <span>Data: U.S. Census Bureau ACS 5-Year (2014&ndash;2024), ZBP (2014&ndash;2023) &amp; TIGER ZCTA Geography</span>
+      <span>Scope: 9 San Francisco Bay Area Counties &bull; Property Tax &amp; Business Audit</span>
     </div>
   </footer>
 
   <script>
     (function () {
-      const TARGET_YEAR = 2024;
-      const ALL_YEARS = [2014, 2019, 2021, 2022, 2023, 2024];
+      const HORIZON_MAP = {
+        2019: { taxBase: 2019, taxEnd: 2024, bizBase: 2019, bizEnd: 2023, taxTag: '19→24', bizTag: '19→23' },
+        2023: { taxBase: 2023, taxEnd: 2024, bizBase: 2022, bizEnd: 2023, taxTag: '23→24', bizTag: '22→23' },
+        2021: { taxBase: 2021, taxEnd: 2024, bizBase: 2021, bizEnd: 2023, taxTag: '21→24', bizTag: '21→23' },
+        2014: { taxBase: 2014, taxEnd: 2024, bizBase: 2014, bizEnd: 2023, taxTag: '14→24', bizTag: '14→23' },
+      };
+
+      const ALL_TAX_YEARS = [2014, 2019, 2021, 2022, 2023, 2024];
+      const ALL_BIZ_YEARS = [2014, 2019, 2021, 2022, 2023];
       const INCOME_TOP_CODE = 250001;
       const HOME_VAL_TOP_CODE = 2000001;
       const DEFAULT_CENTER = [37.68, -122.18];
@@ -424,17 +465,48 @@
       const NEG_COLOR = '#d97706';
       const DEEP_NEG_COLOR = '#e11d48';
 
+      const AUDIT_META = {
+        dual: {
+          label: 'Dual Engine',
+          rank: 1,
+          badgeCls: 'bg-emerald-100 text-emerald-900 border border-emerald-200',
+          pointColor: 'rgba(5, 150, 105, 0.78)',
+        },
+        gap: {
+          label: 'Audit Gap',
+          rank: 2,
+          badgeCls: 'bg-rose-100 text-rose-900 border border-rose-200',
+          pointColor: 'rgba(225, 29, 72, 0.80)',
+        },
+        residential: {
+          label: 'Residential-Led',
+          rank: 3,
+          badgeCls: 'bg-blue-100 text-blue-900 border border-blue-200',
+          pointColor: 'rgba(37, 99, 235, 0.72)',
+        },
+        watchlist: {
+          label: 'Fiscal Watchlist',
+          rank: 4,
+          badgeCls: 'bg-slate-200 text-slate-800 border border-slate-300',
+          pointColor: 'rgba(100, 116, 139, 0.65)',
+        },
+      };
+
       const state = {
         rawData: null,
-        horizonBase: 2019,
+        horizonKey: 2019,
         metric: 'growthPct',
+        auditFilter: 'ALL',
         county: 'ALL',
         minPop: 2500,
         search: '',
-        scatterMode: 'decomp',
+        scatterMode: 'audit',
+        trajectoryMode: 'tax',
         sortKey: 'growthPct',
         sortDir: 'desc',
         selectedZip: null,
+        medTaxG: 0,
+        medBizG: 0,
         filteredRows: [],
         countyRows: [],
       };
@@ -463,6 +535,16 @@
         }).format(v);
       };
 
+      const fmtShortUsd = (v) => {
+        if (v === null || v === undefined || !Number.isFinite(v)) return '—';
+        const abs = Math.abs(v);
+        const sign = v < 0 ? '-' : '';
+        if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(2)}B`;
+        if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(1)}M`;
+        if (abs >= 1e4) return `${sign}$${(abs / 1e3).toFixed(0)}k`;
+        return `${sign}$${Math.round(abs).toLocaleString()}`;
+      };
+
       const fmtSignedCurrency = (v) => {
         if (v === null || v === undefined || !Number.isFinite(v)) return '—';
         const sign = v > 0 ? '+' : v < 0 ? '-' : '';
@@ -480,11 +562,6 @@
         return new Intl.NumberFormat('en-US').format(Math.round(v));
       };
 
-      const fmtMillions = (v) => {
-        if (v === null || v === undefined || !Number.isFinite(v)) return '—';
-        return `$${(v / 1e6).toFixed(1)}M`;
-      };
-
       const fmtIncome = (v) => {
         if (v === null || v === undefined || !Number.isFinite(v)) return '—';
         if (v >= INCOME_TOP_CODE) return '$250k+';
@@ -498,34 +575,12 @@
         return `$${Math.round(v / 1000)}k`;
       };
 
-      function classifyZip(row) {
-        if (row.popGrowthPct < -10) {
-          return {
-            label: 'Denominator Effect',
-            badgeCls: 'bg-amber-100 text-amber-900 border border-amber-200',
-            note: `Resident population declined ${fmtPct(row.popGrowthPct)}, mechanically lifting per-capita figures even apart from tax pool growth (${fmtPct(row.aggTaxGrowthPct)}).`
-          };
-        }
-        if (row.growthPct > 0 && row.aggTaxGrowthPct >= row.growthPct * 0.7 && row.popGrowthPct >= -3) {
-          return {
-            label: 'Expanding Tax Base',
-            badgeCls: 'bg-emerald-100 text-emerald-900 border border-emerald-200',
-            note: `Total tax pool expanded ${fmtPct(row.aggTaxGrowthPct)} while population shifted ${fmtPct(row.popGrowthPct)}, confirming genuine capital reinvestment & Prop 13 turnover.`
-          };
-        }
-        if (row.aggTaxGrowthPct > 10 && row.popGrowthPct < -3 && row.popGrowthPct >= -10) {
-          return {
-            label: 'High-Value Turnover',
-            badgeCls: 'bg-blue-100 text-blue-900 border border-blue-200',
-            note: `Total tax pool rose ${fmtPct(row.aggTaxGrowthPct)} alongside a modest population shift (${fmtPct(row.popGrowthPct)}), pointing to higher-value residential sales.`
-          };
-        }
-        return {
-          label: 'Modest / Prop 13 Anchored',
-          badgeCls: 'bg-slate-200 text-slate-800 border border-slate-300',
-          note: `Per-capita taxes moved ${fmtPct(row.growthPct)} (${fmtPct(row.cagrPct)}/yr) with pool change of ${fmtPct(row.aggTaxGrowthPct)} and population shift of ${fmtPct(row.popGrowthPct)}.`
-        };
-      }
+      const calcMedian = (arr) => {
+        const clean = arr.filter((v) => v !== null && v !== undefined && Number.isFinite(v)).sort((a, b) => a - b);
+        if (!clean.length) return 0;
+        const mid = Math.floor(clean.length / 2);
+        return clean.length % 2 !== 0 ? clean[mid] : (clean[mid - 1] + clean[mid]) / 2;
+      };
 
       function reliabilityInfo(cv) {
         if (cv === null || cv === undefined || !Number.isFinite(cv)) {
@@ -540,28 +595,68 @@
         return { label: `Small Sample (CV ${cv.toFixed(1)}%)`, cls: 'bg-amber-50 text-amber-800 border border-amber-200' };
       }
 
+      function buildAuditDiagnosis(row, h, medTaxG, medBizG) {
+        const denomNote = row.denomWarning
+          ? ` Warning: resident population dropped ${fmtPct(row.popGrowthPct)}, lifting per-capita ratios mathematically.`
+          : '';
+        const bizPart = row.bizPayrollGrowthPct !== null
+          ? `business payroll/cap shifted ${fmtPct(row.bizPayrollGrowthPct)} (${h.bizTag}) with ${row.jobsPerRes23 !== null ? row.jobsPerRes23.toFixed(2) : '—'} jobs/res`
+          : `local jobs density is ${row.jobsPerRes23 !== null ? row.jobsPerRes23.toFixed(2) : '—'} jobs/res (prior ZBP payroll disclosure-suppressed)`;
+
+        if (row.auditStatus === 'dual') {
+          return `Outperforming both regional benchmarks: per-capita residential tax grew ${fmtPct(row.growthPct)} vs. ${fmtPct(medTaxG)} median (${h.taxTag}), while ${bizPart}.${denomNote}`;
+        }
+        if (row.auditStatus === 'gap') {
+          return `Commercial-to-tax disconnect: ${bizPart} (above regional business threshold), yet residential tax/cap grew only ${fmtPct(row.growthPct)} vs. ${fmtPct(medTaxG)} median.${denomNote}`;
+        }
+        if (row.auditStatus === 'residential') {
+          return `Residential tax outperformed (${fmtPct(row.growthPct)} vs. ${fmtPct(medTaxG)} median), driven by home turnover/wealth rather than above-median commercial payroll expansion (${fmtPct(row.bizPayrollGrowthPct)}).${denomNote}`;
+        }
+        return `Both residential tax growth (${fmtPct(row.growthPct)} vs. ${fmtPct(medTaxG)} median) and commercial payroll growth (${fmtPct(row.bizPayrollGrowthPct)} vs. ${fmtPct(medBizG)} median) trailed regional medians.${denomNote}`;
+      }
+
       function computeRows() {
-        const baseStr = String(state.horizonBase);
-        const spanYears = TARGET_YEAR - state.horizonBase;
+        const h = HORIZON_MAP[state.horizonKey];
+        const taxBaseStr = String(h.taxBase);
+        const taxEndStr = String(h.taxEnd);
+        const bizBaseStr = String(h.bizBase);
+        const bizEndStr = String(h.bizEnd);
+        const taxSpan = h.taxEnd - h.taxBase;
         const query = state.search.trim().toLowerCase();
 
-        const computed = [];
+        const regionalRows = [];
         for (const z of state.rawData.zips) {
-          const y24 = z.years[String(TARGET_YEAR)];
-          const yBase = z.years[baseStr];
+          const y24 = z.years[taxEndStr];
+          const yBase = z.years[taxBaseStr];
           if (!y24 || !yBase) continue;
           if (y24.pop < state.minPop) continue;
+
+          const bEnd = z.biz ? z.biz[bizEndStr] : null;
+          const bBase = z.biz ? z.biz[bizBaseStr] : null;
 
           const taxCap24 = y24.perCapita;
           const taxCapBase = yBase.perCapita;
           const gainUsd = taxCap24 - taxCapBase;
           const growthPct = (gainUsd / taxCapBase) * 100;
-          const cagrPct = (Math.pow(taxCap24 / taxCapBase, 1 / spanYears) - 1) * 100;
+          const cagrPct = (Math.pow(taxCap24 / taxCapBase, 1 / taxSpan) - 1) * 100;
           const aggTaxGrowthPct = ((y24.aggTax - yBase.aggTax) / yBase.aggTax) * 100;
           const popGrowthPct = ((y24.pop - yBase.pop) / yBase.pop) * 100;
           const ownershipPct = y24.occUnits && y24.ownerUnits ? (y24.ownerUnits / y24.occUnits) * 100 : null;
 
-          computed.push({
+          const est23 = bEnd ? bEnd.est : null;
+          const emp23 = bEnd ? bEnd.emp : null;
+          const payroll23 = bEnd ? bEnd.payroll : null;
+          const bizPayrollPc23 = bEnd ? bEnd.payrollPerCapita : null;
+          const bizPayrollPcBase = bBase ? bBase.payrollPerCapita : null;
+          const bizPayrollGrowthPct =
+            bizPayrollPc23 !== null && bizPayrollPcBase !== null && bizPayrollPcBase > 0
+              ? ((bizPayrollPc23 - bizPayrollPcBase) / bizPayrollPcBase) * 100
+              : null;
+          const jobsPerRes23 = bEnd ? bEnd.jobsPerResident : null;
+          const avgWage23 = bEnd ? bEnd.avgWage : null;
+          const taxPer100Payroll = payroll23 && payroll23 > 0 ? (y24.aggTax / payroll23) * 100 : null;
+
+          regionalRows.push({
             raw: z,
             zip: z.zip,
             city: z.city,
@@ -581,11 +676,42 @@
             cagrPct,
             aggTaxGrowthPct,
             popGrowthPct,
+            denomWarning: popGrowthPct < -10,
             taxOwner24: y24.taxPerOwner,
             medIncome24: y24.medIncome,
             medHomeVal24: y24.medHomeVal,
             ownershipPct,
+            est23,
+            emp23,
+            payroll23,
+            bizPayrollPc23,
+            bizPayrollPcBase,
+            bizPayrollGrowthPct,
+            jobsPerRes23,
+            avgWage23,
+            taxPer100Payroll,
           });
+        }
+
+        // Regional medians anchor audit classification consistently across filters
+        state.medTaxG = calcMedian(regionalRows.map((r) => r.growthPct));
+        state.medBizG = calcMedian(regionalRows.map((r) => r.bizPayrollGrowthPct));
+
+        for (const r of regionalRows) {
+          const taxAbove = r.growthPct >= state.medTaxG;
+          const bizGrowAbove = r.bizPayrollGrowthPct !== null && r.bizPayrollGrowthPct >= state.medBizG;
+          const denseJobs = r.jobsPerRes23 !== null && r.jobsPerRes23 >= (taxAbove ? 0.6 : 0.75);
+          if (taxAbove && (bizGrowAbove || denseJobs)) {
+            r.auditStatus = 'dual';
+          } else if (!taxAbove && (bizGrowAbove || denseJobs)) {
+            r.auditStatus = 'gap';
+          } else if (taxAbove) {
+            r.auditStatus = 'residential';
+          } else {
+            r.auditStatus = 'watchlist';
+          }
+          r.auditRank = AUDIT_META[r.auditStatus].rank;
+          r.auditNote = buildAuditDiagnosis(r, h, state.medTaxG, state.medBizG);
         }
 
         // County comparison computed across all 9 counties matching active minPop & horizon
@@ -598,21 +724,38 @@
             taxBase: 0,
             popBase: 0,
             owner24: 0,
+            pay23: 0,
+            popBiz23: 0,
+            payBase: 0,
+            popBizBase: 0,
             zipsCount: 0,
           });
         }
-        for (const r of computed) {
+        for (const r of regionalRows) {
           const c = countyMap.get(r.county);
           if (!c) continue;
           c.tax24 += r.aggTax24;
           c.pop24 += r.pop24;
           c.taxBase += r.aggTaxBase;
           c.popBase += r.popBase;
-          if (r.raw.years[String(TARGET_YEAR)].ownerUnits) {
-            c.owner24 += r.raw.years[String(TARGET_YEAR)].ownerUnits;
+          const owners = r.raw.years[taxEndStr].ownerUnits;
+          if (owners) c.owner24 += owners;
+
+          const b23 = r.raw.biz ? r.raw.biz[bizEndStr] : null;
+          const bBase = r.raw.biz ? r.raw.biz[bizBaseStr] : null;
+          const pop23 = r.raw.years[bizEndStr]?.pop;
+          const popBizB = r.raw.years[bizBaseStr]?.pop;
+          if (b23 && b23.payroll !== null && pop23) {
+            c.pay23 += b23.payroll;
+            c.popBiz23 += pop23;
+          }
+          if (bBase && bBase.payroll !== null && popBizB) {
+            c.payBase += bBase.payroll;
+            c.popBizBase += popBizB;
           }
           c.zipsCount += 1;
         }
+
         state.countyRows = Array.from(countyMap.values())
           .filter((c) => c.pop24 > 0 && c.popBase > 0)
           .map((c) => {
@@ -621,14 +764,32 @@
             const gainUsd = taxCap24 - taxCapBase;
             const growthPct = (gainUsd / taxCapBase) * 100;
             const taxOwner24 = c.owner24 > 0 ? c.tax24 / c.owner24 : null;
-            return { ...c, taxCap24, taxCapBase, gainUsd, growthPct, taxOwner24 };
+            const bizPayrollPc23 = c.popBiz23 > 0 ? c.pay23 / c.popBiz23 : null;
+            const bizPayrollPcBase = c.popBizBase > 0 ? c.payBase / c.popBizBase : null;
+            const bizPayrollGrowthPct =
+              bizPayrollPc23 !== null && bizPayrollPcBase !== null && bizPayrollPcBase > 0
+                ? ((bizPayrollPc23 - bizPayrollPcBase) / bizPayrollPcBase) * 100
+                : null;
+            const taxPer100Payroll = c.pay23 > 0 ? (c.tax24 / c.pay23) * 100 : null;
+            return {
+              ...c,
+              taxCap24,
+              taxCapBase,
+              gainUsd,
+              growthPct,
+              taxOwner24,
+              bizPayrollPc23,
+              bizPayrollGrowthPct,
+              taxPer100Payroll,
+            };
           });
 
-        // Apply county filter + search query for map/table/scatter/KPIs
-        const filtered = computed.filter((r) => {
+        // Apply county, audit verdict, and search filters
+        const filtered = regionalRows.filter((r) => {
           if (state.county !== 'ALL' && r.county !== state.county) return false;
+          if (state.auditFilter !== 'ALL' && r.auditStatus !== state.auditFilter) return false;
           if (query) {
-            const hay = `${r.zip} ${r.city} ${r.area} ${r.county}`.toLowerCase();
+            const hay = `${r.zip} ${r.city} ${r.area} ${r.county} ${AUDIT_META[r.auditStatus].label}`.toLowerCase();
             if (!hay.includes(query)) return false;
           }
           return true;
@@ -638,8 +799,11 @@
         filtered.sort((a, b) => {
           const va = a[state.sortKey];
           const vb = b[state.sortKey];
-          if (va === null || va === undefined) return 1;
-          if (vb === null || vb === undefined) return -1;
+          const aNull = va === null || va === undefined || (typeof va === 'number' && !Number.isFinite(va));
+          const bNull = vb === null || vb === undefined || (typeof vb === 'number' && !Number.isFinite(vb));
+          if (aNull && bNull) return 0;
+          if (aNull) return 1;
+          if (bNull) return -1;
           if (typeof va === 'string') return va.localeCompare(vb) * dirMul;
           return (va - vb) * dirMul;
         });
@@ -652,10 +816,14 @@
       }
 
       function metricLabel(metric) {
+        const h = HORIZON_MAP[state.horizonKey];
         switch (metric) {
-          case 'growthPct': return `Per Capita Growth (${state.horizonBase}→2024)`;
-          case 'gainUsd': return `Per Capita Gain (${state.horizonBase}→2024)`;
+          case 'growthPct': return `Per Capita Tax Growth (${h.taxTag})`;
+          case 'gainUsd': return `Per Capita Tax Gain (${h.taxTag})`;
           case 'taxCap24': return '2024 Tax / Capita';
+          case 'bizPayrollPc23': return 'Biz Payroll / Capita (2023)';
+          case 'bizPayrollGrowthPct': return `Biz Payroll / Cap Growth (${h.bizTag})`;
+          case 'taxPer100Payroll': return 'Tax / $100 Biz Payroll';
           case 'taxOwner24': return '2024 Mean Tax / Home';
           default: return 'Metric';
         }
@@ -663,20 +831,20 @@
 
       function formatMetricVal(metric, val) {
         if (val === null || val === undefined || !Number.isFinite(val)) return '—';
-        if (metric === 'growthPct') return fmtPct(val, true);
+        if (metric === 'growthPct' || metric === 'bizPayrollGrowthPct') return fmtPct(val, true);
         if (metric === 'gainUsd') return fmtSignedCurrency(val);
+        if (metric === 'bizPayrollPc23') return fmtShortUsd(val);
+        if (metric === 'taxPer100Payroll') return `$${val.toFixed(2)}`;
         return fmtCurrency(val, 0);
       }
 
       function computeColorScale(rows, metric) {
         const vals = rows.map((r) => r[metric]).filter((v) => v !== null && v !== undefined && Number.isFinite(v));
-        const posVals = vals.filter((v) => v >= 0).sort((a, b) => a - b);
+        const isGrowth = metric === 'growthPct' || metric === 'gainUsd' || metric === 'bizPayrollGrowthPct';
+        const posVals = isGrowth ? vals.filter((v) => v >= 0).sort((a, b) => a - b) : [...vals].sort((a, b) => a - b);
         const target = posVals.length >= 5 ? posVals : [...vals].sort((a, b) => a - b);
         if (!target.length) {
-          return {
-            breaks: [0, 0, 0, 0, 0, 0],
-            colorFor: () => PALETTE_POS[0],
-          };
+          return { breaks: [0, 0, 0, 0, 0, 0], colorFor: () => PALETTE_POS[0], hasNeg: false };
         }
         const q = (p) => {
           const idx = Math.min(target.length - 1, Math.max(0, Math.floor(p * (target.length - 1))));
@@ -686,8 +854,9 @@
 
         const colorFor = (v) => {
           if (v === null || v === undefined || !Number.isFinite(v)) return '#cbd5e1';
-          if (metric === 'growthPct' || metric === 'gainUsd') {
-            if (v <= -10 || (metric === 'gainUsd' && v <= -400)) return DEEP_NEG_COLOR;
+          if (isGrowth) {
+            if (v <= -10 && metric !== 'gainUsd') return DEEP_NEG_COLOR;
+            if (metric === 'gainUsd' && v <= -400) return DEEP_NEG_COLOR;
             if (v < 0) return NEG_COLOR;
           }
           if (v >= breaks[4]) return PALETTE_POS[4];
@@ -697,7 +866,7 @@
           return PALETTE_POS[0];
         };
 
-        return { breaks, colorFor, hasNeg: vals.some((v) => v < 0) };
+        return { breaks, colorFor, hasNeg: isGrowth && vals.some((v) => v < 0) };
       }
 
       function initMap() {
@@ -725,6 +894,7 @@
       function renderMap() {
         markerLayer.clearLayers();
         const rows = state.filteredRows;
+        const h = HORIZON_MAP[state.horizonKey];
         const { breaks, colorFor, hasNeg } = computeColorScale(rows, state.metric);
 
         for (const r of rows) {
@@ -739,25 +909,28 @@
             color: isSelected ? '#0f172a' : '#ffffff',
             weight: isSelected ? 3 : 1.25,
             opacity: 1,
-            fillOpacity: isSelected ? 0.95 : 0.82,
+            fillOpacity: isSelected ? 0.96 : 0.82,
           });
 
           const community = r.area ? `${escHtml(r.city)} &middot; ${escHtml(r.area)}` : escHtml(r.city);
+          const am = AUDIT_META[r.auditStatus];
           const tooltipHtml = `
-            <div style="min-width:190px">
-              <div style="font-weight:700;font-size:13px;margin-bottom:2px;">${escHtml(r.zip)} &mdash; ${community}</div>
-              <div style="color:#cbd5e1;font-size:11px;margin-bottom:5px;">${escHtml(r.county)} County &bull; Pop ${fmtInt(r.pop24)}</div>
+            <div style="min-width:225px">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px;">
+                <span style="font-weight:700;font-size:13px;">${escHtml(r.zip)} &mdash; ${community}</span>
+              </div>
+              <div style="color:#cbd5e1;font-size:11px;margin-bottom:6px;">${escHtml(r.county)} County &bull; Pop ${fmtInt(r.pop24)} &bull; <strong>${escHtml(am.label)}</strong></div>
               <div style="display:flex;justify-content:space-between;gap:12px;">
                 <span style="color:#94a3b8;">2024 Tax/Cap:</span>
-                <strong>${fmtCurrency(r.taxCap24)}</strong>
+                <strong>${fmtCurrency(r.taxCap24)} (${fmtPct(r.growthPct)} ${h.taxTag})</strong>
               </div>
               <div style="display:flex;justify-content:space-between;gap:12px;">
-                <span style="color:#94a3b8;">${state.horizonBase}&rarr;2024 Growth:</span>
-                <strong style="color:${r.growthPct >= 0 ? '#34d399' : '#fbbf24'}">${fmtPct(r.growthPct)} (${fmtSignedCurrency(r.gainUsd)})</strong>
+                <span style="color:#94a3b8;">2023 Biz Pay/Cap:</span>
+                <strong>${fmtShortUsd(r.bizPayrollPc23)} (${fmtPct(r.bizPayrollGrowthPct)} ${h.bizTag})</strong>
               </div>
               <div style="display:flex;justify-content:space-between;gap:12px;">
-                <span style="color:#94a3b8;">Population Shift:</span>
-                <span>${fmtPct(r.popGrowthPct)}</span>
+                <span style="color:#94a3b8;">Jobs / Resident:</span>
+                <span>${r.jobsPerRes23 !== null ? r.jobsPerRes23.toFixed(2) : '—'} &bull; Pop ${fmtPct(r.popGrowthPct)}</span>
               </div>
             </div>
           `;
@@ -776,7 +949,7 @@
             { color: PALETTE_POS[1], label: `${formatMetricVal(state.metric, breaks[1])} – ${formatMetricVal(state.metric, breaks[2])}` },
             { color: PALETTE_POS[0], label: `${formatMetricVal(state.metric, breaks[0])} – ${formatMetricVal(state.metric, breaks[1])}` },
           ];
-          if (hasNeg && (state.metric === 'growthPct' || state.metric === 'gainUsd')) {
+          if (hasNeg) {
             items.push({ color: NEG_COLOR, label: 'Negative (< 0)' });
           }
           legendEl.innerHTML = `
@@ -793,65 +966,120 @@
 
       function renderKPIs() {
         const rows = state.filteredRows;
+        const h = HORIZON_MAP[state.horizonKey];
         if (!rows.length) {
           document.getElementById('kpiRegionValue').textContent = 'No matches';
           document.getElementById('kpiRegionSub').textContent = 'Adjust filters or search query';
           document.getElementById('kpiRegionCount').textContent = '0 ZCTAs';
-          for (const id of ['kpiFastestValue', 'kpiFastestSub', 'kpiGainValue', 'kpiGainSub', 'kpiHighestValue', 'kpiHighestSub']) {
+          for (const id of ['kpiDualValue', 'kpiDualSub', 'kpiGapValue', 'kpiGapSub', 'kpiBizValue', 'kpiBizSub']) {
             document.getElementById(id).textContent = '—';
           }
+          document.getElementById('kpiDualCard').onclick = null;
+          document.getElementById('kpiGapCard').onclick = null;
+          document.getElementById('kpiBizCard').onclick = null;
           return;
         }
 
         let sumTax24 = 0, sumPop24 = 0, sumTaxBase = 0, sumPopBase = 0;
+        let sumPay23 = 0, sumPopBiz23 = 0, sumPayBase = 0, sumPopBizBase = 0;
+        const bizEndStr = String(h.bizEnd);
+        const bizBaseStr = String(h.bizBase);
+
         for (const r of rows) {
           sumTax24 += r.aggTax24;
           sumPop24 += r.pop24;
           sumTaxBase += r.aggTaxBase;
           sumPopBase += r.popBase;
+
+          const b23 = r.raw.biz ? r.raw.biz[bizEndStr] : null;
+          const bBase = r.raw.biz ? r.raw.biz[bizBaseStr] : null;
+          const pop23 = r.raw.years[bizEndStr]?.pop;
+          const popBizB = r.raw.years[bizBaseStr]?.pop;
+          if (b23 && b23.payroll !== null && pop23) {
+            sumPay23 += b23.payroll;
+            sumPopBiz23 += pop23;
+          }
+          if (bBase && bBase.payroll !== null && popBizB) {
+            sumPayBase += bBase.payroll;
+            sumPopBizBase += popBizB;
+          }
         }
         const regCap24 = sumTax24 / sumPop24;
         const regCapBase = sumTaxBase / sumPopBase;
         const regGrowth = ((regCap24 - regCapBase) / regCapBase) * 100;
-        const span = TARGET_YEAR - state.horizonBase;
-        const regCagr = (Math.pow(regCap24 / regCapBase, 1 / span) - 1) * 100;
+        const regCagr = (Math.pow(regCap24 / regCapBase, 1 / (h.taxEnd - h.taxBase)) - 1) * 100;
 
-        document.getElementById('kpiRegionValue').textContent = fmtCurrency(regCap24);
-        document.getElementById('kpiRegionSub').textContent = `${fmtPct(regGrowth)} (${fmtPct(regCagr)}/yr CAGR) vs. ${state.horizonBase}`;
+        const regBiz23 = sumPopBiz23 > 0 ? sumPay23 / sumPopBiz23 : null;
+        const regBizBase = sumPopBizBase > 0 ? sumPayBase / sumPopBizBase : null;
+        const regBizGrowth =
+          regBiz23 !== null && regBizBase !== null && regBizBase > 0
+            ? ((regBiz23 - regBizBase) / regBizBase) * 100
+            : null;
+
+        document.getElementById('kpiRegionValue').textContent = `${fmtCurrency(regCap24)} (${fmtPct(regGrowth)})`;
+        document.getElementById('kpiRegionSub').textContent = `Tax CAGR ${fmtPct(regCagr)}/yr • 2023 Biz Pay/Cap: ${fmtShortUsd(regBiz23)} (${fmtPct(regBizGrowth)})`;
         document.getElementById('kpiRegionCount').textContent = `${rows.length} ZCTAs`;
 
-        const byGrowth = [...rows].sort((a, b) => b.growthPct - a.growthPct)[0];
-        document.getElementById('kpiFastestValue').textContent = `${byGrowth.zip} (${fmtPct(byGrowth.growthPct)})`;
-        document.getElementById('kpiFastestSub').textContent = `${byGrowth.area || byGrowth.city}, ${byGrowth.county} • ${fmtSignedCurrency(byGrowth.gainUsd)}`;
-        document.getElementById('kpiFastestCard').onclick = () => selectZip(byGrowth.zip, true);
+        const dualRows = rows.filter((r) => r.auditStatus === 'dual').sort((a, b) => b.growthPct - a.growthPct);
+        if (dualRows.length) {
+          const topDual = dualRows[0];
+          document.getElementById('kpiDualValue').textContent = `${dualRows.length} ZIPs`;
+          document.getElementById('kpiDualSub').textContent = `Top: ${topDual.zip} (${topDual.area || topDual.city}) • Tax ${fmtPct(topDual.growthPct)} | Biz ${fmtPct(topDual.bizPayrollGrowthPct)}`;
+          document.getElementById('kpiDualCard').onclick = () => selectZip(topDual.zip, true);
+        } else {
+          document.getElementById('kpiDualValue').textContent = '0 ZIPs';
+          document.getElementById('kpiDualSub').textContent = 'No Dual-Engine ZIPs in current filter';
+          document.getElementById('kpiDualCard').onclick = null;
+        }
 
-        const byGain = [...rows].sort((a, b) => b.gainUsd - a.gainUsd)[0];
-        document.getElementById('kpiGainValue').textContent = `${byGain.zip} (${fmtSignedCurrency(byGain.gainUsd)})`;
-        document.getElementById('kpiGainSub').textContent = `${byGain.area || byGain.city}, ${byGain.county} • ${fmtCurrency(byGain.taxCap24)}/cap`;
-        document.getElementById('kpiGainCard').onclick = () => selectZip(byGain.zip, true);
+        const gapRows = rows.filter((r) => r.auditStatus === 'gap').sort((a, b) => (b.payroll23 ?? -1) - (a.payroll23 ?? -1));
+        if (gapRows.length) {
+          const topGap = gapRows[0];
+          document.getElementById('kpiGapValue').textContent = `${gapRows.length} ZIPs`;
+          document.getElementById('kpiGapSub').textContent = `Largest: ${topGap.zip} (${topGap.area || topGap.city}) • ${fmtShortUsd(topGap.payroll23)} pay | Tax ${fmtPct(topGap.growthPct)}`;
+          document.getElementById('kpiGapCard').onclick = () => selectZip(topGap.zip, true);
+        } else {
+          document.getElementById('kpiGapValue').textContent = '0 ZIPs';
+          document.getElementById('kpiGapSub').textContent = 'No Audit Gaps in current filter';
+          document.getElementById('kpiGapCard').onclick = null;
+        }
 
-        const byHighest = [...rows].sort((a, b) => b.taxCap24 - a.taxCap24)[0];
-        document.getElementById('kpiHighestValue').textContent = `${byHighest.zip} (${fmtCurrency(byHighest.taxCap24)})`;
-        document.getElementById('kpiHighestSub').textContent = `${byHighest.area || byHighest.city}, ${byHighest.county} • ${fmtMillions(byHighest.aggTax24)} pool`;
-        document.getElementById('kpiHighestCard').onclick = () => selectZip(byHighest.zip, true);
+        const byBiz = [...rows].filter((r) => r.bizPayrollPc23 !== null).sort((a, b) => b.bizPayrollPc23 - a.bizPayrollPc23);
+        if (byBiz.length) {
+          const topBiz = byBiz[0];
+          document.getElementById('kpiBizValue').textContent = `${topBiz.zip} (${fmtShortUsd(topBiz.bizPayrollPc23)}/cap)`;
+          document.getElementById('kpiBizSub').textContent = `${topBiz.area || topBiz.city} • ${fmtInt(topBiz.emp23)} jobs • ${fmtShortUsd(topBiz.payroll23)} payroll`;
+          document.getElementById('kpiBizCard').onclick = () => selectZip(topBiz.zip, true);
+        } else {
+          document.getElementById('kpiBizValue').textContent = '—';
+          document.getElementById('kpiBizSub').textContent = 'No ZBP payroll data';
+          document.getElementById('kpiBizCard').onclick = null;
+        }
       }
 
       function renderInspector() {
+        const h = HORIZON_MAP[state.horizonKey];
         const row = state.filteredRows.find((r) => r.zip === state.selectedZip);
         if (!row) {
           document.getElementById('inspZipBadge').textContent = '—';
           document.getElementById('inspCountyBadge').textContent = 'No match';
           const relEl = document.getElementById('inspReliabilityBadge');
           relEl.textContent = '—';
-          relEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-500';
+          relEl.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-500';
           document.getElementById('inspTitle').textContent = 'No ZIP selected';
           document.getElementById('inspMeta').textContent = 'Adjust filters to inspect a community.';
-          const sigEl = document.getElementById('inspSignalPill');
-          sigEl.textContent = '—';
-          sigEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-500';
-          document.getElementById('inspSignalNote').textContent = '—';
+          const audEl = document.getElementById('inspAuditPill');
+          audEl.textContent = '—';
+          audEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-500';
+          document.getElementById('inspDenomPill').classList.add('hidden');
+          document.getElementById('inspAuditNote').textContent = '—';
+          document.getElementById('inspBenchmarkNote').textContent = '—';
           document.getElementById('inspHorizonLabel').textContent = '—';
-          for (const id of ['inspDecompPc', 'inspDecompPcSub', 'inspDecompPool', 'inspDecompPoolSub', 'inspDecompPop', 'inspDecompPopSub', 'inspTaxOwner', 'inspMedIncome', 'inspHomeVal', 'inspOwnership']) {
+          for (const id of [
+            'inspDecompPc', 'inspDecompPcSub', 'inspDecompPool', 'inspDecompPopSub',
+            'inspBizPc', 'inspBizPcSub', 'inspBizBase', 'inspBizBaseSub',
+            'inspTaxOwner', 'inspTaxCapture', 'inspMedIncome', 'inspHomeVal', 'inspOwnership',
+          ]) {
             document.getElementById(id).textContent = '—';
           }
           if (trajectoryChart) {
@@ -873,23 +1101,40 @@
         const ownText = row.ownershipPct !== null ? `${row.ownershipPct.toFixed(1)}% owner-occ` : 'Tenure N/A';
         document.getElementById('inspMeta').textContent = `Pop (2024): ${fmtInt(row.pop24)} • ${ownText} • ${row.raw.sqMi} sq mi`;
 
-        const sig = classifyZip(row);
-        const sigEl = document.getElementById('inspSignalPill');
-        sigEl.textContent = sig.label;
-        sigEl.className = `px-2.5 py-0.5 rounded-full text-xs font-semibold ${sig.badgeCls}`;
-        document.getElementById('inspSignalNote').textContent = sig.note;
+        const am = AUDIT_META[row.auditStatus];
+        const audEl = document.getElementById('inspAuditPill');
+        audEl.textContent = am.label;
+        audEl.className = `px-2.5 py-0.5 rounded-full text-xs font-semibold ${am.badgeCls}`;
+        document.getElementById('inspDenomPill').classList.toggle('hidden', !row.denomWarning);
+        document.getElementById('inspAuditNote').textContent = row.auditNote;
+        document.getElementById('inspBenchmarkNote').textContent =
+          `Regional Benchmark Medians — Tax: ${fmtPct(state.medTaxG)} (${h.taxTag}) • Biz Payroll/Cap: ${fmtPct(state.medBizG)} (${h.bizTag})`;
 
-        document.getElementById('inspHorizonLabel').textContent = `Highlighted: ${state.horizonBase} → 2024`;
-        document.getElementById('inspDecompPc').textContent = fmtPct(row.growthPct);
+        document.getElementById('inspHorizonLabel').textContent =
+          state.trajectoryMode === 'tax' ? `Tax ${h.taxTag}` : `Biz ${h.bizTag}`;
+
+        document.getElementById('inspDecompPc').textContent = `${fmtPct(row.growthPct)} (${fmtSignedCurrency(row.gainUsd)})`;
         document.getElementById('inspDecompPcSub').textContent = `${fmtCurrency(row.taxCapBase)} → ${fmtCurrency(row.taxCap24)} (${fmtPct(row.cagrPct)}/yr)`;
 
-        document.getElementById('inspDecompPool').textContent = fmtPct(row.aggTaxGrowthPct);
-        document.getElementById('inspDecompPoolSub').textContent = `${fmtMillions(row.aggTaxBase)} → ${fmtMillions(row.aggTax24)}`;
+        document.getElementById('inspDecompPool').textContent = `${fmtPct(row.aggTaxGrowthPct)} / ${fmtPct(row.popGrowthPct)}`;
+        document.getElementById('inspDecompPopSub').textContent = `Pool ${fmtShortUsd(row.aggTaxBase)}→${fmtShortUsd(row.aggTax24)} • Pop ${fmtInt(row.popBase)}→${fmtInt(row.pop24)}`;
 
-        document.getElementById('inspDecompPop').textContent = fmtPct(row.popGrowthPct);
-        document.getElementById('inspDecompPopSub').textContent = `${fmtInt(row.popBase)} → ${fmtInt(row.pop24)}`;
+        document.getElementById('inspBizPc').textContent = `${fmtShortUsd(row.bizPayrollPc23)} (${fmtPct(row.bizPayrollGrowthPct)})`;
+        document.getElementById('inspBizPcSub').textContent =
+          row.bizPayrollPcBase !== null
+            ? `${fmtShortUsd(row.bizPayrollPcBase)}→${fmtShortUsd(row.bizPayrollPc23)} • Total ${fmtShortUsd(row.payroll23)}`
+            : `Total 2023 Payroll: ${fmtShortUsd(row.payroll23)}`;
+
+        const jobsTxt = row.emp23 !== null ? `${fmtInt(row.emp23)} jobs` : 'Jobs suppressed';
+        const firmsTxt = row.est23 !== null ? `${fmtInt(row.est23)} firms` : '—';
+        document.getElementById('inspBizBase').textContent = `${jobsTxt} • ${firmsTxt}`;
+        const jprTxt = row.jobsPerRes23 !== null ? `${row.jobsPerRes23.toFixed(2)} jobs/res` : 'Jobs/res N/A';
+        const wageTxt = row.avgWage23 !== null ? `Avg pay ${fmtShortUsd(row.avgWage23)}` : 'Avg pay N/A';
+        document.getElementById('inspBizBaseSub').textContent = `${jprTxt} • ${wageTxt}`;
 
         document.getElementById('inspTaxOwner').textContent = fmtCurrency(row.taxOwner24);
+        document.getElementById('inspTaxCapture').textContent =
+          row.taxPer100Payroll !== null ? `$${row.taxPer100Payroll.toFixed(2)}` : '—';
         document.getElementById('inspMedIncome').textContent = fmtIncome(row.medIncome24);
         document.getElementById('inspHomeVal').textContent = fmtHomeVal(row.medHomeVal24);
         document.getElementById('inspOwnership').textContent = row.ownershipPct !== null ? `${row.ownershipPct.toFixed(1)}%` : '—';
@@ -898,24 +1143,39 @@
       }
 
       function renderTrajectoryChart(row) {
+        const h = HORIZON_MAP[state.horizonKey];
+        const isTax = state.trajectoryMode === 'tax';
+        const years = isTax ? ALL_TAX_YEARS : ALL_BIZ_YEARS;
+        const baseHi = isTax ? h.taxBase : h.bizBase;
+        const endHi = isTax ? h.taxEnd : h.bizEnd;
+
         const points = [];
-        for (const yr of ALL_YEARS) {
-          const yd = row.raw.years[String(yr)];
-          if (yd) points.push({ yr, val: yd.perCapita });
+        for (const yr of years) {
+          const val = isTax
+            ? row.raw.years[String(yr)]?.perCapita
+            : row.raw.biz?.[String(yr)]?.payrollPerCapita;
+          if (val !== null && val !== undefined && Number.isFinite(val)) {
+            points.push({ yr, val });
+          }
         }
         const labels = points.map((p) => String(p.yr));
         const values = points.map((p) => p.val);
         const pointColors = points.map((p) =>
-          p.yr === TARGET_YEAR ? '#059669' : p.yr === state.horizonBase ? '#2563eb' : '#64748b'
+          p.yr === endHi ? (isTax ? '#059669' : '#2563eb') : p.yr === baseHi ? '#0f172a' : '#64748b'
         );
-        const pointRadii = points.map((p) =>
-          p.yr === TARGET_YEAR || p.yr === state.horizonBase ? 5.5 : 3.5
-        );
+        const pointRadii = points.map((p) => (p.yr === endHi || p.yr === baseHi ? 5.5 : 3.5));
+
+        const borderColor = isTax ? '#0f766e' : '#2563eb';
+        const bgColor = isTax ? 'rgba(20, 184, 166, 0.12)' : 'rgba(37, 99, 235, 0.12)';
+        const seriesLabel = isTax ? 'Tax / Capita ($)' : 'Biz Payroll / Capita ($)';
 
         const ctx = document.getElementById('trajectoryChart').getContext('2d');
         if (trajectoryChart) {
           trajectoryChart.data.labels = labels;
+          trajectoryChart.data.datasets[0].label = seriesLabel;
           trajectoryChart.data.datasets[0].data = values;
+          trajectoryChart.data.datasets[0].borderColor = borderColor;
+          trajectoryChart.data.datasets[0].backgroundColor = bgColor;
           trajectoryChart.data.datasets[0].pointBackgroundColor = pointColors;
           trajectoryChart.data.datasets[0].pointRadius = pointRadii;
           trajectoryChart.update('none');
@@ -926,10 +1186,10 @@
           data: {
             labels,
             datasets: [{
-              label: 'Tax / Capita ($)',
+              label: seriesLabel,
               data: values,
-              borderColor: '#0f766e',
-              backgroundColor: 'rgba(20, 184, 166, 0.12)',
+              borderColor,
+              backgroundColor: bgColor,
               borderWidth: 2.5,
               fill: true,
               tension: 0.25,
@@ -947,7 +1207,7 @@
               legend: { display: false },
               tooltip: {
                 callbacks: {
-                  label: (c) => `Tax / Capita: ${fmtCurrency(c.parsed.y)}`,
+                  label: (c) => `${trajectoryChart.data.datasets[0].label}: ${fmtCurrency(c.parsed.y)}`,
                 },
               },
             },
@@ -957,7 +1217,7 @@
                 beginAtZero: false,
                 ticks: {
                   font: { size: 11 },
-                  callback: (v) => `$${Number(v).toLocaleString()}`,
+                  callback: (v) => fmtShortUsd(Number(v)),
                 },
               },
             },
@@ -966,7 +1226,7 @@
       }
 
       function renderCountyChart() {
-        const key = state.metric === 'taxOwner24' ? 'taxOwner24' : state.metric;
+        const key = state.metric;
         const sorted = [...state.countyRows].sort((a, b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity));
         const labels = sorted.map((c) => c.name);
         const values = sorted.map((c) => c[key]);
@@ -1021,7 +1281,8 @@
                     if (!item) return `${metricLabel(state.metric)}: ${formatMetricVal(state.metric, c.parsed.x)}`;
                     return [
                       `${metricLabel(state.metric)}: ${formatMetricVal(state.metric, c.parsed.x)}`,
-                      `2024 Tax/Cap: ${fmtCurrency(item.taxCap24)} • ZCTAs: ${item.zipsCount}`,
+                      `2024 Tax/Cap: ${fmtCurrency(item.taxCap24)} (${fmtPct(item.growthPct)})`,
+                      `2023 Biz Pay/Cap: ${fmtShortUsd(item.bizPayrollPc23)} (${fmtPct(item.bizPayrollGrowthPct)}) • ZCTAs: ${item.zipsCount}`,
                     ];
                   },
                 },
@@ -1032,8 +1293,11 @@
                 grid: { color: '#f1f5f9' },
                 ticks: {
                   font: { size: 11 },
-                  callback: (v) =>
-                    state.metric === 'growthPct' ? `${v}%` : `$${Number(v).toLocaleString()}`,
+                  callback: (v) => {
+                    if (state.metric === 'growthPct' || state.metric === 'bizPayrollGrowthPct') return `${v}%`;
+                    if (state.metric === 'taxPer100Payroll') return `$${Number(v).toFixed(2)}`;
+                    return fmtShortUsd(Number(v));
+                  },
                 },
               },
               y: { grid: { display: false }, ticks: { font: { size: 11, weight: '600' } } },
@@ -1042,64 +1306,106 @@
         });
       }
 
-      const diagonalRefPlugin = {
-        id: 'diagonalRefLine',
+      const referenceGuidesPlugin = {
+        id: 'auditReferenceGuides',
         beforeDatasetsDraw(chart) {
-          if (state.scatterMode !== 'decomp') return;
           const { ctx, chartArea, scales: { x, y } } = chart;
           if (!chartArea || !x || !y) return;
-          const minV = Math.max(x.min, y.min);
-          const maxV = Math.min(x.max, y.max);
-          if (minV >= maxV) return;
-          ctx.save();
-          ctx.beginPath();
-          ctx.setLineDash([5, 5]);
-          ctx.strokeStyle = '#94a3b8';
-          ctx.lineWidth = 1.5;
-          ctx.moveTo(x.getPixelForValue(minV), y.getPixelForValue(minV));
-          ctx.lineTo(x.getPixelForValue(maxV), y.getPixelForValue(maxV));
-          ctx.stroke();
-          ctx.restore();
+          if (state.scatterMode === 'decomp') {
+            const minV = Math.max(x.min, y.min);
+            const maxV = Math.min(x.max, y.max);
+            if (minV >= maxV) return;
+            ctx.save();
+            ctx.beginPath();
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(x.getPixelForValue(minV), y.getPixelForValue(minV));
+            ctx.lineTo(x.getPixelForValue(maxV), y.getPixelForValue(maxV));
+            ctx.stroke();
+            ctx.restore();
+            return;
+          }
+          if (state.scatterMode === 'audit') {
+            ctx.save();
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.25;
+            if (state.medBizG >= x.min && state.medBizG <= x.max) {
+              const px = x.getPixelForValue(state.medBizG);
+              ctx.beginPath();
+              ctx.moveTo(px, chartArea.top);
+              ctx.lineTo(px, chartArea.bottom);
+              ctx.stroke();
+            }
+            if (state.medTaxG >= y.min && state.medTaxG <= y.max) {
+              const py = y.getPixelForValue(state.medTaxG);
+              ctx.beginPath();
+              ctx.moveTo(chartArea.left, py);
+              ctx.lineTo(chartArea.right, py);
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
         },
       };
 
       function renderScatterChart() {
-        const isDecomp = state.scatterMode === 'decomp';
+        const h = HORIZON_MAP[state.horizonKey];
+        const mode = state.scatterMode;
         const pts = [];
         for (const r of state.filteredRows) {
-          if (isDecomp) {
+          if (mode === 'audit') {
+            if (r.bizPayrollGrowthPct !== null) {
+              pts.push({ x: r.bizPayrollGrowthPct, y: r.growthPct, row: r });
+            }
+          } else if (mode === 'decomp') {
             pts.push({ x: r.popGrowthPct, y: r.aggTaxGrowthPct, row: r });
           } else if (r.medIncome24 !== null) {
             pts.push({ x: r.medIncome24, y: r.growthPct, row: r });
           }
         }
 
-        document.getElementById('scatterSubtitle').textContent = isDecomp
-          ? 'Above dashed Y=X line: tax pool growing faster than population (per-capita tax rising).'
-          : '2024 Median Household Income (capped at $250k+) vs. Per-Capita Property Tax Growth (%).';
+        if (mode === 'audit') {
+          document.getElementById('scatterSubtitle').textContent =
+            `Dashed crosshairs = Bay Area medians (Biz ${fmtPct(state.medBizG)}, Tax ${fmtPct(state.medTaxG)}). Emerald = Dual Engine, Rose = Audit Gap.`;
+        } else if (mode === 'decomp') {
+          document.getElementById('scatterSubtitle').textContent =
+            'Above dashed Y=X line: residential tax pool growing faster than population (per-capita tax rising).';
+        } else {
+          document.getElementById('scatterSubtitle').textContent =
+            '2024 Median Household Income (capped at $250k+) vs. Per-Capita Residential Tax Growth (%).';
+        }
 
-        const bgColors = pts.map((p) =>
-          p.row.zip === state.selectedZip
-            ? '#1d4ed8'
-            : p.row.growthPct >= 0
-              ? 'rgba(5, 150, 105, 0.65)'
-              : 'rgba(217, 119, 6, 0.7)'
-        );
-        const radii = pts.map((p) => (p.row.zip === state.selectedZip ? 7 : 4.5));
+        const bgColors = pts.map((p) => {
+          if (p.row.zip === state.selectedZip) return '#0f172a';
+          if (mode === 'audit') return AUDIT_META[p.row.auditStatus].pointColor;
+          return p.row.growthPct >= 0 ? 'rgba(5, 150, 105, 0.68)' : 'rgba(217, 119, 6, 0.72)';
+        });
+        const radii = pts.map((p) => (p.row.zip === state.selectedZip ? 7.5 : 4.5));
+
+        const xTitle = mode === 'audit'
+          ? `Biz Payroll / Capita Growth (${h.bizTag}, %)`
+          : mode === 'decomp'
+            ? `Population Change (${h.taxTag}, %)`
+            : '2024 Median Household Income ($)';
+        const yTitle = mode === 'decomp'
+          ? `Aggregate Tax Pool Growth (${h.taxTag}, %)`
+          : `Per-Capita Tax Growth (${h.taxTag}, %)`;
 
         const ctx = document.getElementById('scatterChart').getContext('2d');
         if (scatterChart) {
           scatterChart.data.datasets[0].data = pts;
           scatterChart.data.datasets[0].backgroundColor = bgColors;
           scatterChart.data.datasets[0].pointRadius = radii;
-          scatterChart.options.scales.x.title.text = isDecomp ? `Population Change (${state.horizonBase}→2024, %)` : '2024 Median Household Income ($)';
-          scatterChart.options.scales.y.title.text = isDecomp ? `Aggregate Tax Pool Growth (${state.horizonBase}→2024, %)` : `Per-Capita Tax Growth (${state.horizonBase}→2024, %)`;
+          scatterChart.options.scales.x.title.text = xTitle;
+          scatterChart.options.scales.y.title.text = yTitle;
           scatterChart.update('none');
           return;
         }
         scatterChart = new Chart(ctx, {
           type: 'scatter',
-          plugins: [diagonalRefPlugin],
+          plugins: [referenceGuidesPlugin],
           data: {
             datasets: [{
               label: 'Bay Area ZCTAs',
@@ -1108,7 +1414,7 @@
               borderColor: '#ffffff',
               borderWidth: 1,
               pointRadius: radii,
-              pointHoverRadius: 7,
+              pointHoverRadius: 7.5,
             }],
           },
           options: {
@@ -1126,9 +1432,9 @@
                   label: (c) => {
                     const r = c.raw.row;
                     return [
-                      `${r.zip} — ${r.area || r.city} (${r.county})`,
-                      `Per-Capita Growth: ${fmtPct(r.growthPct)} (${fmtSignedCurrency(r.gainUsd)})`,
-                      `Tax Pool: ${fmtPct(r.aggTaxGrowthPct)} | Pop: ${fmtPct(r.popGrowthPct)}`,
+                      `${r.zip} — ${r.area || r.city} (${r.county}) [${AUDIT_META[r.auditStatus].label}]`,
+                      `Tax Growth: ${fmtPct(r.growthPct)} (${fmtSignedCurrency(r.gainUsd)})`,
+                      `Biz Payroll/Cap Growth: ${fmtPct(r.bizPayrollGrowthPct)} • Jobs/Res: ${r.jobsPerRes23 !== null ? r.jobsPerRes23.toFixed(2) : '—'}`,
                     ];
                   },
                 },
@@ -1136,15 +1442,15 @@
             },
             scales: {
               x: {
-                title: { display: true, text: `Population Change (${state.horizonBase}→2024, %)`, font: { size: 11, weight: '600' } },
+                title: { display: true, text: xTitle, font: { size: 11, weight: '600' } },
                 grid: { color: '#f1f5f9' },
                 ticks: {
                   font: { size: 11 },
-                  callback: (v) => (state.scatterMode === 'decomp' ? `${v}%` : `$${Math.round(v / 1000)}k`),
+                  callback: (v) => (state.scatterMode === 'income' ? `$${Math.round(v / 1000)}k` : `${v}%`),
                 },
               },
               y: {
-                title: { display: true, text: `Aggregate Tax Pool Growth (${state.horizonBase}→2024, %)`, font: { size: 11, weight: '600' } },
+                title: { display: true, text: yTitle, font: { size: 11, weight: '600' } },
                 grid: { color: '#f1f5f9' },
                 ticks: { font: { size: 11 }, callback: (v) => `${v}%` },
               },
@@ -1154,9 +1460,12 @@
       }
 
       function renderTable() {
+        const h = HORIZON_MAP[state.horizonKey];
         const rows = state.filteredRows;
-        document.getElementById('baseColHdr').textContent = String(state.horizonBase);
-        document.getElementById('tableCountLabel').textContent = `Showing ${rows.length} residential ZCTAs (${state.horizonBase}→2024). Click any row to inspect & highlight on map.`;
+        document.getElementById('taxSpanHdr').textContent = h.taxTag;
+        document.getElementById('bizSpanHdr').textContent = h.bizTag;
+        document.getElementById('tableCountLabel').textContent =
+          `Showing ${rows.length} residential ZCTAs (Tax ${h.taxTag} | Biz ${h.bizTag}). Click any row to inspect & highlight on map.`;
 
         const tbody = document.getElementById('tableBody');
         if (!rows.length) {
@@ -1167,23 +1476,31 @@
         tbody.innerHTML = rows.map((r, idx) => {
           const selected = r.zip === state.selectedZip;
           const growthCls = r.growthPct > 0 ? 'text-emerald-700 font-semibold' : r.growthPct < 0 ? 'text-amber-700 font-semibold' : 'text-slate-600';
+          const bizCls = r.bizPayrollGrowthPct === null
+            ? 'text-slate-400'
+            : r.bizPayrollGrowthPct > 0
+              ? 'text-blue-700 font-semibold'
+              : 'text-amber-700 font-semibold';
+          const am = AUDIT_META[r.auditStatus];
           const community = r.area
             ? `<div class="font-medium text-slate-900">${escHtml(r.zip)} <span class="text-slate-500 font-normal">&middot; ${escHtml(r.city)}</span></div><div class="text-[11px] text-slate-500">${escHtml(r.area)}</div>`
             : `<div class="font-medium text-slate-900">${escHtml(r.zip)} <span class="text-slate-500 font-normal">&middot; ${escHtml(r.city)}</span></div>`;
 
           return `
             <tr data-zip="${escHtml(r.zip)}" class="cursor-pointer transition-colors ${selected ? 'bg-blue-50/80' : 'hover:bg-slate-50'}">
-              <td class="py-3 px-4 text-slate-400 font-medium tnum">${idx + 1}</td>
+              <td class="py-3 px-3 text-slate-400 font-medium tnum">${idx + 1}</td>
               <td class="py-3 px-3">${community}</td>
+              <td class="py-3 px-3 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${am.badgeCls}">${escHtml(am.label)}</span>
+              </td>
               <td class="py-3 px-3 text-slate-600 whitespace-nowrap">${escHtml(r.county)}</td>
               <td class="py-3 px-3 text-right font-semibold text-slate-900 tnum">${fmtCurrency(r.taxCap24)}</td>
-              <td class="py-3 px-3 text-right text-slate-500 tnum">${fmtCurrency(r.taxCapBase)}</td>
               <td class="py-3 px-3 text-right tnum ${growthCls}">${fmtPct(r.growthPct)}</td>
-              <td class="py-3 px-3 text-right text-slate-600 tnum">${fmtPct(r.cagrPct)}</td>
               <td class="py-3 px-3 text-right font-medium tnum ${r.gainUsd >= 0 ? 'text-slate-800' : 'text-amber-700'}">${fmtSignedCurrency(r.gainUsd)}</td>
+              <td class="py-3 px-3 text-right font-medium text-slate-800 tnum">${fmtShortUsd(r.bizPayrollPc23)}</td>
+              <td class="py-3 px-3 text-right tnum ${bizCls}">${fmtPct(r.bizPayrollGrowthPct)}</td>
+              <td class="py-3 px-3 text-right text-slate-700 tnum">${r.jobsPerRes23 !== null ? r.jobsPerRes23.toFixed(2) : '—'}</td>
               <td class="py-3 px-3 text-right text-xs text-slate-600 tnum whitespace-nowrap">${fmtPct(r.aggTaxGrowthPct)} / ${fmtPct(r.popGrowthPct)}</td>
-              <td class="py-3 px-3 text-right text-slate-700 tnum">${fmtCurrency(r.taxOwner24)}</td>
-              <td class="py-3 px-3 text-right text-slate-700 tnum">${fmtIncome(r.medIncome24)}</td>
               <td class="py-3 px-4 text-right text-slate-600 tnum">${fmtInt(r.pop24)}</td>
             </tr>
           `;
@@ -1209,9 +1526,9 @@
       function updateRedesignBanner() {
         const banner = document.getElementById('redesignBanner');
         const spanLabel = document.getElementById('redesignSpanLabel');
-        if (state.horizonBase === 2019 || state.horizonBase === 2014) {
+        if (state.horizonKey === 2019 || state.horizonKey === 2014) {
           banner.classList.remove('hidden');
-          spanLabel.textContent = `${state.horizonBase} → 2024`;
+          spanLabel.textContent = `${state.horizonKey} → 2024`;
         } else {
           banner.classList.add('hidden');
         }
@@ -1219,10 +1536,10 @@
 
       function updateHorizonButtons() {
         document.querySelectorAll('.horizon-btn').forEach((btn) => {
-          const active = Number(btn.getAttribute('data-horizon')) === state.horizonBase;
+          const active = Number(btn.getAttribute('data-horizon')) === state.horizonKey;
           btn.className = active
-            ? 'horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-900 text-white'
-            : 'horizon-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200';
+            ? 'horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-900 text-white'
+            : 'horizon-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200';
         });
       }
 
@@ -1241,13 +1558,19 @@
       function exportCsv() {
         const rows = state.filteredRows;
         if (!rows.length) return;
+        const h = HORIZON_MAP[state.horizonKey];
         const headers = [
           'Rank', 'ZIP', 'City', 'Neighborhood', 'County',
-          'TaxPerCapita_2024', `TaxPerCapita_${state.horizonBase}`,
-          'PerCapitaGrowth_Pct', 'CAGR_Pct', 'PerCapitaGain_USD',
+          'Audit_Verdict', 'Denom_Warning',
+          'TaxPerCapita_2024', `TaxPerCapita_${h.taxBase}`,
+          'TaxPerCapitaGrowth_Pct', 'TaxCAGR_Pct', 'TaxPerCapitaGain_USD',
           'AggTaxPoolGrowth_Pct', 'PopGrowth_Pct',
+          'BizPayrollPerCapita_2023', `BizPayrollPerCapita_${h.bizBase}`,
+          'BizPayrollPerCapitaGrowth_Pct', 'BizPayroll_2023_USD',
+          'BizJobs_2023', 'BizEstablishments_2023', 'JobsPerResident_2023', 'AvgWage_2023_USD',
+          'TaxPer100BizPayroll_USD',
           'MeanTaxPerOwnerHome_2024', 'MedianIncome_2024', 'MedianHomeValue_2024',
-          'Homeownership_Pct', 'Pop_2024', `Pop_${state.horizonBase}`,
+          'Homeownership_Pct', 'Pop_2024', `Pop_${h.taxBase}`,
           'AggTaxPool_2024_USD', 'Census_CV_2024_Pct'
         ];
         const csvCell = (v) => {
@@ -1258,9 +1581,17 @@
         rows.forEach((r, idx) => {
           lines.push([
             idx + 1, r.zip, r.city, r.area, r.county,
+            AUDIT_META[r.auditStatus].label, r.denomWarning ? 'Yes' : 'No',
             r.taxCap24.toFixed(2), r.taxCapBase.toFixed(2),
             r.growthPct.toFixed(2), r.cagrPct.toFixed(2), r.gainUsd.toFixed(2),
             r.aggTaxGrowthPct.toFixed(2), r.popGrowthPct.toFixed(2),
+            r.bizPayrollPc23 !== null ? r.bizPayrollPc23.toFixed(2) : '',
+            r.bizPayrollPcBase !== null ? r.bizPayrollPcBase.toFixed(2) : '',
+            r.bizPayrollGrowthPct !== null ? r.bizPayrollGrowthPct.toFixed(2) : '',
+            r.payroll23 ?? '', r.emp23 ?? '', r.est23 ?? '',
+            r.jobsPerRes23 !== null ? r.jobsPerRes23.toFixed(3) : '',
+            r.avgWage23 ?? '',
+            r.taxPer100Payroll !== null ? r.taxPer100Payroll.toFixed(2) : '',
             r.taxOwner24 ?? '', r.medIncome24 ?? '', r.medHomeVal24 ?? '',
             r.ownershipPct !== null ? r.ownershipPct.toFixed(1) : '',
             r.pop24, r.popBase, r.aggTax24, r.taxCv2024 ?? ''
@@ -1270,7 +1601,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `bay-area-property-tax-${state.horizonBase}-2024.csv`;
+        a.download = `bay-area-tax-business-audit-${h.taxBase}-2024.csv`;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -1280,22 +1611,26 @@
       function wireEvents() {
         document.querySelectorAll('.horizon-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
-            state.horizonBase = Number(btn.getAttribute('data-horizon'));
+            state.horizonKey = Number(btn.getAttribute('data-horizon'));
             updateAll();
           });
         });
         document.getElementById('switchYoyBtn').addEventListener('click', () => {
-          state.horizonBase = 2023;
+          state.horizonKey = 2023;
           updateAll();
         });
         document.getElementById('switch3YrBtn').addEventListener('click', () => {
-          state.horizonBase = 2021;
+          state.horizonKey = 2021;
           updateAll();
         });
         document.getElementById('metricSelect').addEventListener('change', (e) => {
           state.metric = e.target.value;
           state.sortKey = e.target.value;
           state.sortDir = 'desc';
+          updateAll();
+        });
+        document.getElementById('auditSelect').addEventListener('change', (e) => {
+          state.auditFilter = e.target.value;
           updateAll();
         });
         document.getElementById('countySelect').addEventListener('change', (e) => {
@@ -1313,14 +1648,26 @@
         document.getElementById('resetMapBtn').addEventListener('click', () => {
           if (map) map.setView(DEFAULT_CENTER, DEFAULT_ZOOM, { animate: true });
         });
+        document.querySelectorAll('.traj-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.trajectoryMode = btn.getAttribute('data-traj');
+            document.querySelectorAll('.traj-btn').forEach((b) => {
+              const active = b.getAttribute('data-traj') === state.trajectoryMode;
+              b.className = active
+                ? 'traj-btn px-2 py-0.5 rounded-md bg-white text-slate-900 shadow-sm'
+                : 'traj-btn px-2 py-0.5 rounded-md text-slate-600 hover:text-slate-900';
+            });
+            renderInspector();
+          });
+        });
         document.querySelectorAll('.scatter-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.scatterMode = btn.getAttribute('data-scatter');
             document.querySelectorAll('.scatter-btn').forEach((b) => {
               const active = b.getAttribute('data-scatter') === state.scatterMode;
               b.className = active
-                ? 'scatter-btn px-2.5 py-1 rounded-md bg-white text-slate-900 shadow-sm'
-                : 'scatter-btn px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900';
+                ? 'scatter-btn px-2 py-1 rounded-md bg-white text-slate-900 shadow-sm'
+                : 'scatter-btn px-2 py-1 rounded-md text-slate-600 hover:text-slate-900';
             });
             renderScatterChart();
           });
@@ -1332,7 +1679,7 @@
               state.sortDir = state.sortDir === 'desc' ? 'asc' : 'desc';
             } else {
               state.sortKey = key;
-              state.sortDir = key === 'zip' || key === 'county' ? 'asc' : 'desc';
+              state.sortDir = key === 'zip' || key === 'county' || key === 'auditRank' ? 'asc' : 'desc';
             }
             updateAll();
           });
@@ -1356,14 +1703,14 @@
           }
 
           document.getElementById('datasetMetaLabel').textContent =
-            `${state.rawData.meta.zctaCount} Residential ZCTAs • 9 Counties`;
+            `${state.rawData.meta.zctaCount} ZCTAs • 9 Counties • Tax & Business Audit`;
 
           statusBanner.classList.add('hidden');
           initMap();
           wireEvents();
           updateAll();
         } catch (err) {
-          statusBanner.textContent = `Failed to load Bay Area property tax data (${err.message}). If opening locally via file://, serve via a local HTTP server.`;
+          statusBanner.textContent = `Failed to load Bay Area audit data (${err.message}). If opening locally via file://, serve via a local HTTP server.`;
           statusBanner.classList.add('text-red-700', 'bg-red-50', 'border-red-200');
         }
       }
