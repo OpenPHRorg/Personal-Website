@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth scroll-pt-24">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Ops &amp; P0–P5 Portfolio Tracker | Caleb Li</title>
+  <meta name="description" content="Caleb Li's Agentic Executive Ops framework, quota-disciplined strategy, execution telemetry, and P0–P5 portfolio tracking dashboard across healthcare, investing, civic analytics, and advisory." />
+  <meta property="og:title" content="Executive Ops & P0–P5 Portfolio Tracker — Caleb Li" />
+  <meta property="og:description" content="Multi-tier AI operating system (Pre-Flight -> Chief of Staff -> Domain Managers -> Workers) with live execution telemetry and P0–P5 roadmaps across six public areas." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='65' font-family='serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>CL<tspan fill='%232563eb'>.</tspan></text></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #334155;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection {
+      background-color: #dbeafe;
+      color: #1e3a8a;
+    }
+    .tnum {
+      font-variant-numeric: tabular-nums;
+    }
+    .glass-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      transition: all 0.25s ease;
+    }
+    .glass-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+    }
+    .nav-link {
+      position: relative;
+      color: #475569;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #0f172a;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #0f172a;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .filter-pill {
+      transition: all 0.15s ease;
+    }
+    .matrix-cell {
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .matrix-cell:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 2px #2563eb;
+    }
+  </style>
+</head>
+<body class="antialiased relative overflow-x-hidden">
+
+  <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
+      <div class="flex items-center gap-3">
+        <a href="../" aria-label="Caleb Li Home" class="font-serif text-xl font-bold text-slate-900 tracking-wide">CL<span class="text-blue-600">.</span></a>
+        <span class="text-slate-300">/</span>
+        <span class="text-xs font-semibold uppercase tracking-widest text-slate-600">Executive Ops</span>
+      </div>
+      <div class="hidden md:flex items-center space-x-7">
+        <a href="#framework" class="nav-link text-sm font-medium">Framework</a>
+        <a href="#strategy" class="nav-link text-sm font-medium">Strategy</a>
+        <a href="#telemetry" class="nav-link text-sm font-medium">Telemetry</a>
+        <a href="#tracker" class="nav-link text-sm font-medium">P0–P5 Tracker</a>
+        <a href="../" class="px-4 py-1.5 text-sm font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded-full hover:text-slate-900 hover:border-slate-300 transition-all">&larr; Personal Site</a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" aria-label="Toggle mobile menu" class="text-slate-600 hover:text-slate-900 focus:outline-none p-2">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-slate-200 absolute w-full shadow-lg">
+      <a href="#framework" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Framework</a>
+      <a href="#strategy" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Strategy</a>
+      <a href="#telemetry" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Telemetry</a>
+      <a href="#tracker" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">P0–P5 Tracker</a>
+      <a href="../" class="block text-slate-900 font-semibold hover:bg-slate-50 px-6 py-3.5 text-sm">&larr; Back to Personal Site</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 md:px-10 pt-28 pb-20 max-w-6xl">
+
+    <!-- Hero & Live KPIs -->
+    <section class="pb-14 border-b border-slate-200">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+          Agentic Operating System
+        </span>
+        <span id="exported-at-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-50 text-slate-600 border border-slate-200 tnum">
+          Loading telemetry...
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 tracking-tight mb-4">
+        Executive Ops Framework, Strategy &amp; P0–P5 Tracker
+      </h1>
+      <p class="text-lg text-slate-600 max-w-3xl leading-relaxed mb-8">
+        How I coordinate autonomous coding, financial verification, civic analytics, and strategic advisory across public domains—enforcing strict model tiering, daily quota caps, and automated verification harnesses.
+      </p>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="hero-kpis">
+        <div class="glass-card p-5">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Public Areas</p>
+          <p id="kpi-areas" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
+          <p class="text-xs text-slate-500 mt-1">Engineering, analytics &amp; advisory</p>
+        </div>
+        <div class="glass-card p-5">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Logged Cycles</p>
+          <p id="kpi-cycles" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
+          <p id="kpi-cycles-sub" class="text-xs text-slate-500 mt-1">Showcase threshold: 5+ cycles</p>
+        </div>
+        <div class="glass-card p-5">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Flash / Lite Share</p>
+          <p id="kpi-efficiency" class="text-3xl font-serif font-bold text-emerald-700 mt-1 tnum">—</p>
+          <p id="kpi-calls-sub" class="text-xs text-slate-500 mt-1">Reserves Pro for triage only</p>
+        </div>
+        <div class="glass-card p-5">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">P0–P5 Completion</p>
+          <p id="kpi-completion" class="text-3xl font-serif font-bold text-blue-700 mt-1 tnum">—</p>
+          <p id="kpi-tasks-sub" class="text-xs text-slate-500 mt-1">Done vs tracked roadmap items</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Framework -->
+    <section id="framework" class="py-14 border-b border-slate-200">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">1. Operating Framework</h2>
+        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Every sprint follows a fixed delegation ladder: deterministic pre-flight checks run first at zero token cost before escalating through Chief of Staff triage, scoped domain Managers, and single-purpose Workers.
+      </p>
+
+      <!-- Visual Command Chain -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch" id="framework-tiers">
+          <!-- Populated dynamically from dashboard_data -->
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="glass-card p-5 border-t-4 border-t-slate-900">
+          <h3 class="font-semibold text-slate-900 mb-1.5">Context Isolation</h3>
+          <p class="text-slate-600">Chief of Staff reads only a compact &lt; 8 KB state snapshot, task board, and quota ledger—never scanning source files across repositories.</p>
+        </div>
+        <div class="glass-card p-5 border-t-4 border-t-blue-600">
+          <h3 class="font-semibold text-slate-900 mb-1.5">Bounded Fan-Out</h3>
+          <p class="text-slate-600">At most 1 active area per cycle and &le; 2 disjoint worker assignments per Manager, preventing parallel file conflicts or quota spikes.</p>
+        </div>
+        <div class="glass-card p-5 border-t-4 border-t-emerald-600">
+          <h3 class="font-semibold text-slate-900 mb-1.5">Zero-Trust Verification &amp; Privacy</h3>
+          <p class="text-slate-600">Every change requires independent Verifier sign-off (`tsc`, lint, domain checks). Private domains remain strictly isolated and excluded from public exports.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Strategy & Priority Taxonomy -->
+    <section id="strategy" class="py-14 border-b border-slate-200">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">2. Strategy, Quota Policy &amp; P0–P5 Rubric</h2>
+        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Operating rhythms, anti-burn guardrails, and the standardized six-tier priority rubric applied uniformly across engineering, investing, civic analytics, and advisory tracks.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Operating Rhythms & Anti-Burn -->
+        <div class="glass-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-serif font-semibold text-slate-900">Repeatable Cadence &amp; Caps</h3>
+            <span id="strategy-cadence" class="text-xs font-mono px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md">—</span>
+          </div>
+          <div id="strategy-rhythms" class="space-y-3 mb-5"></div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Hard Guardrails</h4>
+          <ul id="strategy-rules" class="space-y-1.5 text-sm text-slate-600"></ul>
+        </div>
+
+        <!-- Model Tiering Policy -->
+        <div class="glass-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-serif font-semibold text-slate-900">Model Tiering &amp; Cycle Budget</h3>
+            <span id="budget-summary-pill" class="text-xs font-mono px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md tnum">—</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-400">
+                  <th class="py-2 pr-4">Agent Role</th>
+                  <th class="py-2">Pinned Tier</th>
+                </tr>
+              </thead>
+              <tbody id="model-policy-tbody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- P0-P5 Rubric -->
+      <div class="glass-card p-6">
+        <h3 class="text-lg font-serif font-semibold text-slate-900 mb-4">P0–P5 Priority Classification</h3>
+        <div id="priority-rubric-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- Section 3: Execution Telemetry -->
+    <section id="telemetry" class="py-14 border-b border-slate-200">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">3. Live Execution Telemetry</h2>
+        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Exported directly from sanitized public cycle logs (`ops_cli.py showcase-export`), tracking model tier allocation and recent sprint verification runs.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="glass-card p-6">
+          <h3 class="text-base font-serif font-semibold text-slate-900 mb-3">Model Call Distribution</h3>
+          <div id="telemetry-bar" class="w-full h-4 rounded-full bg-slate-100 overflow-hidden flex mb-4"></div>
+          <div id="telemetry-legend" class="space-y-2 text-sm"></div>
+        </div>
+
+        <div class="glass-card p-6 lg:col-span-2">
+          <h3 class="text-base font-serif font-semibold text-slate-900 mb-3">Recent Public Execution Ledger</h3>
+          <div class="overflow-x-auto max-h-64 overflow-y-auto">
+            <table class="w-full text-left border-collapse text-xs md:text-sm">
+              <thead>
+                <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-400">
+                  <th class="py-2 pr-3">Date</th>
+                  <th class="py-2 pr-3">Mode</th>
+                  <th class="py-2 pr-3">Area</th>
+                  <th class="py-2 pr-3">Calls (P/F/L)</th>
+                  <th class="py-2">Summary</th>
+                </tr>
+              </thead>
+              <tbody id="recent-runs-tbody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Portfolio Tracking Dashboard & P0-P5 Matrix -->
+    <section id="tracker" class="py-14">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">4. Portfolio Tracking Dashboard (P0–P5)</h2>
+        <button id="reset-filters-btn" type="button" class="px-3.5 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors">
+          Reset Filters
+        </button>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Click any priority cell (`P0`–`P5`) or area row in the matrix below to drill into specific deliverables across all six public areas, including Vivid Vision Advisory.
+      </p>
+
+      <!-- Interactive 6 Areas x P0-P5 Matrix -->
+      <div class="glass-card overflow-hidden mb-8">
+        <div class="px-6 py-4 bg-slate-50/70 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Cross-Portfolio P0–P5 Heat Matrix</h3>
+          <span class="text-xs text-slate-500">Done / Total per priority &bull; Click cell to filter</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[740px]">
+            <thead>
+              <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 bg-white">
+                <th class="py-3.5 px-5">Public Area</th>
+                <th class="py-3.5 px-3">Health</th>
+                <th class="py-3.5 px-3 text-center">P0</th>
+                <th class="py-3.5 px-3 text-center">P1</th>
+                <th class="py-3.5 px-3 text-center">P2</th>
+                <th class="py-3.5 px-3 text-center">P3</th>
+                <th class="py-3.5 px-3 text-center">P4</th>
+                <th class="py-3.5 px-3 text-center">P5</th>
+                <th class="py-3.5 px-5 text-right">Progress</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-tbody" class="divide-y divide-slate-100 text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="glass-card p-5 mb-8 space-y-4">
+        <div class="flex flex-wrap items-center gap-2" id="area-tabs"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+          <div class="flex flex-wrap items-center gap-2" id="priority-pills"></div>
+          <div class="flex flex-wrap items-center gap-2" id="status-pills"></div>
+          <div class="relative flex-grow md:max-w-xs">
+            <input id="search-input" type="search" placeholder="Filter OPS ID, task, or gate..." class="w-full pl-3 pr-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Area Cards -->
+      <div id="area-cards-container" class="space-y-6"></div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 py-10 bg-slate-50/50">
+    <div class="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <p>&copy; <span id="currentYear"></span> Caleb Li &bull; Executive Ops &amp; P0–P5 Portfolio Tracker</p>
+      <p class="text-xs text-slate-400 text-center md:text-right">Public showcase strictly omits private personal finance domains and client-confidential details.</p>
+    </div>
+  </footer>
+
+  <script src="data/dashboard_data.js"></script>
+  <script>
+    (function () {
+      const PRIORITIES = ["P0", "P1", "P2", "P3", "P4", "P5"];
+      const PRIORITY_STYLES = {
+        P0: "bg-rose-50 text-rose-700 border-rose-200",
+        P1: "bg-amber-50 text-amber-800 border-amber-200",
+        P2: "bg-blue-50 text-blue-700 border-blue-200",
+        P3: "bg-indigo-50 text-indigo-700 border-indigo-200",
+        P4: "bg-emerald-50 text-emerald-700 border-emerald-200",
+        P5: "bg-slate-100 text-slate-700 border-slate-200"
+      };
+      const STATUS_STYLES = {
+        done: "bg-emerald-50 text-emerald-700 border-emerald-200",
+        in_progress: "bg-amber-50 text-amber-700 border-amber-200",
+        review: "bg-violet-50 text-violet-700 border-violet-200",
+        backlog: "bg-slate-50 text-slate-600 border-slate-200"
+      };
+      const HEALTH_STYLES = {
+        clean: { label: "Clean", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+        active_diff: { label: "Active Diff", cls: "bg-amber-50 text-amber-700 border-amber-200" },
+        workspace: { label: "Advisory Active", cls: "bg-blue-50 text-blue-700 border-blue-200" },
+        degraded: { label: "Degraded I/O", cls: "bg-rose-50 text-rose-700 border-rose-200" }
+      };
+
+      const state = {
+        data: window.EXEC_OPS_DASHBOARD || null,
+        area: "all",
+        priority: "all",
+        status: "all",
+        search: ""
+      };
+
+      function escapeHtml(val) {
+        return String(val == null ? "" : val)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function statusLabel(st) {
+        if (st === "done") return "Done";
+        if (st === "in_progress") return "In Progress";
+        if (st === "review") return "Review";
+        return "Backlog";
+      }
+
+      function formatDate(iso) {
+        if (!iso) return "—";
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return escapeHtml(iso);
+        return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      }
+
+      function renderStaticSections(data) {
+        const summary = data.summary || {};
+        const tel = data.telemetry || {};
+        const calls = tel.modelCalls || {};
+        const fw = data.framework || {};
+        const strat = data.strategy || {};
+
+        document.getElementById("exported-at-badge").textContent = "Updated " + formatDate(data.exportedAt);
+        document.getElementById("kpi-areas").textContent = summary.publicAreasCount || (data.areas || []).length;
+        document.getElementById("kpi-cycles").textContent = tel.totalCycles != null ? tel.totalCycles : 0;
+        document.getElementById("kpi-cycles-sub").textContent = tel.readyForWebsiteShowcase
+          ? "Ready for showcase (5+ public cycles)"
+          : "Building toward 5+ cycles";
+        document.getElementById("kpi-efficiency").textContent =
+          calls.flashOrLiteSharePct != null ? calls.flashOrLiteSharePct + "%" : "—";
+        document.getElementById("kpi-calls-sub").textContent =
+          (calls.total || 0) + " calls (" + (calls.pro || 0) + " Pro, " + ((calls.flash || 0) + (calls.flash_lite || 0)) + " Flash/Lite)";
+        document.getElementById("kpi-completion").textContent =
+          (summary.completionPct != null ? summary.completionPct : 0) + "%";
+        document.getElementById("kpi-tasks-sub").textContent =
+          (summary.doneTasks || 0) + " done / " + (summary.totalTasks || 0) + " P0–P5 tasks";
+
+        // Framework Tiers
+        const tiersEl = document.getElementById("framework-tiers");
+        tiersEl.innerHTML = (fw.tiers || []).map(function (t, idx) {
+          const arrow = idx < (fw.tiers.length - 1)
+            ? '<span class="hidden md:inline text-slate-300 font-bold">&rarr;</span>'
+            : "";
+          return (
+            '<div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between">' +
+              '<div>' +
+                '<div class="flex items-center justify-between mb-2">' +
+                  '<span class="text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Tier ' + escapeHtml(t.tier) + '</span>' +
+                  arrow +
+                '</div>' +
+                '<h3 class="font-semibold text-slate-900 text-sm mb-1">' + escapeHtml(t.role) + '</h3>' +
+                '<p class="text-xs font-medium text-emerald-700 mb-2">' + escapeHtml(t.model) + '</p>' +
+              '</div>' +
+              '<p class="text-xs text-slate-600 leading-relaxed">' + escapeHtml(t.responsibility) + '</p>' +
+            '</div>'
+          );
+        }).join("");
+
+        // Strategy Rhythms & Rules
+        document.getElementById("strategy-cadence").textContent = strat.cadence || "manual";
+        document.getElementById("strategy-rhythms").innerHTML = (strat.rhythms || []).map(function (r) {
+          return (
+            '<div class="p-3 bg-slate-50 rounded-lg border border-slate-200/70">' +
+              '<div class="flex items-center justify-between gap-2 mb-1">' +
+                '<span class="font-semibold text-sm text-slate-900">' + escapeHtml(r.name) + '</span>' +
+                '<span class="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded">' + escapeHtml(r.cost) + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-slate-600">' + escapeHtml(r.summary) + '</p>' +
+            '</div>'
+          );
+        }).join("");
+
+        document.getElementById("strategy-rules").innerHTML = (strat.antiBurnRules || []).map(function (rule) {
+          return '<li class="flex items-start gap-2"><span class="text-blue-600 font-bold mt-0.5">&bull;</span><span>' + escapeHtml(rule) + '</span></li>';
+        }).join("");
+
+        const gov = fw.governance || {};
+        document.getElementById("budget-summary-pill").textContent =
+          (gov.dailyMaxCycles || 2) + " cycles/day | " + (gov.maxProjectsPerCycle || 1) + " proj | " + (gov.maxWorkersPerManager || 2) + " workers";
+
+        const policyEntries = Object.entries(strat.modelPolicy || {});
+        document.getElementById("model-policy-tbody").innerHTML = policyEntries.map(function (pair) {
+          const tier = String(pair[1]);
+          const badgeCls = tier === "pro"
+            ? "bg-violet-50 text-violet-700 border-violet-200"
+            : tier === "flash_lite"
+              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+              : "bg-blue-50 text-blue-700 border-blue-200";
+          return (
+            '<tr>' +
+              '<td class="py-2 pr-4 font-mono text-xs text-slate-800">' + escapeHtml(pair[0]) + '</td>' +
+              '<td class="py-2"><span class="inline-block text-xs font-medium px-2 py-0.5 rounded-full border ' + badgeCls + '">' + escapeHtml(tier) + '</span></td>' +
+            '</tr>'
+          );
+        }).join("");
+
+        // P0-P5 Rubric
+        const pTotals = summary.priorityTotals || {};
+        document.getElementById("priority-rubric-grid").innerHTML = (strat.priorityRubric || []).map(function (item) {
+          const stats = pTotals[item.level] || { total: 0, done: 0, open: 0 };
+          const pillCls = PRIORITY_STYLES[item.level] || PRIORITY_STYLES.P5;
+          return (
+            '<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/40">' +
+              '<div class="flex items-center justify-between mb-2">' +
+                '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ' + pillCls + '">' + escapeHtml(item.level) + '</span>' +
+                '<span class="text-xs font-mono text-slate-500 tnum">' + stats.done + '/' + stats.total + ' done</span>' +
+              '</div>' +
+              '<h4 class="text-sm font-semibold text-slate-900 mb-1">' + escapeHtml(item.label) + '</h4>' +
+              '<p class="text-xs text-slate-600 leading-relaxed">' + escapeHtml(item.criteria) + '</p>' +
+            '</div>'
+          );
+        }).join("");
+
+        // Telemetry Bar & Runs
+        const totalC = calls.total || 0;
+        const proPct = totalC ? ((calls.pro || 0) / totalC) * 100 : 0;
+        const flashPct = totalC ? ((calls.flash || 0) / totalC) * 100 : 0;
+        const litePct = totalC ? ((calls.flash_lite || 0) / totalC) * 100 : 0;
+
+        document.getElementById("telemetry-bar").innerHTML =
+          '<div style="width:' + proPct.toFixed(1) + '%" class="bg-violet-500" title="Pro"></div>' +
+          '<div style="width:' + flashPct.toFixed(1) + '%" class="bg-blue-500" title="Flash"></div>' +
+          '<div style="width:' + litePct.toFixed(1) + '%" class="bg-emerald-500" title="Flash-Lite"></div>';
+
+        document.getElementById("telemetry-legend").innerHTML =
+          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span>Pro (Triage)</span><span class="font-mono tnum">' + (calls.pro || 0) + ' (' + proPct.toFixed(1) + '%)</span></div>' +
+          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>Flash (Managers/Builders)</span><span class="font-mono tnum">' + (calls.flash || 0) + ' (' + flashPct.toFixed(1) + '%)</span></div>' +
+          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Flash-Lite (Verifiers/Scouts)</span><span class="font-mono tnum">' + (calls.flash_lite || 0) + ' (' + litePct.toFixed(1) + '%)</span></div>';
+
+        const runs = (tel.recentRuns || []).slice().reverse();
+        document.getElementById("recent-runs-tbody").innerHTML = runs.map(function (r) {
+          const rc = r.calls || {};
+          const modeCls = r.mode === "execute" ? "text-blue-700 bg-blue-50" : "text-slate-700 bg-slate-100";
+          return (
+            '<tr>' +
+              '<td class="py-2 pr-3 font-mono text-xs text-slate-500 whitespace-nowrap">' + escapeHtml(r.localDate || "") + '</td>' +
+              '<td class="py-2 pr-3"><span class="px-2 py-0.5 rounded text-xs font-medium ' + modeCls + '">' + escapeHtml(r.mode) + '</span></td>' +
+              '<td class="py-2 pr-3 font-mono text-xs text-slate-700 whitespace-nowrap">' + escapeHtml((r.projects || []).join(", ")) + '</td>' +
+              '<td class="py-2 pr-3 font-mono text-xs text-slate-500 whitespace-nowrap tnum">' + (rc.pro || 0) + '/' + (rc.flash || 0) + '/' + (rc.flash_lite || 0) + '</td>' +
+              '<td class="py-2 text-xs text-slate-600 max-w-xs truncate" title="' + escapeHtml(r.summary || "") + '">' + escapeHtml(r.summary || "") + '</td>' +
+            '</tr>'
+          );
+        }).join("");
+      }
+
+      function renderMatrix(data) {
+        const tbody = document.getElementById("matrix-tbody");
+        const areas = data.areas || [];
+        tbody.innerHTML = areas.map(function (a) {
+          const h = HEALTH_STYLES[a.health] || { label: escapeHtml(a.health || "Unknown"), cls: "bg-slate-100 text-slate-600 border-slate-200" };
+          const rowActive = state.area === a.id ? "bg-blue-50/40" : "hover:bg-slate-50/70";
+          const pct = a.counts.total ? Math.round((a.counts.done / a.counts.total) * 100) : 0;
+
+          const cells = PRIORITIES.map(function (lvl) {
+            const p = (a.prioritySummary || {})[lvl] || { total: 0, done: 0, open: 0 };
+            const isSelected = state.area === a.id && state.priority === lvl;
+            let cellBg = "bg-slate-50 text-slate-700 border-slate-200";
+            if (p.total > 0 && p.done === p.total) {
+              cellBg = "bg-emerald-50 text-emerald-800 border-emerald-200 font-semibold";
+            } else if (lvl === "P0" && p.open > 0) {
+              cellBg = "bg-rose-50 text-rose-700 border-rose-200 font-semibold";
+            } else if (p.done > 0) {
+              cellBg = "bg-blue-50 text-blue-800 border-blue-200";
+            }
+            const ring = isSelected ? "ring-2 ring-blue-600 ring-offset-1" : "";
+            return (
+              '<td class="py-3 px-2 text-center">' +
+                '<button type="button" data-matrix-area="' + escapeHtml(a.id) + '" data-matrix-prio="' + lvl + '" class="matrix-cell w-14 py-1 rounded-md border text-xs tnum ' + cellBg + ' ' + ring + '">' +
+                  p.done + '/' + p.total +
+                '</button>' +
+              '</td>'
+            );
+          }).join("");
+
+          return (
+            '<tr class="' + rowActive + ' transition-colors">' +
+              '<td class="py-3.5 px-5">' +
+                '<button type="button" data-area-row="' + escapeHtml(a.id) + '" class="text-left group">' +
+                  '<div class="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">' + escapeHtml(a.name) + '</div>' +
+                  '<div class="text-xs text-slate-500">' + escapeHtml(a.domain) + '</div>' +
+                '</button>' +
+              '</td>' +
+              '<td class="py-3.5 px-3 whitespace-nowrap">' +
+                '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ' + h.cls + '">' + escapeHtml(h.label) + '</span>' +
+              '</td>' +
+              cells +
+              '<td class="py-3.5 px-5 text-right whitespace-nowrap tnum">' +
+                '<span class="text-xs font-semibold text-slate-800">' + a.counts.done + '/' + a.counts.total + '</span>' +
+                '<span class="text-xs text-slate-400 ml-1">(' + pct + '%)</span>' +
+              '</td>' +
+            '</tr>'
+          );
+        }).join("");
+
+        tbody.querySelectorAll("[data-matrix-area]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const targetArea = btn.getAttribute("data-matrix-area");
+            const targetPrio = btn.getAttribute("data-matrix-prio");
+            if (state.area === targetArea && state.priority === targetPrio) {
+              state.area = "all";
+              state.priority = "all";
+            } else {
+              state.area = targetArea;
+              state.priority = targetPrio;
+            }
+            renderTracker();
+          });
+        });
+
+        tbody.querySelectorAll("[data-area-row]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const targetArea = btn.getAttribute("data-area-row");
+            state.area = state.area === targetArea ? "all" : targetArea;
+            state.priority = "all";
+            renderTracker();
+          });
+        });
+      }
+
+      function renderFilterControls(data) {
+        const areaTabs = document.getElementById("area-tabs");
+        const areaButtons = [{ id: "all", name: "All Areas (" + (data.areas || []).length + ")" }].concat(
+          (data.areas || []).map(function (a) { return { id: a.id, name: a.name }; })
+        );
+        areaTabs.innerHTML = areaButtons.map(function (b) {
+          const active = state.area === b.id
+            ? "bg-slate-900 text-white border-slate-900"
+            : "bg-white text-slate-600 border-slate-200 hover:border-slate-300";
+          return '<button type="button" data-area-tab="' + escapeHtml(b.id) + '" class="filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium border ' + active + '">' + escapeHtml(b.name) + '</button>';
+        }).join("");
+
+        areaTabs.querySelectorAll("[data-area-tab]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.area = btn.getAttribute("data-area-tab");
+            renderTracker();
+          });
+        });
+
+        const prioPills = document.getElementById("priority-pills");
+        prioPills.innerHTML = ["all"].concat(PRIORITIES).map(function (lvl) {
+          const active = state.priority === lvl
+            ? "bg-blue-600 text-white border-blue-600"
+            : "bg-slate-50 text-slate-600 border-slate-200 hover:border-slate-300";
+          return '<button type="button" data-prio-pill="' + lvl + '" class="filter-pill px-2.5 py-1 rounded-md text-xs font-semibold border ' + active + '">' + (lvl === "all" ? "All P0–P5" : lvl) + '</button>';
+        }).join("");
+
+        prioPills.querySelectorAll("[data-prio-pill]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.priority = btn.getAttribute("data-prio-pill");
+            renderTracker();
+          });
+        });
+
+        const statusPills = document.getElementById("status-pills");
+        const statuses = [
+          { id: "all", label: "All Status" },
+          { id: "backlog", label: "Open" },
+          { id: "done", label: "Done" }
+        ];
+        statusPills.innerHTML = statuses.map(function (st) {
+          const active = state.status === st.id
+            ? "bg-emerald-700 text-white border-emerald-700"
+            : "bg-slate-50 text-slate-600 border-slate-200 hover:border-slate-300";
+          return '<button type="button" data-status-pill="' + st.id + '" class="filter-pill px-2.5 py-1 rounded-md text-xs font-medium border ' + active + '">' + st.label + '</button>';
+        }).join("");
+
+        statusPills.querySelectorAll("[data-status-pill]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.status = btn.getAttribute("data-status-pill");
+            renderTracker();
+          });
+        });
+      }
+
+      function renderAreaCards(data) {
+        const container = document.getElementById("area-cards-container");
+        const query = state.search.trim().toLowerCase();
+        const visibleAreas = (data.areas || []).filter(function (a) {
+          return state.area === "all" || a.id === state.area;
+        });
+
+        const cardsHtml = visibleAreas.map(function (a) {
+          const filteredTasks = (a.tasks || []).filter(function (t) {
+            if (state.priority !== "all" && t.priority !== state.priority) return false;
+            if (state.status === "done" && t.status !== "done") return false;
+            if (state.status === "backlog" && t.status === "done") return false;
+            if (query) {
+              const hay = (t.id + " " + t.title + " " + t.acceptanceCriteria + " " + a.name).toLowerCase();
+              if (!hay.includes(query)) return false;
+            }
+            return true;
+          });
+
+          if (filteredTasks.length === 0 && (query || state.priority !== "all" || state.status !== "all")) {
+            return "";
+          }
+
+          const h = HEALTH_STYLES[a.health] || { label: escapeHtml(a.health || "Unknown"), cls: "bg-slate-100 text-slate-600 border-slate-200" };
+          const pct = a.counts.total ? Math.round((a.counts.done / a.counts.total) * 100) : 0;
+          const domainHtml = a.url
+            ? '<a href="' + escapeHtml(a.url) + '" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 hover:underline">' + escapeHtml(a.domain) + ' &rarr;</a>'
+            : '<span class="text-xs font-medium text-slate-500">' + escapeHtml(a.domain) + '</span>';
+
+          const rowsHtml = filteredTasks.map(function (t) {
+            const pCls = PRIORITY_STYLES[t.priority] || PRIORITY_STYLES.P5;
+            const sCls = STATUS_STYLES[t.status] || STATUS_STYLES.backlog;
+            return (
+              '<div class="p-4 flex flex-col md:flex-row md:items-start justify-between gap-3 hover:bg-slate-50/70 transition-colors">' +
+                '<div class="space-y-1">' +
+                  '<div class="flex flex-wrap items-center gap-2">' +
+                    '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ' + pCls + '">' + escapeHtml(t.priority) + '</span>' +
+                    '<span class="font-mono text-xs text-slate-400 tnum">' + escapeHtml(t.id) + '</span>' +
+                    '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ' + sCls + '">' + statusLabel(t.status) + '</span>' +
+                    '<span class="text-xs font-mono text-slate-400">size:' + escapeHtml(t.size) + '</span>' +
+                  '</div>' +
+                  '<p class="text-sm font-medium text-slate-900">' + escapeHtml(t.title) + '</p>' +
+                  (t.acceptanceCriteria
+                    ? '<p class="text-xs text-slate-500">Gate: ' + escapeHtml(t.acceptanceCriteria) + '</p>'
+                    : '') +
+                '</div>' +
+                '<span class="text-xs font-mono text-slate-400 whitespace-nowrap tnum">' + escapeHtml(t.createdAt || "") + '</span>' +
+              '</div>'
+            );
+          }).join("");
+
+          return (
+            '<article class="glass-card overflow-hidden">' +
+              '<div class="p-6 bg-slate-50/70 border-b border-slate-200">' +
+                '<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">' +
+                  '<div>' +
+                    '<div class="flex flex-wrap items-center gap-2.5 mb-1">' +
+                      '<h3 class="text-xl font-serif font-semibold text-slate-900">' + escapeHtml(a.name) + '</h3>' +
+                      '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ' + h.cls + '">' + escapeHtml(h.label) + '</span>' +
+                      '<span class="text-xs font-mono text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded">' + escapeHtml(a.manager) + '</span>' +
+                    '</div>' +
+                    '<div class="flex flex-wrap items-center gap-3 text-xs text-slate-500">' +
+                      domainHtml +
+                      '<span>&bull;</span>' +
+                      '<span>' + escapeHtml(a.stack) + '</span>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="md:text-right">' +
+                    '<p class="text-xs font-semibold text-slate-700 tnum mb-1">' + a.counts.done + ' of ' + a.counts.total + ' completed (' + pct + '%)</p>' +
+                    '<div class="w-40 h-2 bg-slate-200 rounded-full overflow-hidden md:ml-auto">' +
+                      '<div class="h-full bg-blue-600 rounded-full" style="width:' + pct + '%"></div>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="divide-y divide-slate-100">' +
+                rowsHtml +
+              '</div>' +
+            '</article>'
+          );
+        }).join("");
+
+        container.innerHTML = cardsHtml || (
+          '<div class="glass-card p-10 text-center text-slate-500 text-sm">' +
+            'No roadmap items match the active filters. Click <strong>Reset Filters</strong> to show all P0–P5 tasks.' +
+          '</div>'
+        );
+      }
+
+      function renderTracker() {
+        if (!state.data) return;
+        renderMatrix(state.data);
+        renderFilterControls(state.data);
+        renderAreaCards(state.data);
+      }
+
+      function renderAll(data) {
+        state.data = data;
+        renderStaticSections(data);
+        renderTracker();
+      }
+
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+      const menuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      menuButton.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+      });
+      mobileMenu.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+
+      document.getElementById("search-input").addEventListener("input", function (e) {
+        state.search = e.target.value || "";
+        renderAreaCards(state.data);
+      });
+
+      document.getElementById("reset-filters-btn").addEventListener("click", function () {
+        state.area = "all";
+        state.priority = "all";
+        state.status = "all";
+        state.search = "";
+        document.getElementById("search-input").value = "";
+        renderTracker();
+      });
+
+      if (state.data) {
+        renderAll(state.data);
+      }
+
+      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+        fetch("./data/dashboard_data.json", { cache: "no-store" })
+          .then(function (resp) { return resp.ok ? resp.json() : null; })
+          .then(function (fresh) {
+            if (fresh && fresh.areas) {
+              renderAll(fresh);
+            }
+          })
+          .catch(function () {});
+      }
+    })();
+  </script>
+</body>
+</html>
