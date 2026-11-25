@@ -1,0 +1,61 @@
+window.EXEC_OPS_PUBLIC = {
+  "exportedAt": "2026-11-25T18:51:18+00:00",
+  "kpis": {
+    "activeWorkstreams": 6,
+    "verifiedCycles": 6,
+    "costEfficientSharePct": 96.2,
+    "frontierSharePct": 3.8,
+    "priorityTiers": 6,
+    "independentVerificationPct": 100
+  },
+  "workstreams": [
+    {
+      "id": "openphr",
+      "name": "OpenPHR & CareHub",
+      "category": "Healthcare AI \u2022 501(c)(3) Non-Profit",
+      "url": "https://openphr.org",
+      "status": "Active",
+      "summary": "Open-source clinical navigation, hospital price transparency, and patient-centered care guides."
+    },
+    {
+      "id": "public-investing",
+      "name": "AI Investing",
+      "category": "Public Equities Research",
+      "url": "https://investing.calebli.com",
+      "status": "Active",
+      "summary": "Automated public equity due diligence, earnings synthesis, and financial model verification."
+    },
+    {
+      "id": "venture-capital",
+      "name": "VC Intelligence",
+      "category": "Late-Stage Venture Analytics",
+      "url": "https://vc.calebli.com",
+      "status": "Active",
+      "summary": "Tracks late-stage private company valuation signals derived from quarterly institutional mutual fund marks."
+    },
+    {
+      "id": "civic-tools",
+      "name": "Civic Analytics",
+      "category": "Public Fiscal Research",
+      "url": "https://calebli.com/bay-area-property-tax",
+      "status": "Active",
+      "summary": "ZIP-level Bay Area municipal property tax and business activity audits powered by public Census datasets."
+    },
+    {
+      "id": "vivid-vision-advisory",
+      "name": "Vivid Vision Advisory",
+      "category": "Strategic Advisory \u2022 Ophthalmic VR",
+      "url": null,
+      "status": "Advisory",
+      "summary": "Commercialization strategy, biopharma partnerships, and market positioning for VR-based ophthalmic perimetry."
+    },
+    {
+      "id": "personal-website",
+      "name": "Digital Platform & AI Ops",
+      "category": "Executive Showcase",
+      "url": "https://calebli.com",
+      "status": "Active",
+      "summary": "Central portfolio hub and governance showcase documenting repeatable, cost-disciplined AI operations."
+    }
+  ]
+};

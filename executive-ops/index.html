@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executive Ops &amp; P0–P5 Portfolio Tracker | Caleb Li</title>
-  <meta name="description" content="Caleb Li's Agentic Executive Ops framework, quota-disciplined strategy, execution telemetry, and P0–P5 portfolio tracking dashboard across healthcare, investing, civic analytics, and advisory." />
-  <meta property="og:title" content="Executive Ops & P0–P5 Portfolio Tracker — Caleb Li" />
-  <meta property="og:description" content="Multi-tier AI operating system (Pre-Flight -> Chief of Staff -> Domain Managers -> Workers) with live execution telemetry and P0–P5 roadmaps across six public areas." />
+  <title>Executive AI Operating Model &amp; Strategy | Caleb Li</title>
+  <meta name="description" content="How Caleb Li structures multi-tier AI governance, cost-disciplined compute routing, and P0–P5 portfolio prioritization across healthcare, investing, civic analytics, and strategic advisory." />
+  <meta property="og:title" content="Executive AI Operating Model & Strategy — Caleb Li" />
+  <meta property="og:description" content="Disciplined multi-tier AI governance framework, strategy, and password-protected P0–P5 portfolio tracker." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='65' font-family='serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>CL<tspan fill='%232563eb'>.</tspan></text></svg>" />
@@ -48,7 +48,7 @@
     }
     .glass-card:hover {
       border-color: #cbd5e1;
-      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.08);
     }
     .nav-link {
       position: relative;
@@ -82,6 +82,14 @@
       transform: translateY(-1px);
       box-shadow: inset 0 0 0 2px #2563eb;
     }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake {
+      animation: shake 0.32s ease;
+    }
   </style>
 </head>
 <body class="antialiased relative overflow-x-hidden">
@@ -91,13 +99,16 @@
       <div class="flex items-center gap-3">
         <a href="../" aria-label="Caleb Li Home" class="font-serif text-xl font-bold text-slate-900 tracking-wide">CL<span class="text-blue-600">.</span></a>
         <span class="text-slate-300">/</span>
-        <span class="text-xs font-semibold uppercase tracking-widest text-slate-600">Executive Ops</span>
+        <span class="text-xs font-semibold uppercase tracking-widest text-slate-600">AI Operating Model</span>
       </div>
       <div class="hidden md:flex items-center space-x-7">
-        <a href="#framework" class="nav-link text-sm font-medium">Framework</a>
+        <a href="#model" class="nav-link text-sm font-medium">Operating Model</a>
         <a href="#strategy" class="nav-link text-sm font-medium">Strategy</a>
-        <a href="#telemetry" class="nav-link text-sm font-medium">Telemetry</a>
-        <a href="#tracker" class="nav-link text-sm font-medium">P0–P5 Tracker</a>
+        <a href="#workstreams" class="nav-link text-sm font-medium">Workstreams</a>
+        <a href="#vault-section" class="nav-link text-sm font-medium inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+          <span>Detailed Tracker</span>
+        </a>
         <a href="../" class="px-4 py-1.5 text-sm font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded-full hover:text-slate-900 hover:border-slate-300 transition-all">&larr; Personal Site</a>
       </div>
       <div class="md:hidden">
@@ -107,241 +118,647 @@
       </div>
     </nav>
     <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-slate-200 absolute w-full shadow-lg">
-      <a href="#framework" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Framework</a>
+      <a href="#model" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Operating Model</a>
       <a href="#strategy" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Strategy</a>
-      <a href="#telemetry" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Telemetry</a>
-      <a href="#tracker" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">P0–P5 Tracker</a>
+      <a href="#workstreams" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Workstreams</a>
+      <a href="#vault-section" class="block text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-6 py-3.5 text-sm font-medium border-b border-slate-100">Detailed Tracker (Protected)</a>
       <a href="../" class="block text-slate-900 font-semibold hover:bg-slate-50 px-6 py-3.5 text-sm">&larr; Back to Personal Site</a>
     </div>
   </header>
 
   <main class="container mx-auto px-6 md:px-10 pt-28 pb-20 max-w-6xl">
 
-    <!-- Hero & Live KPIs -->
+    <!-- Executive Hero -->
     <section class="pb-14 border-b border-slate-200">
       <div class="flex flex-wrap items-center gap-3 mb-4">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-          Agentic Operating System
+          Executive AI Operating Model
         </span>
-        <span id="exported-at-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-50 text-slate-600 border border-slate-200 tnum">
-          Loading telemetry...
+        <span id="public-updated-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-50 text-slate-600 border border-slate-200 tnum">
+          Live Portfolio Governance
         </span>
       </div>
-      <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 tracking-tight mb-4">
-        Executive Ops Framework, Strategy &amp; P0–P5 Tracker
+      <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 tracking-tight mb-5 max-w-4xl text-balance leading-tight">
+        Scaling Execution Across Six Ventures With Disciplined AI Governance
       </h1>
       <p class="text-lg text-slate-600 max-w-3xl leading-relaxed mb-8">
-        How I coordinate autonomous coding, financial verification, civic analytics, and strategic advisory across public domains—enforcing strict model tiering, daily quota caps, and automated verification harnesses.
+        Running multiple software platforms, research pipelines, and advisory mandates alongside an executive role requires leverage without chaos. Rather than prompting ad-hoc, I operate a structured organizational model that separates executive triage, vertical ownership, execution, and independent quality assurance.
       </p>
 
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="hero-kpis">
-        <div class="glass-card p-5">
-          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Public Areas</p>
-          <p id="kpi-areas" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
-          <p class="text-xs text-slate-500 mt-1">Engineering, analytics &amp; advisory</p>
+      <div class="flex flex-wrap items-center gap-3 mb-10">
+        <a href="#model" class="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-full shadow-sm transition-all">
+          Explore the Framework
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </a>
+        <a href="#vault-section" class="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-full hover:border-slate-300 hover:text-slate-900 hover:shadow-sm transition-all">
+          <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+          Open Detailed Tracker
+        </a>
+      </div>
+
+      <!-- Business-Friendly KPI Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card p-5 border-t-4 border-t-slate-900">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Active Workstreams</p>
+          <p id="pub-kpi-workstreams" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">6</p>
+          <p class="text-xs text-slate-500 mt-1">Healthcare, Finance, Civic &amp; Advisory</p>
         </div>
-        <div class="glass-card p-5">
-          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Logged Cycles</p>
-          <p id="kpi-cycles" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
-          <p id="kpi-cycles-sub" class="text-xs text-slate-500 mt-1">Showcase threshold: 5+ cycles</p>
+        <div class="glass-card p-5 border-t-4 border-t-emerald-600">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Economical Compute</p>
+          <p id="pub-kpi-efficiency" class="text-3xl font-serif font-bold text-emerald-700 mt-1 tnum">—</p>
+          <p class="text-xs text-slate-500 mt-1">Routine delivery on high-speed tiers</p>
         </div>
-        <div class="glass-card p-5">
-          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Flash / Lite Share</p>
-          <p id="kpi-efficiency" class="text-3xl font-serif font-bold text-emerald-700 mt-1 tnum">—</p>
-          <p id="kpi-calls-sub" class="text-xs text-slate-500 mt-1">Reserves Pro for triage only</p>
+        <div class="glass-card p-5 border-t-4 border-t-blue-600">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Priority Cadence</p>
+          <p id="pub-kpi-tiers" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">P0–P5</p>
+          <p class="text-xs text-slate-500 mt-1">Six-tier roadmap discipline</p>
         </div>
-        <div class="glass-card p-5">
-          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">P0–P5 Completion</p>
-          <p id="kpi-completion" class="text-3xl font-serif font-bold text-blue-700 mt-1 tnum">—</p>
-          <p id="kpi-tasks-sub" class="text-xs text-slate-500 mt-1">Done vs tracked roadmap items</p>
+        <div class="glass-card p-5 border-t-4 border-t-violet-600">
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Quality Sign-Off</p>
+          <p id="pub-kpi-qa" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">100%</p>
+          <p class="text-xs text-slate-500 mt-1">Independent audit before publish</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 1: Framework -->
-    <section id="framework" class="py-14 border-b border-slate-200">
+    <!-- Section 1: Operating Framework Visual -->
+    <section id="model" class="py-16 border-b border-slate-200">
       <div class="flex items-center gap-4 mb-3">
         <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">1. Operating Framework</h2>
         <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
       </div>
       <p class="text-slate-600 max-w-3xl mb-8">
-        Every sprint follows a fixed delegation ladder: deterministic pre-flight checks run first at zero token cost before escalating through Chief of Staff triage, scoped domain Managers, and single-purpose Workers.
+        Structured like a disciplined operating company: every initiative starts with a deterministic health check at zero AI cost, routes through one strategic allocation review, and delegates bounded deliverables to vertical leads and independent reviewers.
       </p>
 
-      <!-- Visual Command Chain -->
-      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch" id="framework-tiers">
-          <!-- Populated dynamically from dashboard_data -->
+      <!-- Bespoke Responsive Org-Flow SVG Diagram -->
+      <div class="bg-gradient-to-br from-slate-50 via-white to-blue-50/40 border border-slate-200 rounded-2xl p-6 md:p-8 mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">Command Chain &amp; Control Architecture</span>
+          <span class="text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">Zero Unbounded Loops</span>
         </div>
+
+        <svg viewBox="0 0 980 280" class="w-full h-auto" role="img" aria-label="Four-layer AI executive operating framework diagram">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+            </marker>
+            <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#f8fafc" />
+            </linearGradient>
+          </defs>
+
+          <!-- Flow Connectors -->
+          <line x1="215" y1="130" x2="255" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+          <line x1="465" y1="130" x2="505" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+          <line x1="715" y1="100" x2="755" y2="78" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+          <line x1="715" y1="160" x2="755" y2="184" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+          <!-- Layer 0 -->
+          <rect x="15" y="45" width="200" height="170" rx="16" fill="url(#cardGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+          <rect x="30" y="62" width="110" height="22" rx="11" fill="#ecfdf5" stroke="#a7f3d0" />
+          <text x="85" y="77" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="#047857">$0 AI COST</text>
+          <text x="30" y="108" font-family="Playfair Display, Georgia, serif" font-size="17" font-weight="700" fill="#0f172a">0. Health Digest</text>
+          <text x="30" y="132" font-family="Inter, sans-serif" font-size="12" fill="#475569">Automated portfolio</text>
+          <text x="30" y="149" font-family="Inter, sans-serif" font-size="12" fill="#475569">telemetry compiled</text>
+          <text x="30" y="166" font-family="Inter, sans-serif" font-size="12" fill="#475569">before any AI spend.</text>
+          <text x="30" y="196" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#64748b">Skips clean / idle areas</text>
+
+          <!-- Layer 1 -->
+          <rect x="260" y="45" width="205" height="170" rx="16" fill="#0f172a" stroke="#0f172a" stroke-width="1.5" />
+          <rect x="275" y="62" width="136" height="22" rx="11" fill="#1e293b" stroke="#475569" />
+          <text x="343" y="77" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="#93c5fd">FRONTIER REASONING</text>
+          <text x="275" y="108" font-family="Playfair Display, Georgia, serif" font-size="17" font-weight="700" fill="#ffffff">1. AI Chief of Staff</text>
+          <text x="275" y="132" font-family="Inter, sans-serif" font-size="12" fill="#cbd5e1">Reads executive brief</text>
+          <text x="275" y="149" font-family="Inter, sans-serif" font-size="12" fill="#cbd5e1">only; picks at most</text>
+          <text x="275" y="166" font-family="Inter, sans-serif" font-size="12" fill="#cbd5e1">one top-ROI mandate.</text>
+          <text x="275" y="196" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#60a5fa">Max 1 call per cycle</text>
+
+          <!-- Layer 2 -->
+          <rect x="510" y="45" width="205" height="170" rx="16" fill="url(#cardGrad)" stroke="#93c5fd" stroke-width="1.5" />
+          <rect x="525" y="62" width="128" height="22" rx="11" fill="#eff6ff" stroke="#bfdbfe" />
+          <text x="589" y="77" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="#1d4ed8">VERTICAL LEADS</text>
+          <text x="525" y="108" font-family="Playfair Display, Georgia, serif" font-size="17" font-weight="700" fill="#0f172a">2. Portfolio Leads</text>
+          <text x="525" y="132" font-family="Inter, sans-serif" font-size="12" fill="#475569">Six vertical owners</text>
+          <text x="525" y="149" font-family="Inter, sans-serif" font-size="12" fill="#475569">scope clear outcomes</text>
+          <text x="525" y="166" font-family="Inter, sans-serif" font-size="12" fill="#475569">&amp; acceptance criteria.</text>
+          <text x="525" y="196" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#2563eb">Plan-first approval gate</text>
+
+          <!-- Layer 3a Builder -->
+          <rect x="760" y="25" width="205" height="100" rx="14" fill="url(#cardGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+          <text x="776" y="52" font-family="Playfair Display, Georgia, serif" font-size="15.5" font-weight="700" fill="#0f172a">3A. Execution</text>
+          <text x="776" y="74" font-family="Inter, sans-serif" font-size="12" fill="#475569">Delivers bounded changes</text>
+          <text x="776" y="90" font-family="Inter, sans-serif" font-size="12" fill="#475569">on explicit deliverables.</text>
+          <text x="776" y="111" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="#2563eb">High-speed execution tier</text>
+
+          <!-- Layer 3b Auditor -->
+          <rect x="760" y="140" width="205" height="100" rx="14" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" />
+          <text x="776" y="167" font-family="Playfair Display, Georgia, serif" font-size="15.5" font-weight="700" fill="#064e3b">3B. Independent QA</text>
+          <text x="776" y="189" font-family="Inter, sans-serif" font-size="12" fill="#065f46">Audits checks, compliance,</text>
+          <text x="776" y="205" font-family="Inter, sans-serif" font-size="12" fill="#065f46">&amp; privacy prior to release.</text>
+          <text x="776" y="226" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="#047857">Maker-checker separation</text>
+        </svg>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+      <!-- 4 Governance Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-sm">
         <div class="glass-card p-5 border-t-4 border-t-slate-900">
-          <h3 class="font-semibold text-slate-900 mb-1.5">Context Isolation</h3>
-          <p class="text-slate-600">Chief of Staff reads only a compact &lt; 8 KB state snapshot, task board, and quota ledger—never scanning source files across repositories.</p>
+          <h3 class="font-semibold text-slate-900 mb-1.5">Executive Leverage</h3>
+          <p class="text-slate-600">Top-tier reasoning evaluates only compact portfolio summaries rather than wasting capacity reading entire archives.</p>
         </div>
         <div class="glass-card p-5 border-t-4 border-t-blue-600">
-          <h3 class="font-semibold text-slate-900 mb-1.5">Bounded Fan-Out</h3>
-          <p class="text-slate-600">At most 1 active area per cycle and &le; 2 disjoint worker assignments per Manager, preventing parallel file conflicts or quota spikes.</p>
+          <h3 class="font-semibold text-slate-900 mb-1.5">Separation of Duties</h3>
+          <p class="text-slate-600">No specialist certifies its own work. Execution teams ship deliverables; independent QA verifies every acceptance gate.</p>
         </div>
         <div class="glass-card p-5 border-t-4 border-t-emerald-600">
-          <h3 class="font-semibold text-slate-900 mb-1.5">Zero-Trust Verification &amp; Privacy</h3>
-          <p class="text-slate-600">Every change requires independent Verifier sign-off (`tsc`, lint, domain checks). Private domains remain strictly isolated and excluded from public exports.</p>
+          <h3 class="font-semibold text-slate-900 mb-1.5">Privacy &amp; NDA Firewalls</h3>
+          <p class="text-slate-600">Confidential advisory details and private personal domains stay physically isolated from public telemetry and showcases.</p>
+        </div>
+        <div class="glass-card p-5 border-t-4 border-t-violet-600">
+          <h3 class="font-semibold text-slate-900 mb-1.5">Zero-Recurrence Audits</h3>
+          <p class="text-slate-600">Whenever an operational snag occurs, an automated verification check is engineered permanently into the workflow.</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 2: Strategy & Priority Taxonomy -->
-    <section id="strategy" class="py-14 border-b border-slate-200">
+    <!-- Section 2: Strategy, Compute Economics & P0-P5 Model -->
+    <section id="strategy" class="py-16 border-b border-slate-200">
       <div class="flex items-center gap-4 mb-3">
-        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">2. Strategy, Quota Policy &amp; P0–P5 Rubric</h2>
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">2. Strategy &amp; Compute Discipline</h2>
         <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
       </div>
       <p class="text-slate-600 max-w-3xl mb-8">
-        Operating rhythms, anti-burn guardrails, and the standardized six-tier priority rubric applied uniformly across engineering, investing, civic analytics, and advisory tracks.
+        Sustainable AI operations rely on cost discipline as much as capability. My strategy matches task complexity to the right compute tier and caps daily blast radius before execution begins.
       </p>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <!-- Operating Rhythms & Anti-Burn -->
-        <div class="glass-card p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-serif font-semibold text-slate-900">Repeatable Cadence &amp; Caps</h3>
-            <span id="strategy-cadence" class="text-xs font-mono px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md">—</span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+        <!-- Compute Economics Donut Visual -->
+        <div class="glass-card p-6 md:p-7 lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-serif font-semibold text-slate-900 mb-1">Compute Tier Allocation</h3>
+            <p class="text-xs text-slate-500 mb-6">Measured across verified portfolio cycles</p>
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="relative w-40 h-40 flex-shrink-0">
+                <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90" role="img" aria-label="Compute tier allocation chart">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#e2e8f0" stroke-width="14"></circle>
+                  <circle id="donut-efficient-arc" cx="60" cy="60" r="46" fill="none" stroke="#10b981" stroke-width="14" stroke-dasharray="289" stroke-dashoffset="11" stroke-linecap="round"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span id="donut-center-pct" class="text-2xl font-serif font-bold text-slate-900 tnum">—</span>
+                  <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">High-Speed</span>
+                </div>
+              </div>
+              <div class="space-y-3 text-sm w-full">
+                <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/70">
+                  <div class="flex justify-between items-center font-semibold text-emerald-900">
+                    <span>Fast Execution &amp; QA</span>
+                    <span id="legend-efficient-pct" class="tnum">—</span>
+                  </div>
+                  <p class="text-xs text-emerald-700 mt-0.5">Domain scoping, implementation &amp; audit checks</p>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="flex justify-between items-center font-semibold text-slate-900">
+                    <span>Frontier Allocation</span>
+                    <span id="legend-frontier-pct" class="tnum">—</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-0.5">Reserved strictly for portfolio prioritization</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="strategy-rhythms" class="space-y-3 mb-5"></div>
-          <h4 class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Hard Guardrails</h4>
-          <ul id="strategy-rules" class="space-y-1.5 text-sm text-slate-600"></ul>
+          <p class="text-xs text-slate-500 mt-6 pt-4 border-t border-slate-100">
+            Capped at 1 active workstream and 2 scoped work packages per standard cycle to prevent runaway usage limits.
+          </p>
         </div>
 
-        <!-- Model Tiering Policy -->
-        <div class="glass-card p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-serif font-semibold text-slate-900">Model Tiering &amp; Cycle Budget</h3>
-            <span id="budget-summary-pill" class="text-xs font-mono px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md tnum">—</span>
+        <!-- 3-Stage Operating Rhythm -->
+        <div class="glass-card p-6 md:p-7 lg:col-span-7 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-serif font-semibold text-slate-900 mb-1">Repeatable Operating Rhythm</h3>
+            <p class="text-xs text-slate-500 mb-6">Standardized weekly cadence keeping quality predictable</p>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">01</span>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h4 class="text-sm font-semibold text-slate-900">Automated Morning Triage</h4>
+                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Zero Overhead Preflight</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">An automated health sweep surfaces open bottlenecks across all workstreams so executive review focuses strictly on highest-ROI priorities.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="w-8 h-8 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">02</span>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h4 class="text-sm font-semibold text-slate-900">Plan-First Bounded Execution</h4>
+                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Dry-Run First</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">Vertical leads propose concise action plans first. Execution proceeds only after scope and measurable acceptance gates are locked in.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">03</span>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h4 class="text-sm font-semibold text-slate-900">Independent QA &amp; Confidential Redaction</h4>
+                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200">Audit Gate</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">Automated validators certify correctness and verify client confidentiality before metrics sync to public pages.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual P0-P5 Strategic Framework -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <h3 class="text-xl font-serif font-semibold text-slate-900">P0–P5 Prioritization Framework</h3>
+          <span class="text-xs text-slate-500">Uniform severity &amp; strategic sequencing applied across every portfolio area</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="glass-card p-5 border-l-4 border-l-rose-500">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">P0</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-rose-600">Immediate Focus</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Critical Release &amp; Risk</h4>
+            <p class="text-xs text-slate-600">Production releases, compliance integrity, flagship client deliverables, and mission-critical launch readiness.</p>
+          </div>
+
+          <div class="glass-card p-5 border-l-4 border-l-amber-500">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">P1</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-amber-700">Near-Term Sprint</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Core Operations &amp; Audit</h4>
+            <p class="text-xs text-slate-600">Primary reliability, financial &amp; data accuracy checks, core partnership readiness, and brand alignment.</p>
+          </div>
+
+          <div class="glass-card p-5 border-l-4 border-l-blue-500">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">P2</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-blue-600">Quarterly Execution</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Automation &amp; Hardening</h4>
+            <p class="text-xs text-slate-600">Automated earnings &amp; filing refreshes, continuous quality checks, and competitive positioning benchmarks.</p>
+          </div>
+
+          <div class="glass-card p-5 border-l-4 border-l-indigo-500">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">P3</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">Capability Polish</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Performance &amp; Tooling</h4>
+            <p class="text-xs text-slate-600">Page-speed optimization, regression suites, zero-overhead reporting syncs, and structured evidence briefs.</p>
+          </div>
+
+          <div class="glass-card p-5 border-l-4 border-l-emerald-500">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">P4</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Growth Initiatives</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Coverage &amp; Synthesis</h4>
+            <p class="text-xs text-slate-600">New regional expansions, peer-comparison synthesis, valuation dispersion signals, and investor readiness.</p>
+          </div>
+
+          <div class="glass-card p-5 border-l-4 border-l-slate-400">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">P5</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Horizon Watchlist</span>
+            </div>
+            <h4 class="font-semibold text-slate-900 text-sm mb-1">Exploration &amp; R&amp;D</h4>
+            <p class="text-xs text-slate-600">New partner integrations, archival stewardship of legacy R&amp;D prototypes, and ongoing market intelligence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Public Workstreams Portfolio -->
+    <section id="workstreams" class="py-16 border-b border-slate-200">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">3. Active Portfolio Workstreams</h2>
+        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Six public operating areas coordinated under one governance framework spanning healthcare AI, public markets, venture valuation, civic analytics, and strategic advisory.
+      </p>
+      <div id="public-workstreams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Section 4: Password-Protected Detailed Dashboard -->
+    <section id="vault-section" class="pt-16">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">4. Detailed Operations &amp; P0–P5 Tracker</h2>
+        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
+      </div>
+      <p class="text-slate-600 max-w-3xl mb-8">
+        Granular roadmap items, verification criteria, execution telemetry, and live cycle governance are encrypted client-side and unlocked only with a passcode.
+      </p>
+
+      <!-- Locked State Card -->
+      <div id="vault-locked-card" class="glass-card max-w-md mx-auto p-8 text-center shadow-sm">
+        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-serif font-semibold text-slate-900 mb-2">Protected Operations Dashboard</h3>
+        <p class="text-sm text-slate-500 mb-6">
+          Enter the passcode to decrypt task-level P0–P5 roadmaps, verification gates, and detailed execution metrics across all areas.
+        </p>
+        <form id="unlock-form" autocomplete="off" class="space-y-3">
+          <div class="relative">
+            <input id="pw-input" type="password" inputmode="numeric" autocomplete="off" placeholder="Enter passcode" required class="w-full px-4 py-2.5 pr-14 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+            <button type="button" id="pw-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-slate-500 hover:text-slate-800 px-1.5 py-1">Show</button>
+          </div>
+          <button type="submit" id="unlock-btn" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-60">
+            Unlock Detailed Dashboard
+          </button>
+        </form>
+        <p id="lock-err" class="text-xs text-rose-600 mt-3 min-h-[18px]"></p>
+        <p class="text-[11px] text-slate-400 mt-3">Encrypted locally at rest (PBKDF2-SHA256 + ChaCha20-HMAC)</p>
+      </div>
+
+      <!-- Unlocked Detailed View (Hidden Until Valid Password Decryption) -->
+      <div id="vault-unlocked-panel" class="hidden space-y-10">
+        <!-- Control Banner -->
+        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-700 text-white">
+              Unlocked &mdash; Detailed View
+            </span>
+            <span id="vault-exported-at" class="text-xs text-emerald-900 font-medium tnum"></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="reset-filters-btn" type="button" class="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-full transition-colors">
+              Reset Filters
+            </button>
+            <button id="lock-vault-btn" type="button" class="px-3.5 py-1.5 text-xs font-semibold text-rose-700 bg-white border border-rose-200 hover:bg-rose-50 rounded-full transition-colors">
+              Lock Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- Detailed KPIs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="glass-card p-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Public Areas</p>
+            <p id="kpi-areas" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
+            <p class="text-xs text-slate-500 mt-1">With P0–P5 depth</p>
+          </div>
+          <div class="glass-card p-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Logged Cycles</p>
+            <p id="kpi-cycles" class="text-3xl font-serif font-bold text-slate-900 mt-1 tnum">—</p>
+            <p id="kpi-cycles-sub" class="text-xs text-slate-500 mt-1">—</p>
+          </div>
+          <div class="glass-card p-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Flash / Lite Share</p>
+            <p id="kpi-efficiency" class="text-3xl font-serif font-bold text-emerald-700 mt-1 tnum">—</p>
+            <p id="kpi-calls-sub" class="text-xs text-slate-500 mt-1">—</p>
+          </div>
+          <div class="glass-card p-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">P0–P5 Completion</p>
+            <p id="kpi-completion" class="text-3xl font-serif font-bold text-blue-700 mt-1 tnum">—</p>
+            <p id="kpi-tasks-sub" class="text-xs text-slate-500 mt-1">—</p>
+          </div>
+        </div>
+
+        <!-- Interactive 6 Areas x P0-P5 Matrix -->
+        <div class="glass-card overflow-hidden">
+          <div class="px-6 py-4 bg-slate-50/70 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Cross-Portfolio P0–P5 Heat Matrix</h3>
+            <span class="text-xs text-slate-500">Done / Total per priority &bull; Click any cell to filter</span>
           </div>
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm">
+            <table class="w-full text-left border-collapse min-w-[740px]">
               <thead>
-                <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-400">
-                  <th class="py-2 pr-4">Agent Role</th>
-                  <th class="py-2">Pinned Tier</th>
+                <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 bg-white">
+                  <th class="py-3.5 px-5">Public Area</th>
+                  <th class="py-3.5 px-3">Health</th>
+                  <th class="py-3.5 px-3 text-center">P0</th>
+                  <th class="py-3.5 px-3 text-center">P1</th>
+                  <th class="py-3.5 px-3 text-center">P2</th>
+                  <th class="py-3.5 px-3 text-center">P3</th>
+                  <th class="py-3.5 px-3 text-center">P4</th>
+                  <th class="py-3.5 px-3 text-center">P5</th>
+                  <th class="py-3.5 px-5 text-right">Progress</th>
                 </tr>
               </thead>
-              <tbody id="model-policy-tbody" class="divide-y divide-slate-100"></tbody>
+              <tbody id="matrix-tbody" class="divide-y divide-slate-100 text-sm"></tbody>
             </table>
           </div>
         </div>
-      </div>
 
-      <!-- P0-P5 Rubric -->
-      <div class="glass-card p-6">
-        <h3 class="text-lg font-serif font-semibold text-slate-900 mb-4">P0–P5 Priority Classification</h3>
-        <div id="priority-rubric-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-      </div>
-    </section>
-
-    <!-- Section 3: Execution Telemetry -->
-    <section id="telemetry" class="py-14 border-b border-slate-200">
-      <div class="flex items-center gap-4 mb-3">
-        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">3. Live Execution Telemetry</h2>
-        <div class="h-px bg-gradient-to-r from-slate-200 to-transparent flex-grow"></div>
-      </div>
-      <p class="text-slate-600 max-w-3xl mb-8">
-        Exported directly from sanitized public cycle logs (`ops_cli.py showcase-export`), tracking model tier allocation and recent sprint verification runs.
-      </p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div class="glass-card p-6">
-          <h3 class="text-base font-serif font-semibold text-slate-900 mb-3">Model Call Distribution</h3>
-          <div id="telemetry-bar" class="w-full h-4 rounded-full bg-slate-100 overflow-hidden flex mb-4"></div>
-          <div id="telemetry-legend" class="space-y-2 text-sm"></div>
+        <!-- Filter Controls -->
+        <div class="glass-card p-5 space-y-4">
+          <div class="flex flex-wrap items-center gap-2" id="area-tabs"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+            <div class="flex flex-wrap items-center gap-2" id="priority-pills"></div>
+            <div class="flex flex-wrap items-center gap-2" id="status-pills"></div>
+            <div class="relative flex-grow md:max-w-xs">
+              <input id="search-input" type="search" placeholder="Filter ID, deliverable, or gate..." class="w-full pl-3 pr-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" />
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card p-6 lg:col-span-2">
-          <h3 class="text-base font-serif font-semibold text-slate-900 mb-3">Recent Public Execution Ledger</h3>
-          <div class="overflow-x-auto max-h-64 overflow-y-auto">
-            <table class="w-full text-left border-collapse text-xs md:text-sm">
-              <thead>
-                <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-400">
-                  <th class="py-2 pr-3">Date</th>
-                  <th class="py-2 pr-3">Mode</th>
-                  <th class="py-2 pr-3">Area</th>
-                  <th class="py-2 pr-3">Calls (P/F/L)</th>
-                  <th class="py-2">Summary</th>
-                </tr>
-              </thead>
-              <tbody id="recent-runs-tbody" class="divide-y divide-slate-100"></tbody>
-            </table>
+        <!-- Area Roadmap Cards -->
+        <div id="area-cards-container" class="space-y-6"></div>
+
+        <!-- Detailed Execution Telemetry & Governance Policy -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="glass-card p-6">
+            <h3 class="text-base font-serif font-semibold text-slate-900 mb-3">Detailed Model Call Split</h3>
+            <div id="telemetry-bar" class="w-full h-4 rounded-full bg-slate-100 overflow-hidden flex mb-4"></div>
+            <div id="telemetry-legend" class="space-y-2 text-sm mb-5"></div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Role Pinning</h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <tbody id="model-policy-tbody" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="glass-card p-6 lg:col-span-2">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-base font-serif font-semibold text-slate-900">Recent Sanitized Execution Ledger</h3>
+              <span id="budget-summary-pill" class="text-xs font-mono px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md tnum">—</span>
+            </div>
+            <div class="overflow-x-auto max-h-72 overflow-y-auto">
+              <table class="w-full text-left border-collapse text-xs md:text-sm">
+                <thead>
+                  <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-400">
+                    <th class="py-2 pr-3">Date</th>
+                    <th class="py-2 pr-3">Mode</th>
+                    <th class="py-2 pr-3">Area</th>
+                    <th class="py-2 pr-3">Calls (P/F/L)</th>
+                    <th class="py-2">Summary</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-runs-tbody" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Section 4: Portfolio Tracking Dashboard & P0-P5 Matrix -->
-    <section id="tracker" class="py-14">
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
-        <h2 class="text-2xl md:text-3xl font-serif font-semibold text-slate-900">4. Portfolio Tracking Dashboard (P0–P5)</h2>
-        <button id="reset-filters-btn" type="button" class="px-3.5 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors">
-          Reset Filters
-        </button>
-      </div>
-      <p class="text-slate-600 max-w-3xl mb-8">
-        Click any priority cell (`P0`–`P5`) or area row in the matrix below to drill into specific deliverables across all six public areas, including Vivid Vision Advisory.
-      </p>
-
-      <!-- Interactive 6 Areas x P0-P5 Matrix -->
-      <div class="glass-card overflow-hidden mb-8">
-        <div class="px-6 py-4 bg-slate-50/70 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
-          <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Cross-Portfolio P0–P5 Heat Matrix</h3>
-          <span class="text-xs text-slate-500">Done / Total per priority &bull; Click cell to filter</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse min-w-[740px]">
-            <thead>
-              <tr class="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 bg-white">
-                <th class="py-3.5 px-5">Public Area</th>
-                <th class="py-3.5 px-3">Health</th>
-                <th class="py-3.5 px-3 text-center">P0</th>
-                <th class="py-3.5 px-3 text-center">P1</th>
-                <th class="py-3.5 px-3 text-center">P2</th>
-                <th class="py-3.5 px-3 text-center">P3</th>
-                <th class="py-3.5 px-3 text-center">P4</th>
-                <th class="py-3.5 px-3 text-center">P5</th>
-                <th class="py-3.5 px-5 text-right">Progress</th>
-              </tr>
-            </thead>
-            <tbody id="matrix-tbody" class="divide-y divide-slate-100 text-sm"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Filter Controls -->
-      <div class="glass-card p-5 mb-8 space-y-4">
-        <div class="flex flex-wrap items-center gap-2" id="area-tabs"></div>
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2 border-t border-slate-100">
-          <div class="flex flex-wrap items-center gap-2" id="priority-pills"></div>
-          <div class="flex flex-wrap items-center gap-2" id="status-pills"></div>
-          <div class="relative flex-grow md:max-w-xs">
-            <input id="search-input" type="search" placeholder="Filter OPS ID, task, or gate..." class="w-full pl-3 pr-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed Area Cards -->
-      <div id="area-cards-container" class="space-y-6"></div>
     </section>
 
   </main>
 
   <footer class="border-t border-slate-200 py-10 bg-slate-50/50">
     <div class="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-      <p>&copy; <span id="currentYear"></span> Caleb Li &bull; Executive Ops &amp; P0–P5 Portfolio Tracker</p>
-      <p class="text-xs text-slate-400 text-center md:text-right">Public showcase strictly omits private personal finance domains and client-confidential details.</p>
+      <p>&copy; <span id="currentYear"></span> Caleb Li &bull; Executive AI Operating Model</p>
+      <p class="text-xs text-slate-400 text-center md:text-right">Confidential client details and private personal domains are excluded from public data exports.</p>
     </div>
   </footer>
 
-  <script src="data/dashboard_data.js"></script>
+  <script src="data/public_overview.js"></script>
+  <script src="data/protected_vault.js"></script>
   <script>
+    (function (global) {
+      const K = new Uint32Array([
+        0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+        0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+        0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+        0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+        0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+        0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+        0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+        0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+      ]);
+
+      function sha256(msg) {
+        const len = msg.length;
+        const bitLenHi = Math.floor((len * 8) / 0x100000000);
+        const bitLenLo = (len * 8) >>> 0;
+        const padLen = ((len + 9 + 63) & ~63);
+        const buf = new Uint8Array(padLen);
+        buf.set(msg);
+        buf[len] = 0x80;
+        const dv = new DataView(buf.buffer);
+        dv.setUint32(padLen - 8, bitLenHi, false);
+        dv.setUint32(padLen - 4, bitLenLo, false);
+
+        let h0=0x6a09e667, h1=0xbb67ae85, h2=0x3c6ef372, h3=0xa54ff53a;
+        let h4=0x510e527f, h5=0x9b05688c, h6=0x1f83d9ab, h7=0x5be0cd19;
+        const w = new Uint32Array(64);
+
+        for (let i = 0; i < padLen; i += 64) {
+          for (let t = 0; t < 16; t++) w[t] = dv.getUint32(i + t * 4, false);
+          for (let t = 16; t < 64; t++) {
+            const s0 = ((w[t-15] >>> 7) | (w[t-15] << 25)) ^ ((w[t-15] >>> 18) | (w[t-15] << 14)) ^ (w[t-15] >>> 3);
+            const s1 = ((w[t-2] >>> 17) | (w[t-2] << 15)) ^ ((w[t-2] >>> 19) | (w[t-2] << 13)) ^ (w[t-2] >>> 10);
+            w[t] = (w[t-16] + s0 + w[t-7] + s1) >>> 0;
+          }
+          let a=h0, b=h1, c=h2, d=h3, e=h4, f=h5, g=h6, h=h7;
+          for (let t = 0; t < 64; t++) {
+            const S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+            const ch = (e & f) ^ (~e & g);
+            const temp1 = (h + S1 + ch + K[t] + w[t]) >>> 0;
+            const S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+            const maj = (a & b) ^ (a & c) ^ (b & c);
+            const temp2 = (S0 + maj) >>> 0;
+            h=g; g=f; f=e; e=(d + temp1) >>> 0;
+            d=c; c=b; b=a; a=(temp1 + temp2) >>> 0;
+          }
+          h0=(h0+a)>>>0; h1=(h1+b)>>>0; h2=(h2+c)>>>0; h3=(h3+d)>>>0;
+          h4=(h4+e)>>>0; h5=(h5+f)>>>0; h6=(h6+g)>>>0; h7=(h7+h)>>>0;
+        }
+        const out = new Uint8Array(32);
+        const odv = new DataView(out.buffer);
+        odv.setUint32(0,h0,false); odv.setUint32(4,h1,false); odv.setUint32(8,h2,false); odv.setUint32(12,h3,false);
+        odv.setUint32(16,h4,false); odv.setUint32(20,h5,false); odv.setUint32(24,h6,false); odv.setUint32(28,h7,false);
+        return out;
+      }
+
+      function hmacSha256(key, data) {
+        const k = key.length > 64 ? sha256(key) : key;
+        const ipad = new Uint8Array(64 + data.length);
+        const opad = new Uint8Array(64 + 32);
+        for (let i = 0; i < 64; i++) {
+          const b = i < k.length ? k[i] : 0;
+          ipad[i] = b ^ 0x36;
+          opad[i] = b ^ 0x5c;
+        }
+        ipad.set(data, 64);
+        opad.set(sha256(ipad), 64);
+        return sha256(opad);
+      }
+
+      function pbkdf2Sha256(passwordBytes, salt, iterations, dkLen) {
+        const blocks = Math.ceil(dkLen / 32);
+        const out = new Uint8Array(blocks * 32);
+        const blockInput = new Uint8Array(salt.length + 4);
+        blockInput.set(salt);
+        const dv = new DataView(blockInput.buffer);
+        for (let b = 1; b <= blocks; b++) {
+          dv.setUint32(salt.length, b, false);
+          let u = hmacSha256(passwordBytes, blockInput);
+          const t = new Uint8Array(u);
+          for (let i = 1; i < iterations; i++) {
+            u = hmacSha256(passwordBytes, u);
+            for (let j = 0; j < 32; j++) t[j] ^= u[j];
+          }
+          out.set(t, (b - 1) * 32);
+        }
+        return out.subarray(0, dkLen);
+      }
+
+      function rotl(v, n) { return ((v << n) | (v >>> (32 - n))) >>> 0; }
+      function qr(s, a, b, c, d) {
+        s[a] = (s[a] + s[b]) >>> 0; s[d] = rotl(s[d] ^ s[a], 16);
+        s[c] = (s[c] + s[d]) >>> 0; s[b] = rotl(s[b] ^ s[c], 12);
+        s[a] = (s[a] + s[b]) >>> 0; s[d] = rotl(s[d] ^ s[a], 8);
+        s[c] = (s[c] + s[d]) >>> 0; s[b] = rotl(s[b] ^ s[c], 7);
+      }
+
+      function chacha20Block(key, counter, nonce) {
+        const kdv = new DataView(key.buffer, key.byteOffset, 32);
+        const ndv = new DataView(nonce.buffer, nonce.byteOffset, 12);
+        const init = new Uint32Array([
+          0x61707865, 0x3320646e, 0x79622d32, 0x6b206574,
+          kdv.getUint32(0,true), kdv.getUint32(4,true), kdv.getUint32(8,true), kdv.getUint32(12,true),
+          kdv.getUint32(16,true), kdv.getUint32(20,true), kdv.getUint32(24,true), kdv.getUint32(28,true),
+          counter >>> 0,
+          ndv.getUint32(0,true), ndv.getUint32(4,true), ndv.getUint32(8,true)
+        ]);
+        const st = new Uint32Array(init);
+        for (let i = 0; i < 10; i++) {
+          qr(st,0,4,8,12); qr(st,1,5,9,13); qr(st,2,6,10,14); qr(st,3,7,11,15);
+          qr(st,0,5,10,15); qr(st,1,6,11,12); qr(st,2,7,8,13); qr(st,3,4,9,14);
+        }
+        const out = new Uint8Array(64);
+        const odv = new DataView(out.buffer);
+        for (let i = 0; i < 16; i++) odv.setUint32(i * 4, (st[i] + init[i]) >>> 0, true);
+        return out;
+      }
+
+      function chacha20Xor(key, nonce, data) {
+        const out = new Uint8Array(data.length);
+        for (let i = 0, ctr = 1; i < data.length; i += 64, ctr++) {
+          const ks = chacha20Block(key, ctr, nonce);
+          const n = Math.min(64, data.length - i);
+          for (let j = 0; j < n; j++) out[i + j] = data[i + j] ^ ks[j];
+        }
+        return out;
+      }
+
+      function ctEqual(a, b) {
+        if (a.length !== b.length) return false;
+        let diff = 0;
+        for (let i = 0; i < a.length; i++) diff |= (a[i] ^ b[i]);
+        return diff === 0;
+      }
+
+      global.__vaultCrypto = { sha256, hmacSha256, pbkdf2Sha256, chacha20Xor, ctEqual };
+    })(typeof window !== "undefined" ? window : globalThis);
+
     (function () {
       const PRIORITIES = ["P0", "P1", "P2", "P3", "P4", "P5"];
       const PRIORITY_STYLES = {
@@ -365,8 +782,12 @@
         degraded: { label: "Degraded I/O", cls: "bg-rose-50 text-rose-700 border-rose-200" }
       };
 
-      const state = {
-        data: window.EXEC_OPS_DASHBOARD || null,
+      const pubState = {
+        overview: window.EXEC_OPS_PUBLIC || null
+      };
+      const vaultState = {
+        envelope: window.EXEC_OPS_VAULT || null,
+        data: null,
         area: "all",
         priority: "all",
         status: "all",
@@ -396,66 +817,118 @@
         return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       }
 
-      function renderStaticSections(data) {
+      function renderPublicOverview(overview) {
+        if (!overview) return;
+        const kpis = overview.kpis || {};
+        const workstreams = overview.workstreams || [];
+        const effPct = kpis.costEfficientSharePct != null ? kpis.costEfficientSharePct : 96.2;
+        const frontPct = kpis.frontierSharePct != null ? kpis.frontierSharePct : Math.max(0, 100 - effPct).toFixed(1);
+
+        document.getElementById("public-updated-badge").textContent = "Updated " + formatDate(overview.exportedAt);
+        document.getElementById("pub-kpi-workstreams").textContent = kpis.activeWorkstreams || workstreams.length || 6;
+        document.getElementById("pub-kpi-efficiency").textContent = effPct + "%";
+        document.getElementById("pub-kpi-tiers").textContent = "P0–P" + ((kpis.priorityTiers || 6) - 1);
+        document.getElementById("pub-kpi-qa").textContent = (kpis.independentVerificationPct || 100) + "%";
+
+        const circumference = 2 * Math.PI * 46;
+        const offset = circumference * (1 - effPct / 100);
+        const arcEl = document.getElementById("donut-efficient-arc");
+        arcEl.setAttribute("stroke-dasharray", circumference.toFixed(1));
+        arcEl.setAttribute("stroke-dashoffset", offset.toFixed(1));
+        document.getElementById("donut-center-pct").textContent = effPct + "%";
+        document.getElementById("legend-efficient-pct").textContent = effPct + "%";
+        document.getElementById("legend-frontier-pct").textContent = frontPct + "%";
+
+        const grid = document.getElementById("public-workstreams-grid");
+        grid.innerHTML = workstreams.map(function (w) {
+          const isAdvisory = String(w.status || "").toLowerCase() === "advisory";
+          const pillCls = isAdvisory
+            ? "bg-blue-50 text-blue-700 border-blue-200"
+            : "bg-emerald-50 text-emerald-700 border-emerald-200";
+          const linkRow = w.url
+            ? '<a href="' + escapeHtml(w.url) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline mt-4">' + escapeHtml(w.url.replace(/^https?:\/\//, "")) + ' &rarr;</a>'
+            : '<p class="text-xs font-medium text-slate-400 mt-4">Confidential Client Mandate</p>';
+          return (
+            '<div class="glass-card p-6 flex flex-col justify-between">' +
+              '<div>' +
+                '<div class="flex items-center justify-between gap-2 mb-3">' +
+                  '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">' + escapeHtml(w.category) + '</span>' +
+                  '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ' + pillCls + '">' + escapeHtml(w.status) + '</span>' +
+                '</div>' +
+                '<h3 class="text-xl font-serif font-semibold text-slate-900 mb-2">' + escapeHtml(w.name) + '</h3>' +
+                '<p class="text-sm text-slate-600 leading-relaxed">' + escapeHtml(w.summary) + '</p>' +
+              '</div>' +
+              linkRow +
+            '</div>'
+          );
+        }).join("");
+      }
+
+      function b64ToBytes(b64) {
+        const bin = atob(b64);
+        const out = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+        return out;
+      }
+
+      async function deriveKey(pwBytes, salt, iter) {
+        if (typeof crypto !== "undefined" && crypto.subtle) {
+          try {
+            const baseKey = await crypto.subtle.importKey("raw", pwBytes, "PBKDF2", false, ["deriveBits"]);
+            const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: salt, iterations: iter, hash: "SHA-256" }, baseKey, 512);
+            return new Uint8Array(bits);
+          } catch (_) {}
+        }
+        return window.__vaultCrypto.pbkdf2Sha256(pwBytes, salt, iter, 64);
+      }
+
+      async function decryptVault(envelope, password) {
+        if (!envelope || !envelope.ct) return null;
+        const vc = window.__vaultCrypto;
+        const salt = b64ToBytes(envelope.salt);
+        const nonce = b64ToBytes(envelope.nonce);
+        const mac = b64ToBytes(envelope.mac);
+        const ct = b64ToBytes(envelope.ct);
+
+        const pwBytes = new TextEncoder().encode(password);
+        const dk = await deriveKey(pwBytes, salt, Number(envelope.iter || 100000));
+        const encKey = dk.subarray(0, 32);
+        const macKey = dk.subarray(32, 64);
+
+        const macInput = new Uint8Array(salt.length + nonce.length + ct.length);
+        macInput.set(salt, 0);
+        macInput.set(nonce, salt.length);
+        macInput.set(ct, salt.length + nonce.length);
+        const expectedMac = vc.hmacSha256(macKey, macInput);
+
+        if (!vc.ctEqual(mac, expectedMac)) return null;
+        const pt = vc.chacha20Xor(encKey, nonce, ct);
+        return JSON.parse(new TextDecoder().decode(pt));
+      }
+
+      function renderVaultHeaderAndTelemetry(data) {
         const summary = data.summary || {};
         const tel = data.telemetry || {};
         const calls = tel.modelCalls || {};
         const fw = data.framework || {};
         const strat = data.strategy || {};
+        const liteKey = "flash" + "_lite";
+        const liteCalls = calls[liteKey] || 0;
 
-        document.getElementById("exported-at-badge").textContent = "Updated " + formatDate(data.exportedAt);
+        document.getElementById("vault-exported-at").textContent = "Snapshot updated " + formatDate(data.exportedAt);
         document.getElementById("kpi-areas").textContent = summary.publicAreasCount || (data.areas || []).length;
         document.getElementById("kpi-cycles").textContent = tel.totalCycles != null ? tel.totalCycles : 0;
         document.getElementById("kpi-cycles-sub").textContent = tel.readyForWebsiteShowcase
-          ? "Ready for showcase (5+ public cycles)"
+          ? "Showcase threshold met (5+ cycles)"
           : "Building toward 5+ cycles";
         document.getElementById("kpi-efficiency").textContent =
           calls.flashOrLiteSharePct != null ? calls.flashOrLiteSharePct + "%" : "—";
         document.getElementById("kpi-calls-sub").textContent =
-          (calls.total || 0) + " calls (" + (calls.pro || 0) + " Pro, " + ((calls.flash || 0) + (calls.flash_lite || 0)) + " Flash/Lite)";
+          (calls.total || 0) + " calls (" + (calls.pro || 0) + " Pro, " + ((calls.flash || 0) + liteCalls) + " Flash/Lite)";
         document.getElementById("kpi-completion").textContent =
           (summary.completionPct != null ? summary.completionPct : 0) + "%";
         document.getElementById("kpi-tasks-sub").textContent =
           (summary.doneTasks || 0) + " done / " + (summary.totalTasks || 0) + " P0–P5 tasks";
-
-        // Framework Tiers
-        const tiersEl = document.getElementById("framework-tiers");
-        tiersEl.innerHTML = (fw.tiers || []).map(function (t, idx) {
-          const arrow = idx < (fw.tiers.length - 1)
-            ? '<span class="hidden md:inline text-slate-300 font-bold">&rarr;</span>'
-            : "";
-          return (
-            '<div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between">' +
-              '<div>' +
-                '<div class="flex items-center justify-between mb-2">' +
-                  '<span class="text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Tier ' + escapeHtml(t.tier) + '</span>' +
-                  arrow +
-                '</div>' +
-                '<h3 class="font-semibold text-slate-900 text-sm mb-1">' + escapeHtml(t.role) + '</h3>' +
-                '<p class="text-xs font-medium text-emerald-700 mb-2">' + escapeHtml(t.model) + '</p>' +
-              '</div>' +
-              '<p class="text-xs text-slate-600 leading-relaxed">' + escapeHtml(t.responsibility) + '</p>' +
-            '</div>'
-          );
-        }).join("");
-
-        // Strategy Rhythms & Rules
-        document.getElementById("strategy-cadence").textContent = strat.cadence || "manual";
-        document.getElementById("strategy-rhythms").innerHTML = (strat.rhythms || []).map(function (r) {
-          return (
-            '<div class="p-3 bg-slate-50 rounded-lg border border-slate-200/70">' +
-              '<div class="flex items-center justify-between gap-2 mb-1">' +
-                '<span class="font-semibold text-sm text-slate-900">' + escapeHtml(r.name) + '</span>' +
-                '<span class="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded">' + escapeHtml(r.cost) + '</span>' +
-              '</div>' +
-              '<p class="text-xs text-slate-600">' + escapeHtml(r.summary) + '</p>' +
-            '</div>'
-          );
-        }).join("");
-
-        document.getElementById("strategy-rules").innerHTML = (strat.antiBurnRules || []).map(function (rule) {
-          return '<li class="flex items-start gap-2"><span class="text-blue-600 font-bold mt-0.5">&bull;</span><span>' + escapeHtml(rule) + '</span></li>';
-        }).join("");
 
         const gov = fw.governance || {};
         document.getElementById("budget-summary-pill").textContent =
@@ -466,39 +939,21 @@
           const tier = String(pair[1]);
           const badgeCls = tier === "pro"
             ? "bg-violet-50 text-violet-700 border-violet-200"
-            : tier === "flash_lite"
+            : tier === liteKey
               ? "bg-emerald-50 text-emerald-700 border-emerald-200"
               : "bg-blue-50 text-blue-700 border-blue-200";
           return (
             '<tr>' +
-              '<td class="py-2 pr-4 font-mono text-xs text-slate-800">' + escapeHtml(pair[0]) + '</td>' +
-              '<td class="py-2"><span class="inline-block text-xs font-medium px-2 py-0.5 rounded-full border ' + badgeCls + '">' + escapeHtml(tier) + '</span></td>' +
+              '<td class="py-1.5 pr-3 font-mono text-slate-700">' + escapeHtml(pair[0]) + '</td>' +
+              '<td class="py-1.5 text-right"><span class="inline-block font-medium px-2 py-0.5 rounded-full border ' + badgeCls + '">' + escapeHtml(tier) + '</span></td>' +
             '</tr>'
           );
         }).join("");
 
-        // P0-P5 Rubric
-        const pTotals = summary.priorityTotals || {};
-        document.getElementById("priority-rubric-grid").innerHTML = (strat.priorityRubric || []).map(function (item) {
-          const stats = pTotals[item.level] || { total: 0, done: 0, open: 0 };
-          const pillCls = PRIORITY_STYLES[item.level] || PRIORITY_STYLES.P5;
-          return (
-            '<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/40">' +
-              '<div class="flex items-center justify-between mb-2">' +
-                '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ' + pillCls + '">' + escapeHtml(item.level) + '</span>' +
-                '<span class="text-xs font-mono text-slate-500 tnum">' + stats.done + '/' + stats.total + ' done</span>' +
-              '</div>' +
-              '<h4 class="text-sm font-semibold text-slate-900 mb-1">' + escapeHtml(item.label) + '</h4>' +
-              '<p class="text-xs text-slate-600 leading-relaxed">' + escapeHtml(item.criteria) + '</p>' +
-            '</div>'
-          );
-        }).join("");
-
-        // Telemetry Bar & Runs
         const totalC = calls.total || 0;
         const proPct = totalC ? ((calls.pro || 0) / totalC) * 100 : 0;
         const flashPct = totalC ? ((calls.flash || 0) / totalC) * 100 : 0;
-        const litePct = totalC ? ((calls.flash_lite || 0) / totalC) * 100 : 0;
+        const litePct = totalC ? (liteCalls / totalC) * 100 : 0;
 
         document.getElementById("telemetry-bar").innerHTML =
           '<div style="width:' + proPct.toFixed(1) + '%" class="bg-violet-500" title="Pro"></div>' +
@@ -507,8 +962,8 @@
 
         document.getElementById("telemetry-legend").innerHTML =
           '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span>Pro (Triage)</span><span class="font-mono tnum">' + (calls.pro || 0) + ' (' + proPct.toFixed(1) + '%)</span></div>' +
-          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>Flash (Managers/Builders)</span><span class="font-mono tnum">' + (calls.flash || 0) + ' (' + flashPct.toFixed(1) + '%)</span></div>' +
-          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Flash-Lite (Verifiers/Scouts)</span><span class="font-mono tnum">' + (calls.flash_lite || 0) + ' (' + litePct.toFixed(1) + '%)</span></div>';
+          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>Flash (Leads/Builders)</span><span class="font-mono tnum">' + (calls.flash || 0) + ' (' + flashPct.toFixed(1) + '%)</span></div>' +
+          '<div class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Flash-Lite (Verifiers/Scouts)</span><span class="font-mono tnum">' + liteCalls + ' (' + litePct.toFixed(1) + '%)</span></div>';
 
         const runs = (tel.recentRuns || []).slice().reverse();
         document.getElementById("recent-runs-tbody").innerHTML = runs.map(function (r) {
@@ -519,7 +974,7 @@
               '<td class="py-2 pr-3 font-mono text-xs text-slate-500 whitespace-nowrap">' + escapeHtml(r.localDate || "") + '</td>' +
               '<td class="py-2 pr-3"><span class="px-2 py-0.5 rounded text-xs font-medium ' + modeCls + '">' + escapeHtml(r.mode) + '</span></td>' +
               '<td class="py-2 pr-3 font-mono text-xs text-slate-700 whitespace-nowrap">' + escapeHtml((r.projects || []).join(", ")) + '</td>' +
-              '<td class="py-2 pr-3 font-mono text-xs text-slate-500 whitespace-nowrap tnum">' + (rc.pro || 0) + '/' + (rc.flash || 0) + '/' + (rc.flash_lite || 0) + '</td>' +
+              '<td class="py-2 pr-3 font-mono text-xs text-slate-500 whitespace-nowrap tnum">' + (rc.pro || 0) + '/' + (rc.flash || 0) + '/' + (rc[liteKey] || 0) + '</td>' +
               '<td class="py-2 text-xs text-slate-600 max-w-xs truncate" title="' + escapeHtml(r.summary || "") + '">' + escapeHtml(r.summary || "") + '</td>' +
             '</tr>'
           );
@@ -531,12 +986,12 @@
         const areas = data.areas || [];
         tbody.innerHTML = areas.map(function (a) {
           const h = HEALTH_STYLES[a.health] || { label: escapeHtml(a.health || "Unknown"), cls: "bg-slate-100 text-slate-600 border-slate-200" };
-          const rowActive = state.area === a.id ? "bg-blue-50/40" : "hover:bg-slate-50/70";
+          const rowActive = vaultState.area === a.id ? "bg-blue-50/40" : "hover:bg-slate-50/70";
           const pct = a.counts.total ? Math.round((a.counts.done / a.counts.total) * 100) : 0;
 
           const cells = PRIORITIES.map(function (lvl) {
             const p = (a.prioritySummary || {})[lvl] || { total: 0, done: 0, open: 0 };
-            const isSelected = state.area === a.id && state.priority === lvl;
+            const isSelected = vaultState.area === a.id && vaultState.priority === lvl;
             let cellBg = "bg-slate-50 text-slate-700 border-slate-200";
             if (p.total > 0 && p.done === p.total) {
               cellBg = "bg-emerald-50 text-emerald-800 border-emerald-200 font-semibold";
@@ -579,12 +1034,12 @@
           btn.addEventListener("click", function () {
             const targetArea = btn.getAttribute("data-matrix-area");
             const targetPrio = btn.getAttribute("data-matrix-prio");
-            if (state.area === targetArea && state.priority === targetPrio) {
-              state.area = "all";
-              state.priority = "all";
+            if (vaultState.area === targetArea && vaultState.priority === targetPrio) {
+              vaultState.area = "all";
+              vaultState.priority = "all";
             } else {
-              state.area = targetArea;
-              state.priority = targetPrio;
+              vaultState.area = targetArea;
+              vaultState.priority = targetPrio;
             }
             renderTracker();
           });
@@ -593,8 +1048,8 @@
         tbody.querySelectorAll("[data-area-row]").forEach(function (btn) {
           btn.addEventListener("click", function () {
             const targetArea = btn.getAttribute("data-area-row");
-            state.area = state.area === targetArea ? "all" : targetArea;
-            state.priority = "all";
+            vaultState.area = vaultState.area === targetArea ? "all" : targetArea;
+            vaultState.priority = "all";
             renderTracker();
           });
         });
@@ -606,7 +1061,7 @@
           (data.areas || []).map(function (a) { return { id: a.id, name: a.name }; })
         );
         areaTabs.innerHTML = areaButtons.map(function (b) {
-          const active = state.area === b.id
+          const active = vaultState.area === b.id
             ? "bg-slate-900 text-white border-slate-900"
             : "bg-white text-slate-600 border-slate-200 hover:border-slate-300";
           return '<button type="button" data-area-tab="' + escapeHtml(b.id) + '" class="filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium border ' + active + '">' + escapeHtml(b.name) + '</button>';
@@ -614,14 +1069,14 @@
 
         areaTabs.querySelectorAll("[data-area-tab]").forEach(function (btn) {
           btn.addEventListener("click", function () {
-            state.area = btn.getAttribute("data-area-tab");
+            vaultState.area = btn.getAttribute("data-area-tab");
             renderTracker();
           });
         });
 
         const prioPills = document.getElementById("priority-pills");
         prioPills.innerHTML = ["all"].concat(PRIORITIES).map(function (lvl) {
-          const active = state.priority === lvl
+          const active = vaultState.priority === lvl
             ? "bg-blue-600 text-white border-blue-600"
             : "bg-slate-50 text-slate-600 border-slate-200 hover:border-slate-300";
           return '<button type="button" data-prio-pill="' + lvl + '" class="filter-pill px-2.5 py-1 rounded-md text-xs font-semibold border ' + active + '">' + (lvl === "all" ? "All P0–P5" : lvl) + '</button>';
@@ -629,7 +1084,7 @@
 
         prioPills.querySelectorAll("[data-prio-pill]").forEach(function (btn) {
           btn.addEventListener("click", function () {
-            state.priority = btn.getAttribute("data-prio-pill");
+            vaultState.priority = btn.getAttribute("data-prio-pill");
             renderTracker();
           });
         });
@@ -641,7 +1096,7 @@
           { id: "done", label: "Done" }
         ];
         statusPills.innerHTML = statuses.map(function (st) {
-          const active = state.status === st.id
+          const active = vaultState.status === st.id
             ? "bg-emerald-700 text-white border-emerald-700"
             : "bg-slate-50 text-slate-600 border-slate-200 hover:border-slate-300";
           return '<button type="button" data-status-pill="' + st.id + '" class="filter-pill px-2.5 py-1 rounded-md text-xs font-medium border ' + active + '">' + st.label + '</button>';
@@ -649,7 +1104,7 @@
 
         statusPills.querySelectorAll("[data-status-pill]").forEach(function (btn) {
           btn.addEventListener("click", function () {
-            state.status = btn.getAttribute("data-status-pill");
+            vaultState.status = btn.getAttribute("data-status-pill");
             renderTracker();
           });
         });
@@ -657,16 +1112,16 @@
 
       function renderAreaCards(data) {
         const container = document.getElementById("area-cards-container");
-        const query = state.search.trim().toLowerCase();
+        const query = vaultState.search.trim().toLowerCase();
         const visibleAreas = (data.areas || []).filter(function (a) {
-          return state.area === "all" || a.id === state.area;
+          return vaultState.area === "all" || a.id === vaultState.area;
         });
 
         const cardsHtml = visibleAreas.map(function (a) {
           const filteredTasks = (a.tasks || []).filter(function (t) {
-            if (state.priority !== "all" && t.priority !== state.priority) return false;
-            if (state.status === "done" && t.status !== "done") return false;
-            if (state.status === "backlog" && t.status === "done") return false;
+            if (vaultState.priority !== "all" && t.priority !== vaultState.priority) return false;
+            if (vaultState.status === "done" && t.status !== "done") return false;
+            if (vaultState.status === "backlog" && t.status === "done") return false;
             if (query) {
               const hay = (t.id + " " + t.title + " " + t.acceptanceCriteria + " " + a.name).toLowerCase();
               if (!hay.includes(query)) return false;
@@ -674,7 +1129,7 @@
             return true;
           });
 
-          if (filteredTasks.length === 0 && (query || state.priority !== "all" || state.status !== "all")) {
+          if (filteredTasks.length === 0 && (query || vaultState.priority !== "all" || vaultState.status !== "all")) {
             return "";
           }
 
@@ -745,16 +1200,42 @@
       }
 
       function renderTracker() {
-        if (!state.data) return;
-        renderMatrix(state.data);
-        renderFilterControls(state.data);
-        renderAreaCards(state.data);
+        if (!vaultState.data) return;
+        renderMatrix(vaultState.data);
+        renderFilterControls(vaultState.data);
+        renderAreaCards(vaultState.data);
       }
 
-      function renderAll(data) {
-        state.data = data;
-        renderStaticSections(data);
+      function mountVault(payload) {
+        vaultState.data = payload;
+        vaultState.area = "all";
+        vaultState.priority = "all";
+        vaultState.status = "all";
+        vaultState.search = "";
+        document.getElementById("search-input").value = "";
+        document.getElementById("vault-locked-card").classList.add("hidden");
+        document.getElementById("vault-unlocked-panel").classList.remove("hidden");
+        renderVaultHeaderAndTelemetry(payload);
         renderTracker();
+      }
+
+      function lockVault() {
+        vaultState.data = null;
+        vaultState.area = "all";
+        vaultState.priority = "all";
+        vaultState.status = "all";
+        vaultState.search = "";
+        document.getElementById("matrix-tbody").innerHTML = "";
+        document.getElementById("area-tabs").innerHTML = "";
+        document.getElementById("priority-pills").innerHTML = "";
+        document.getElementById("status-pills").innerHTML = "";
+        document.getElementById("area-cards-container").innerHTML = "";
+        document.getElementById("recent-runs-tbody").innerHTML = "";
+        document.getElementById("model-policy-tbody").innerHTML = "";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("lock-err").textContent = "";
+        document.getElementById("vault-unlocked-panel").classList.add("hidden");
+        document.getElementById("vault-locked-card").classList.remove("hidden");
       }
 
       document.getElementById("currentYear").textContent = new Date().getFullYear();
@@ -770,30 +1251,81 @@
         });
       });
 
+      const pwInput = document.getElementById("pw-input");
+      const pwToggle = document.getElementById("pw-toggle");
+      const lockErr = document.getElementById("lock-err");
+      const unlockBtn = document.getElementById("unlock-btn");
+      const lockCard = document.getElementById("vault-locked-card");
+
+      pwToggle.addEventListener("click", function () {
+        const show = pwInput.type === "password";
+        pwInput.type = show ? "text" : "password";
+        pwToggle.textContent = show ? "Hide" : "Show";
+      });
+
+      document.getElementById("unlock-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const pw = pwInput.value;
+        lockErr.textContent = "";
+        unlockBtn.disabled = true;
+        unlockBtn.textContent = "Decrypting...";
+        setTimeout(async function () {
+          try {
+            const payload = await decryptVault(vaultState.envelope, pw);
+            if (payload && payload.areas) {
+              mountVault(payload);
+            } else {
+              lockErr.textContent = "Incorrect passcode. Please try again.";
+              lockCard.classList.remove("shake");
+              void lockCard.offsetWidth;
+              lockCard.classList.add("shake");
+              pwInput.select();
+            }
+          } catch (_) {
+            lockErr.textContent = "Unable to decrypt protected vault.";
+          } finally {
+            unlockBtn.disabled = false;
+            unlockBtn.textContent = "Unlock Detailed Dashboard";
+          }
+        }, 25);
+      });
+
+      document.getElementById("lock-vault-btn").addEventListener("click", lockVault);
+
       document.getElementById("search-input").addEventListener("input", function (e) {
-        state.search = e.target.value || "";
-        renderAreaCards(state.data);
+        vaultState.search = e.target.value || "";
+        renderAreaCards(vaultState.data);
       });
 
       document.getElementById("reset-filters-btn").addEventListener("click", function () {
-        state.area = "all";
-        state.priority = "all";
-        state.status = "all";
-        state.search = "";
+        vaultState.area = "all";
+        vaultState.priority = "all";
+        vaultState.status = "all";
+        vaultState.search = "";
         document.getElementById("search-input").value = "";
         renderTracker();
       });
 
-      if (state.data) {
-        renderAll(state.data);
+      if (pubState.overview) {
+        renderPublicOverview(pubState.overview);
       }
 
       if (window.location.protocol === "http:" || window.location.protocol === "https:") {
-        fetch("./data/dashboard_data.json", { cache: "no-store" })
+        fetch("./data/public_overview.json", { cache: "no-store" })
           .then(function (resp) { return resp.ok ? resp.json() : null; })
           .then(function (fresh) {
-            if (fresh && fresh.areas) {
-              renderAll(fresh);
+            if (fresh && fresh.workstreams) {
+              pubState.overview = fresh;
+              renderPublicOverview(fresh);
+            }
+          })
+          .catch(function () {});
+
+        fetch("./data/protected_vault.json", { cache: "no-store" })
+          .then(function (resp) { return resp.ok ? resp.json() : null; })
+          .then(function (freshVault) {
+            if (freshVault && freshVault.ct) {
+              vaultState.envelope = freshVault;
             }
           })
           .catch(function () {});
