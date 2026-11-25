@@ -152,9 +152,23 @@ assert.ok(!/\bOPS-\d{3}\b/.test(vaultJsonRaw), "Plaintext task ID leaked inside 
 // 4. Validate root index.html integration cleanly preserves existing sections
 const rootHtml = fs.readFileSync(rootHtmlPath, "utf8");
 const navMatches = rootHtml.match(/href="executive-ops\/"/g) || [];
-assert.ok(navMatches.length >= 2, `Expected >= 2 AI Ops nav links in root index.html, found ${navMatches.length}`);
-for (const anchor of ['href="#products"', 'href="#expertise"', 'href="#portfolio"', 'href="#ai-agents"']) {
-  assert.ok(rootHtml.includes(anchor), `Root index.html missing preserved section link: ${anchor}`);
+assert.ok(navMatches.length >= 2, `Expected >= 2 AI Ops links in root index.html, found ${navMatches.length}`);
+for (const anchor of ['href="#experimental-work"', 'href="#expertise"', 'href="#portfolio"']) {
+  assert.ok(rootHtml.includes(anchor), `Root index.html missing expected section link: ${anchor}`);
+}
+for (const removedId of ['id="products"', 'id="ai-agents"']) {
+  assert.ok(!rootHtml.includes(removedId), `Root index.html still contains removed section ${removedId}`);
+}
+assert.ok(rootHtml.includes('id="experimental-work"'), "Root index.html missing #experimental-work section");
+for (const cardTitle of [
+  "OpenPHR &amp; CareHub",
+  "AI Investing",
+  "VC Intelligence",
+  "Civic Analytics",
+  "Vivid Vision Advisory",
+  "AI Operating Model",
+]) {
+  assert.ok(rootHtml.includes(cardTitle), `Root index.html missing workstream card: ${cardTitle}`);
 }
 
 // 5. Validate HTML DOM IDs, inline JS syntax, and zero dev/task leaks on public HTML
