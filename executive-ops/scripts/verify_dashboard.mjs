@@ -135,6 +135,26 @@ assert.equal(pubData.kpis.activeWorkstreams, 6);
 assert.equal(pubData.workstreams.length, 6);
 assert.ok(pubData.workstreams.some((w) => w.id === "vivid-vision-advisory"), "Missing vivid-vision-advisory in public_overview");
 
+assert.ok(pubData.tokenTelemetry && typeof pubData.tokenTelemetry === "object", "Missing tokenTelemetry in public_overview");
+assert.ok(Number(pubData.tokenTelemetry.totalTokens) > 500000000, "tokenTelemetry.totalTokens must be > 500000000");
+assert.ok(Number(pubData.tokenTelemetry.cacheHitPct) > 80, "tokenTelemetry.cacheHitPct must be > 80");
+assert.ok(Number(pubData.tokenTelemetry.publicSessions) >= 40, "tokenTelemetry.publicSessions must be >= 40");
+
+assert.ok(pubData.engineeringTotals && typeof pubData.engineeringTotals === "object", "Missing engineeringTotals in public_overview");
+assert.ok(Number(pubData.engineeringTotals.totalCommits) > 1000, "engineeringTotals.totalCommits must be > 1000");
+assert.ok(Number(pubData.engineeringTotals.totalMergedPrs) >= 30, "engineeringTotals.totalMergedPrs must be >= 30");
+assert.ok(Number(pubData.engineeringTotals.totalQaGates) >= 10, "engineeringTotals.totalQaGates must be >= 10");
+
+for (const w of pubData.workstreams) {
+  assert.ok(w.analytics && typeof w.analytics === "object", `Workstream '${w.id}' missing analytics object`);
+  for (const field of ["commitsTotal", "mergedPrs", "qaGates", "tokensTotal"]) {
+    assert.ok(
+      typeof w.analytics[field] === "number" && Number.isFinite(w.analytics[field]),
+      `Workstream '${w.id}' analytics.${field} must be a finite number`
+    );
+  }
+}
+
 // 3. Validate protected_vault parity & zero plaintext leaks
 const vaultJsonRaw = fs.readFileSync(vaultJsonPath, "utf8");
 const vaultJsRaw = fs.readFileSync(vaultJsPath, "utf8");
@@ -173,26 +193,45 @@ for (const cardTitle of [
 
 // 5. Validate HTML DOM IDs, inline JS syntax, and zero dev/task leaks on public HTML
 const dashHtml = fs.readFileSync(dashHtmlPath, "utf8");
-for (const reqId of ['id="model"', 'id="strategy"', 'id="workstreams"', 'id="vault-section"', 'id="vault-locked-card"', 'id="vault-unlocked-panel"']) {
+for (const reqId of [
+  'id="model"',
+  'id="strategy"',
+  'id="workstreams"',
+  'id="vault-section"',
+  'id="vault-locked-card"',
+  'id="vault-unlocked-panel"',
+  'id="pub-tokens-total"',
+  'id="pub-cache-hit"',
+  'id="public-workstreams-tbody"',
+]) {
   assert.ok(dashHtml.includes(reqId), `executive-ops/index.html missing required element ${reqId}`);
 }
-const htmlIds = new Set([...dashHtml.matchAll(/id="([^"]+)"/g)].map((m) => m[1]));
-const referencedIds = [...dashHtml.matchAll(/getElementById\("([^"]+)"\)/g)].map((m) => m[1]);
-for (const rid of referencedIds) {
-  assert.ok(htmlIds.has(rid), `getElementById("${rid}") missing matching element ID in HTML`);
+
+function validateHtmlDomAndScripts(htmlText, label, minScripts) {
+  const htmlIds = new Set([...htmlText.matchAll(/id=["']([^"']+)["']/g)].map((m) => m[1]));
+  const referencedIds = [...htmlText.matchAll(/getElementById\(\s*["']([^"']+)["']\s*\)/g)].map((m) => m[1]);
+  for (const rid of referencedIds) {
+    assert.ok(htmlIds.has(rid), `${label}: getElementById("${rid}") missing matching element ID in HTML`);
+  }
+
+  const scriptBlocks = [...htmlText.matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)];
+  let scriptsChecked = 0;
+  for (const match of scriptBlocks) {
+    const openTag = match[0].slice(0, match[0].indexOf(">") + 1);
+    if (/\bsrc=/i.test(openTag)) continue;
+    const body = match[1].trim();
+    if (!body) continue;
+    new Function(body);
+    scriptsChecked++;
+  }
+  assert.ok(scriptsChecked >= minScripts, `${label}: Expected >= ${minScripts} inline scripts validated, got ${scriptsChecked}`);
+  return { referencedIds, scriptsChecked };
 }
 
-const scriptBlocks = [...dashHtml.matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)];
-let inlineScriptsChecked = 0;
-for (const match of scriptBlocks) {
-  const openTag = match[0].slice(0, match[0].indexOf(">") + 1);
-  if (/\bsrc=/i.test(openTag)) continue;
-  const body = match[1].trim();
-  if (!body) continue;
-  new Function(body);
-  inlineScriptsChecked++;
-}
-assert.ok(inlineScriptsChecked >= 2, `Expected >= 2 inline scripts validated, got ${inlineScriptsChecked}`);
+const dashChecks = validateHtmlDomAndScripts(dashHtml, "executive-ops/index.html", 2);
+const rootChecks = validateHtmlDomAndScripts(rootHtml, "Personal-Website/index.html", 2);
+const inlineScriptsChecked = dashChecks.scriptsChecked + rootChecks.scriptsChecked;
+const referencedIds = [...dashChecks.referencedIds, ...rootChecks.referencedIds];
 
 // 6. Strict Privacy, NDA Confidentiality & Public Jargon Gate
 const FORBIDDEN_ALL = [
@@ -226,7 +265,7 @@ const allFiles = [
   { name: "executive-ops/data/public_overview.js", text: pubJsRaw, publicOnly: true },
   { name: "executive-ops/data/protected_vault.json", text: vaultJsonRaw, publicOnly: false },
   { name: "executive-ops/data/protected_vault.js", text: vaultJsRaw, publicOnly: false },
-  { name: "Personal-Website/index.html", text: rootHtml, publicOnly: false },
+  { name: "Personal-Website/index.html", text: rootHtml, publicOnly: true },
 ];
 
 for (const f of allFiles) {

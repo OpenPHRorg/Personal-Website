@@ -332,43 +332,93 @@
           </p>
         </div>
 
-        <!-- 3-Stage Operating Rhythm -->
+        <!-- Token Usage & Prompt Cache Economics -->
         <div class="glass-card p-6 md:p-7 lg:col-span-7 flex flex-col justify-between">
           <div>
-            <h3 class="text-lg font-serif font-semibold text-slate-900 mb-1">Repeatable Operating Rhythm</h3>
-            <p class="text-xs text-slate-500 mb-6">Standardized weekly cadence keeping quality predictable</p>
-            <div class="space-y-4">
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-                <span class="w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">01</span>
-                <div>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <h4 class="text-sm font-semibold text-slate-900">Automated Morning Triage</h4>
-                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Zero Overhead Preflight</span>
-                  </div>
-                  <p class="text-xs text-slate-600 mt-1">An automated health sweep surfaces open bottlenecks across all workstreams so executive review focuses strictly on highest-ROI priorities.</p>
-                </div>
+            <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div>
+                <h3 class="text-lg font-serif font-semibold text-slate-900 mb-1">Token Usage &amp; Prompt Cache Economics</h3>
+                <p class="text-xs text-slate-500">Aggregated execution volume &amp; prompt cache efficiency across public sessions</p>
               </div>
+              <span id="pub-cache-hit" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tnum whitespace-nowrap">—</span>
+            </div>
 
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-                <span class="w-8 h-8 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">02</span>
-                <div>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <h4 class="text-sm font-semibold text-slate-900">Plan-First Bounded Execution</h4>
-                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Dry-Run First</span>
-                  </div>
-                  <p class="text-xs text-slate-600 mt-1">Vertical leads propose concise action plans first. Execution proceeds only after scope and measurable acceptance gates are locked in.</p>
+            <div class="flex items-baseline gap-2.5 mb-4">
+              <span id="pub-tokens-total" class="text-3xl font-serif font-bold text-slate-900 tnum">—</span>
+              <span class="text-xs font-medium text-slate-500">total tokens processed</span>
+            </div>
+
+            <!-- Stacked Horizontal Bar -->
+            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden flex mb-4" role="img" aria-label="Token breakdown bar showing cached, input, and output shares">
+              <div id="pub-bar-cached" class="bg-blue-600 h-full transition-all duration-500" style="width: 0%"></div>
+              <div id="pub-bar-input" class="bg-sky-400 h-full transition-all duration-500" style="width: 0%"></div>
+              <div id="pub-bar-output" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3">
+                <div class="flex items-center gap-1.5 text-slate-500 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span>
+                  <span>Cached Read</span>
                 </div>
+                <p id="pub-tok-cached" class="font-semibold text-slate-900 tnum">—</p>
               </div>
-
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-                <span class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">03</span>
-                <div>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <h4 class="text-sm font-semibold text-slate-900">Independent QA &amp; Confidential Redaction</h4>
-                    <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200">Audit Gate</span>
-                  </div>
-                  <p class="text-xs text-slate-600 mt-1">Automated validators certify correctness and verify client confidentiality before metrics sync to public pages.</p>
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3">
+                <div class="flex items-center gap-1.5 text-slate-500 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-sky-400 inline-block"></span>
+                  <span>Fresh Input</span>
                 </div>
+                <p id="pub-tok-input" class="font-semibold text-slate-900 tnum">—</p>
+              </div>
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3">
+                <div class="flex items-center gap-1.5 text-slate-500 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                  <span>Output</span>
+                </div>
+                <p id="pub-tok-output" class="font-semibold text-slate-900 tnum">—</p>
+              </div>
+            </div>
+          </div>
+          <p id="pub-unit-econ" class="text-xs text-slate-500 mt-6 pt-4 border-t border-slate-100 tnum">—</p>
+        </div>
+
+        <!-- 3-Stage Operating Rhythm -->
+        <div class="glass-card p-6 md:p-7 lg:col-span-12">
+          <div class="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+            <h3 class="text-lg font-serif font-semibold text-slate-900">Repeatable Operating Rhythm</h3>
+            <p class="text-xs text-slate-500">Standardized weekly cadence keeping quality predictable</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+              <span class="w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">01</span>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="text-sm font-semibold text-slate-900">Automated Morning Triage</h4>
+                  <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Zero Overhead Preflight</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">An automated health sweep surfaces open bottlenecks across all workstreams so executive review focuses strictly on highest-ROI priorities.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+              <span class="w-8 h-8 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">02</span>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="text-sm font-semibold text-slate-900">Plan-First Bounded Execution</h4>
+                  <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Dry-Run First</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Vertical leads propose concise action plans first. Execution proceeds only after scope and measurable acceptance gates are locked in.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
+              <span class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">03</span>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="text-sm font-semibold text-slate-900">Independent QA &amp; Confidential Redaction</h4>
+                  <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200">Audit Gate</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Automated validators certify correctness and verify client confidentiality before metrics sync to public pages.</p>
               </div>
             </div>
           </div>
@@ -448,7 +498,22 @@
       <p class="text-slate-600 max-w-3xl mb-8">
         Six public operating areas coordinated under one governance framework spanning healthcare AI, public markets, venture valuation, civic analytics, and strategic advisory.
       </p>
-      <div id="public-workstreams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="public-workstreams-grid" class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[680px]">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50/70">
+                <th class="py-3 px-5 font-semibold text-slate-500 text-[11px] uppercase tracking-wider">Workstream</th>
+                <th class="py-3 px-4 font-semibold text-slate-500 text-[11px] uppercase tracking-wider">PRs &amp; Sprints</th>
+                <th class="py-3 px-4 font-semibold text-slate-500 text-[11px] uppercase tracking-wider">Commits (30d)</th>
+                <th class="py-3 px-4 font-semibold text-slate-500 text-[11px] uppercase tracking-wider">QA Gates &amp; P0&ndash;P5</th>
+                <th class="py-3 px-5 font-semibold text-slate-500 text-[11px] uppercase tracking-wider text-right">Tokens (Cache Hit)</th>
+              </tr>
+            </thead>
+            <tbody id="public-workstreams-tbody" class="divide-y divide-slate-100 text-sm"></tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <!-- Section 4: Password-Protected Detailed Dashboard -->
@@ -817,10 +882,25 @@
         return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       }
 
+      function formatInt(n) {
+        return Math.round(Number(n) || 0).toLocaleString("en-US");
+      }
+
+      function formatTokens(n) {
+        const v = Number(n) || 0;
+        if (v <= 0) return "0";
+        if (v >= 1e9) return (v / 1e9).toFixed(1) + "B";
+        if (v >= 1e6) return (v / 1e6).toFixed(1) + "M";
+        if (v >= 1e3) return (v / 1e3).toFixed(1) + "K";
+        return formatInt(v);
+      }
+
       function renderPublicOverview(overview) {
         if (!overview) return;
         const kpis = overview.kpis || {};
         const workstreams = overview.workstreams || [];
+        const tok = overview.tokenTelemetry || {};
+        const unit = tok.unitEconomics || {};
         const effPct = kpis.costEfficientSharePct != null ? kpis.costEfficientSharePct : 96.2;
         const frontPct = kpis.frontierSharePct != null ? kpis.frontierSharePct : Math.max(0, 100 - effPct).toFixed(1);
 
@@ -839,27 +919,81 @@
         document.getElementById("legend-efficient-pct").textContent = effPct + "%";
         document.getElementById("legend-frontier-pct").textContent = frontPct + "%";
 
-        const grid = document.getElementById("public-workstreams-grid");
-        grid.innerHTML = workstreams.map(function (w) {
+        document.getElementById("pub-tokens-total").textContent = tok.totalTokens != null ? formatTokens(tok.totalTokens) : "—";
+        document.getElementById("pub-cache-hit").textContent = tok.cacheHitPct != null ? Number(tok.cacheHitPct).toFixed(1) + "% Cache Hit" : "—";
+
+        const cachedPct = Number(tok.cachedShareOfTotalPct || 0);
+        const inputPct = Number(tok.freshInputShareOfTotalPct || 0);
+        const outputPct = Number(tok.outputShareOfTotalPct || 0);
+        document.getElementById("pub-bar-cached").style.width = cachedPct.toFixed(1) + "%";
+        document.getElementById("pub-bar-input").style.width = inputPct.toFixed(1) + "%";
+        document.getElementById("pub-bar-output").style.width = outputPct.toFixed(1) + "%";
+
+        document.getElementById("pub-tok-cached").textContent = tok.cacheReadTokens != null
+          ? formatTokens(tok.cacheReadTokens) + " (" + cachedPct.toFixed(1) + "%)"
+          : "—";
+        document.getElementById("pub-tok-input").textContent = tok.inputTokens != null
+          ? formatTokens(tok.inputTokens) + " (" + inputPct.toFixed(1) + "%)"
+          : "—";
+        document.getElementById("pub-tok-output").textContent = tok.outputTokens != null
+          ? formatTokens(tok.outputTokens) + " (" + outputPct.toFixed(1) + "%)"
+          : "—";
+
+        const sessionsNote = (tok.publicSessions != null && tok.reasoningTurns != null)
+          ? " • " + formatInt(tok.publicSessions) + " sessions • " + formatInt(tok.reasoningTurns) + " turns"
+          : "";
+        document.getElementById("pub-unit-econ").textContent =
+          "Avg / Cycle: " +
+          formatTokens(unit.preflightTokens || 0) + " Preflight • ~" +
+          formatTokens(unit.avgChiefOfStaffTokens || 0) + " CoS • ~" +
+          formatTokens(unit.avgLeadTokens || 0) + " Leads • ~" +
+          formatTokens(unit.avgBuilderTokens || 0) + " Execution • ~" +
+          formatTokens(unit.avgVerifierTokens || 0) + " QA" +
+          sessionsNote;
+
+        const tbody = document.getElementById("public-workstreams-tbody");
+        tbody.innerHTML = workstreams.map(function (w) {
+          const a = w.analytics || {};
           const isAdvisory = String(w.status || "").toLowerCase() === "advisory";
           const pillCls = isAdvisory
             ? "bg-blue-50 text-blue-700 border-blue-200"
             : "bg-emerald-50 text-emerald-700 border-emerald-200";
-          const linkRow = w.url
-            ? '<a href="' + escapeHtml(w.url) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline mt-4">' + escapeHtml(w.url.replace(/^https?:\/\//, "")) + ' &rarr;</a>'
-            : '<p class="text-xs font-medium text-slate-400 mt-4">Confidential Client Mandate</p>';
+          const linkHtml = w.url
+            ? '<a href="' + escapeHtml(w.url) + '" target="_blank" rel="noopener noreferrer" class="text-[11px] font-medium text-blue-600 hover:underline">' + escapeHtml(w.url.replace(/^https?:\/\//, "")) + ' &rarr;</a>'
+            : '<span class="text-[11px] font-medium text-slate-400">Confidential Client Mandate</span>';
+
+          const prs = Number(a.mergedPrs || 0);
+          const sprints = Number(a.verifiedSprints || 0);
+          const commitsTotal = Number(a.commitsTotal || 0);
+          const commits30d = Number(a.commits30d || 0);
+          const qaGates = Number(a.qaGates || 0);
+          const roadDone = Number(a.roadmapDone || 0);
+          const roadTotal = Number(a.roadmapTotal || 0);
+          const tokensTotal = Number(a.tokensTotal || 0);
+          const cacheHit = Number(a.cacheHitPct || 0);
+
+          const prText = formatInt(prs) + (prs === 1 ? " PR" : " PRs") + " &bull; " + formatInt(sprints) + (sprints === 1 ? " sprint" : " sprints");
+          const qaText = formatInt(qaGates) + (qaGates === 1 ? " QA gate" : " QA gates") + " &bull; " + formatInt(roadDone) + "/" + formatInt(roadTotal) + " P0&ndash;P5";
+          const qaSub = a.qaSummary ? '<div class="text-[11px] text-slate-400 mt-0.5">' + escapeHtml(a.qaSummary) + '</div>' : "";
+          const tokMain = tokensTotal > 0
+            ? '<span class="font-semibold text-slate-900">' + escapeHtml(formatTokens(tokensTotal)) + '</span> <span class="text-emerald-700 font-medium">(' + escapeHtml(cacheHit.toFixed(1)) + '%)</span>'
+            : '<span class="text-slate-400">0 tokens</span>';
+          const tokSub = a.tokenNote ? '<div class="text-[11px] text-slate-400 mt-0.5">' + escapeHtml(a.tokenNote) + '</div>' : "";
+
           return (
-            '<div class="glass-card p-6 flex flex-col justify-between">' +
-              '<div>' +
-                '<div class="flex items-center justify-between gap-2 mb-3">' +
-                  '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">' + escapeHtml(w.category) + '</span>' +
-                  '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ' + pillCls + '">' + escapeHtml(w.status) + '</span>' +
+            '<tr class="hover:bg-slate-50/70 transition-colors">' +
+              '<td class="py-3.5 px-5">' +
+                '<div class="flex flex-wrap items-center gap-2">' +
+                  '<span class="font-semibold text-slate-900">' + escapeHtml(w.name) + '</span>' +
+                  '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ' + pillCls + '">' + escapeHtml(w.status) + '</span>' +
                 '</div>' +
-                '<h3 class="text-xl font-serif font-semibold text-slate-900 mb-2">' + escapeHtml(w.name) + '</h3>' +
-                '<p class="text-sm text-slate-600 leading-relaxed">' + escapeHtml(w.summary) + '</p>' +
-              '</div>' +
-              linkRow +
-            '</div>'
+                '<div class="text-[11px] text-slate-500 mt-0.5">' + escapeHtml(w.category) + ' &bull; ' + linkHtml + '</div>' +
+              '</td>' +
+              '<td class="py-3.5 px-4 text-slate-700 whitespace-nowrap tnum">' + prText + '</td>' +
+              '<td class="py-3.5 px-4 text-slate-700 whitespace-nowrap tnum">' + escapeHtml(formatInt(commitsTotal)) + ' <span class="text-slate-400">(+' + escapeHtml(formatInt(commits30d)) + ')</span></td>' +
+              '<td class="py-3.5 px-4 text-slate-700 whitespace-nowrap tnum"><div>' + qaText + '</div>' + qaSub + '</td>' +
+              '<td class="py-3.5 px-5 text-right whitespace-nowrap tnum"><div>' + tokMain + '</div>' + tokSub + '</td>' +
+            '</tr>'
           );
         }).join("");
       }
